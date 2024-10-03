@@ -11,10 +11,11 @@ python3 main.py
 ```
 
 ## Auteurs
--
--
--
--
 
-## Projet status
+- Fauviau Elliot (@elliot.fauviau)
+- Laudy Merlin   (@laudymerlin1)
+- Monnier Maxime (@Erinnom)
+- Ramos Axel     (@Ulyclash)
+
+## statut du Projet
  En développement.
