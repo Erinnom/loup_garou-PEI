@@ -6,7 +6,8 @@ class Role():
     paramètre : moment
     """
     def sorciere(self):
-        pass
+        potion_vie = True
+        potion_mort = True
 
     """Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour 
     paramètre : moment
