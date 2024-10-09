@@ -30,7 +30,7 @@ class Affichage:
     def sorciere(self, temp : bool, choix : bool, , nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage
+        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
         Return : None
         """
         pass
@@ -38,7 +38,7 @@ class Affichage:
     def chasseur(self, temp : bool, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage
+        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
         Return : None
         """
         pass
@@ -54,7 +54,7 @@ class Affichage:
     def voleur(self, temp : bool, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage
+        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
         Return : None
         """
         pass
@@ -62,7 +62,7 @@ class Affichage:
     def cupidon(self, temp : bool, nom : str, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage
+        Parameters : booleen qui permet de choisir l'affichage, nom des joueurs vises
         Return : None
         """
         pass
@@ -70,7 +70,7 @@ class Affichage:
     def voyante(self, temp : bool, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage
+        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
         Return : None
         """
         pass
@@ -91,11 +91,27 @@ class Affichage:
         """
         pass
 
-    def vote(self, nom : str):
+    def voter(self, nom : str):
         """
         Méthode qui permettra un affichage de la seance de vote
         Parameters : None
         Return :
+        """
+        pass
+
+    def votes(self, joueurs):
+        """
+        Méthode qui permettra un affichage les votes pour chacun des joueurs
+        Parameters : la liste des objets de type joueur
+        Return : None
+        """
+        pass
+
+    def eliminer(self, nom : str):
+        """
+        Méthode qui permettra un affichage du joueur qui a été éliminé
+        Parameters : nom du joueur
+        Return : NOne
         """
         pass
 
