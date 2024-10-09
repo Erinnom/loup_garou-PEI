@@ -36,8 +36,10 @@ class Role():
     """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour 
     paramètre : moment
     """
-    def voyante(self):
-        pass
+    def voyante(self,moment,joueur):
+        if moment == "nuit" :
+            voir = affichage.Affichage()
+            voir.voyante(0,joueur)
 
     """Méthode permettant de créer le rôle loup_garou où il votent la nuit
     paramètre : moment
