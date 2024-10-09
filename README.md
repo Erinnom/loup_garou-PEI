@@ -17,5 +17,5 @@ python3 main.py
 - Monnier Maxime (@Erinnom)
 - Ramos Axel     (@Ulyclash)
 
-## statut du Projet
+## Statut du Projet
  En développement.
