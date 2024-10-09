@@ -1,6 +1,7 @@
 class Partie():
     def __init__(self):
         self.id_partie = ""
+        self.nombre_joueur = 0
 
 
     def creer(self, id_partie : str, nbr_joueur : int):
