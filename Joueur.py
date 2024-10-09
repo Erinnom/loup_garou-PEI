@@ -72,6 +72,3 @@ class Joueur:
     def reset_vote(self):
         self.vote = 0
 # Test
-
-j1 = Joueur("Maxime","sorcière")
-print(f"{j1.get_prenom()} {j1.get_role()}")
