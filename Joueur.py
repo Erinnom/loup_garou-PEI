@@ -11,10 +11,11 @@ class Joueur:
     prenom = "" # prenom du joueur
     role = "" # role du joueur
     est_maire = 0 # booleen 1 si maire 0 sinon
-
+    votes = 0
     # Constructeur
-    def _init_ (self, prenom = "Joueur" + str(randint(0,1000)),role = "villageois"): # Nom par défaut dans le cas ou le prenom est vide
+    def __init__ (self, prenom, role): # Nom par défaut dans le cas ou le prenom est vide
         self.prenom = str(prenom)
+        self.role = str(role)
 
     # Méthodes
 
@@ -51,7 +52,7 @@ class Joueur:
         Entrée : Aucune
         Sortie : le role du joueur
         """
-        return self.role
+        return str(self.role)
 
 
     def get_prenom(self):
@@ -61,3 +62,16 @@ class Joueur:
         Sortie : nom du joueur
         """
         return self.prenom
+
+    def vote(self):
+        self.vote = self.vote+1
+
+    def get_vote(self):
+        return self.vote
+
+    def reset_vote(self):
+        self.vote = 0
+# Test
+
+j1 = Joueur("Maxime","sorcière")
+print(f"{j1.get_prenom()} {j1.get_role()}")
