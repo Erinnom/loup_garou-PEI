@@ -1,3 +1,4 @@
+import LG_Affichage as affichage
 class Role():
     def __init__(self,role):
         self.role = role
@@ -5,9 +6,20 @@ class Role():
     """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
     paramètre : moment
     """
-    def sorciere(self):
-        potion_vie = True
-        potion_mort = True
+    def sorciere(self,moment,potion_vie,potion_mort,joueur):
+        if moment == "nuit" :
+            if potion_vie == True:
+                vie = affichage.Affichage()
+                vie.sorciere(0,"vie",joueur)
+            elif potion_mort == True :
+                mort = affichage.Affichage()
+                mort.sorciere(0,"mort",joueur)
+            else :
+                pas_potion = affichage.Affichage()
+                pas_potion.sorciere(0,"pas_potion",joueur)
+        else :
+            vote = affichage.Affichage()
+            vote.vote(joueur)
 
     """Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour 
     paramètre : moment
