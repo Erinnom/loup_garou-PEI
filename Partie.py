@@ -55,7 +55,7 @@ class Partie():
         data = {"id_partie" : self.id_partie,
                 "nombre_joueur" : self.nombre_joueur,
                 "etat_partie" : self.etat_partie,
-                "joueurs" : self.joueurs
+                "joueurs" : self.joueurs[0].
                 }
 
         sauvegarde = json.dumps(data)
@@ -82,4 +82,6 @@ class Partie():
         return self.etat_partie
 
 if __name__ == "__main__":
-    pass
+    test = Partie()
+    test.creer()
+    test.sauvegarder("Partie.json")
