@@ -64,14 +64,10 @@ class Joueur:
         return self.prenom
 
     def vote(self):
-        self.vote = self.vote+1
+        self.votes = self.votes+1
 
     def get_vote(self):
-        return self.vote
+        return self.votes
 
     def reset_vote(self):
-        self.vote = 0
-# Test
-
-j1 = Joueur("Maxime","sorcière")
-print(f"{j1.get_prenom()} {j1.get_role()}")
+        self.votes = 0
