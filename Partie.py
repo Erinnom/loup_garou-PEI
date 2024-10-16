@@ -1,5 +1,6 @@
 from random import randint
 from Joueur import *
+import json
 
 class Partie():
     def __init__(self):
@@ -51,7 +52,16 @@ class Partie():
     def sauvegarder(self, nom_fichier: str):
         """Méthode permettant de sauvegarder la partie en cours
             dans un document Json"""
-        pass
+        data = {"id_partie" : self.id_partie,
+                "nombre_joueur" : self.nombre_joueur,
+                "etat_partie" : self.etat_partie,
+                "joueurs" : self.joueurs
+                }
+
+        sauvegarde = json.dumps(data)
+
+        with open(nom_fichier+".json", "w") as outfile:
+            outfile.write(sauvegarde)
 
     def charger(self, id_partie: str):
         """Méthode permettant de charger un fichier Json pour
@@ -70,8 +80,6 @@ class Partie():
 
     def get_etat(self):
         return self.etat_partie
-
-
 
 if __name__ == "__main__":
     pass
