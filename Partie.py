@@ -1,3 +1,6 @@
+from random import randint
+from Joueur import *
+
 class Partie():
     def __init__(self):
         self.id_partie = ""
