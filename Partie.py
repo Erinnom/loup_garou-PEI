@@ -60,7 +60,7 @@ class Partie():
 
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
-        pass
+        print("Ok...")
 
     def get_id(self):
         return self.id_partie
