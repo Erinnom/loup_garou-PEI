@@ -1,6 +1,6 @@
-class Partie():
-    def __init__(self):
-        self.id_partie = ""
+class Partie:
+    def __init__(self,id):
+        self.id_partie = str(id)
         self.nombre_joueur = 0
 
 
