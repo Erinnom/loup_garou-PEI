@@ -64,11 +64,10 @@ class Joueur:
         return self.prenom
 
     def vote(self):
-        self.vote = self.vote+1
+        self.votes = self.votes+1
 
     def get_vote(self):
-        return self.vote
+        return self.votes
 
     def reset_vote(self):
-        self.vote = 0
-# Test
+        self.votes = 0
