@@ -8,14 +8,15 @@ class Joueur:
     Méthodes : set_role(self,role:str), set_maire(self,est_maire:bool = 0),get_maire(self),get_role(self),get_prenom(self)
     """
     # Attributs
-    prenom = "" # prenom du joueur
-    role = "" # role du joueur
-    est_maire = 0 # booleen 1 si maire 0 sinon
-    votes = 0
+
     # Constructeur
     def __init__ (self, prenom, role): # Nom par défaut dans le cas ou le prenom est vide
         self.prenom = str(prenom)
         self.role = str(role)
+        self.prenom = "" # prenom du joueur
+        self.role = "" # role du joueur
+        self.est_maire = 0 # booleen 1 si maire 0 sinon
+        self.votes = 0
 
     # Méthodes
 
