@@ -1,5 +1,4 @@
-# Import de la librairie random
-from random import randint
+
 
 class Joueur:
     """
