@@ -1,13 +1,20 @@
-from Joueur import *
+from _typeshed import Self
 from random import randint
+import Joueur
 
-class Partie:
+class Partie():
     def __init__(self):
         self.id_partie = ""
         self.nombre_joueur = 0
         self.joueurs = []
+        self.etat_partie = 0
 
     def get_roles(self):
+        """
+        Objectif : Obtenir la liste des de la partie en fonction du nombre de joueur
+        Entrée : Aucune
+        Sortie : liste des roles
+        """
         role_partie = [
             ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Capitaine"],  # 6 joueurs
             ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Capitaine"],  # 7 joueurs
@@ -25,10 +32,20 @@ class Partie:
         ]
         return role_partie[self.nombre_joueur - 6]
 
+    def get_joueurs(self):
+        """
+        Objectif : Obtenir la liste des joueurs de la partie
+        Entrée : Aucune
+        Sortie : liste des joueurs
+        """
+        return self.joueurs
+
     def creer(self):
-        """Méthode permettant de créer une nouvelle partie en spécifiant
-            son identifiant et permettant la saisie des joueurs et leur attribution
-             des rôles"""
+        """
+        Objectif : Creer une nouvelle partie
+        Entrée : Aucune
+        Sortie : Aucune
+        """
         tmp = input("Nom de la partie : ")
         while tmp == "":
             tmp = input("Nom de la partie : ")
@@ -61,6 +78,16 @@ class Partie:
         """Méthode qui effectue tout un tour de jeu"""
         pass
 
+    def get_id(self):
+        return self.id_partie
+
+    def get_nombre_joueur(self):
+        return self.nombre_joueur
+
+    def get_etat(self):
+        return self.etat_partie
+
+
+
 if __name__ == "__main__":
-    test = Partie()
-    test.creer()
+    pass
