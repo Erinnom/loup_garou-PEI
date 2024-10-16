@@ -28,7 +28,7 @@ class Joueur:
         self.role = str(role)
 
 
-    def set_maire(self,est_maire:bool = 0):
+    def set_maire(self,est_maire:bool = False):
         """
         Objectif : Définir le joueur comme maire
         Entrée : booleen 1 si maire 0 sinon
