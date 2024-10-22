@@ -1,6 +1,5 @@
-from _typeshed import Self
 from random import randint
-import Joueur
+from Joueur import Joueur
 
 class Partie():
     def __init__(self):
@@ -46,22 +45,24 @@ class Partie():
         Entrée : Aucune
         Sortie : Aucune
         """
-        tmp = input("Nom de la partie : ")
-        while tmp == "":
-            tmp = input("Nom de la partie : ")
-        self.id_partie = tmp
+        nom = input("Nom de la partie : ")
+        while nom == "":
+            nom = input("Nom de la partie : ")
+        self.id_partie = nom
 
-        tmp =  input("Nombre de joueurs [6-18] : ")
-        while int(tmp) < 6 or int(tmp) > 18:
-            tmp =  input("Nombre de joueurs [6-18] : ")
+        nb =  input("Nombre de joueurs [6-18] : ")
+        while int(nb) < 6 or int(nb) > 18:
+            nb =  input("Nombre de joueurs [6-18] : ")
 
-        self.nombre_joueur = int(tmp)
+        self.nombre_joueur = int(nb)
         i = 0
         roles = self.get_roles()
         while i < self.nombre_joueur:
             tmp = input(f"Nom du joueur [{i+1}] :")
             if tmp != "":
-                self.joueurs.append(Joueur(tmp,roles.pop(randint(0,self.nombre_joueur -i-1))))
+                rand_role = roles.pop(randint(0,len(roles)-1))
+                j = Joueur(tmp,rand_role)
+                self.joueurs.append(j)
                 i+=1
 
     def sauvegarder(self, nom_fichier: str):
@@ -90,4 +91,5 @@ class Partie():
 
 
 if __name__ == "__main__":
-    pass
+    newparti = Partie()
+    newparti.creer()
