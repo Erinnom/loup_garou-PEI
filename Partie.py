@@ -55,7 +55,7 @@ class Partie():
         data = {"id_partie" : self.id_partie,
                 "nombre_joueur" : self.nombre_joueur,
                 "etat_partie" : self.etat_partie,
-                "joueurs" : self.joueurs[0].
+                "joueurs" : {self.joueurs[x].get_data() for x in range(len(self.joueurs))}
                 }
 
         sauvegarde = json.dumps(data)
