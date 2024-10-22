@@ -117,15 +117,20 @@ class Role():
             liste = joueurs.get_joueurs()
             liste_loup =[]
             total_loup = ""
+
             for i in liste:
                 if liste[i].get_role() == "Loup Garou":
                     liste_loup.append(i)
                     total_loup += liste[i].get_joueur()
+
             for i in range(len(dico)):
+                valeur = 0
+                pourcentage = []
                 for j in range (len(total_loup)):
                     total_loup[i].lower()
                     if dico[i] == liste_loup[j] :
-                        valeur
+                        valeur += 1
+                    pourcentage.append(valeur/len(total_loup))
 
     """Méthode permettant de créer le rôle chasseur où quand il meurt il tue une personne qu'il choisit
     paramètre : moment
