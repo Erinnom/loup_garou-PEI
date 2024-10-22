@@ -1,6 +1,7 @@
-import Affichage_role_test as affichage
+import LG_Affichage as affichage
 import Joueur
 import Partie
+import random
 class Role():
     def __init__(self):
         self.potion_vie = True
@@ -8,7 +9,7 @@ class Role():
     """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
     paramètre : moment
     """
-    def sorciere(self,moment,joueur):
+    def sorciere(self,moment):
         if moment == "nuit" :
             if self.potion_vie == True:
                 vie = affichage.Affichage()
@@ -48,7 +49,7 @@ class Role():
     """Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour 
     paramètre : moment
     """
-    def voleur(self,joueur):
+    def voleur(self):
 
         vol = affichage.Affichage()
         vol.voleur(0,"joueur")
@@ -79,14 +80,27 @@ class Role():
     """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour 
     paramètre : moment
     """
-    def voyante(self,moment,joueur):
+    def voyante(self,moment):
         if moment == "nuit" :
+            joueurs = Partie.Partie()
+            liste = joueurs.get_joueurs()
             voir = affichage.Affichage()
-            voir.voyante(0,joueur)
+            voir.voyante(0)
+            reponse = input()
+
+            while reponse not in liste :
+                print("Ce joueur n'existe pas , veuillez renseigner un autre nom")
+                reponse = input()
+
+            for i in liste :
+                if liste[i].get_joueur() == reponse:
+                    resultat = liste[i].get_role()
+                    return resultat
+
 
         else :
             vote = affichage.Affichage()
-            vote.vote(joueur)
+            vote.vote()
     """Méthode permettant de créer le rôle loup_garou où il votent la nuit
     paramètre : moment
     """
@@ -96,8 +110,17 @@ class Role():
     """Méthode permettant de créer le rôle petite_fille où elle obtient des lettres aléatoire des noms des loups-garous
     paramètre : moment
     """
-    def petite_fille(self,moment,joueur):
-        pass
+    def petite_fille(self,moment):
+        dico == "abcdefhijklmnopqrstuvwxyz"
+        if moment == "nuit":
+            joueurs = Partie.Partie()
+            liste = joueurs.get_joueurs()
+            liste_loup =[]
+
+            for i in liste:
+                if liste[i].get_role() == "Loup Garou":
+                    liste_loup.append(i)
+                    pass
 
     """Méthode permettant de créer le rôle chasseur où quand il meurt il tue une personne qu'il choisit
     paramètre : moment
@@ -115,5 +138,4 @@ class Role():
     paramètre : 
     """
     def capitaine(self,moment,joueur):
-
         pass
