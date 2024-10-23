@@ -1,7 +1,7 @@
 class Affichage:
 
     def __init__(self):
-
+        pass
 
     def jour(self):
         """

@@ -14,38 +14,64 @@ colors = {
     'Blanc': 51,
 }
 
+def couleur(h, s, v):
+    if s < 0.1 and v > 0.9:
+        return colors["Blanc"]
+    elif v < 0.1:
+        return colors["Noir"]
+    elif s < 0.1 and 0.3<=v<=0.8:
+        return colors["Gris"]
+    else:
+        if 0 <=h <30 or 330 <=h <=360:
+            return colors["Rouge"]
+        elif 30 <=h < 45:
+            return colors["Marron"]
+        elif 45 <=h < 70:
+            return colors["Jaune"]
+        elif 70 <=h < 150:
+            return colors["Vert"]
+        elif 150 <=h < 180:
+            return colors["Cyan"]
+        elif 180 <=h < 255:
+            return colors["Bleu"]
+        elif 255 <=h < 285:
+            return colors["Violet"]
+        elif 285 <=h < 330:
+            return colors["Magenta"]
+
 def analyse():
-    i = []
-    img = Image.open("/home/ulyx/Travail/Projet-PEI/"+"Chasseur"+".jpg")
+    pixels = []
+    image = Image.open("/home/ulyx/Travail/Projet-PEI/"+"Chasseur"+".jpg")
+    img = image.resize((50,37))
+    #img.save("/home/ulyx/Travail/Projet-PEI/"+"Chasseur_2"+".jpg")
+    #img.show()
 
     img_hsv = img.convert('HSV')
-    pixels = img_hsv.load()
     width, height = img_hsv.size
-    h = height//4
-    w = width//2
-    h_r = height%4
-    w_r = width%4
-    print(height, width,h,w,h_r,w_r)
-    p = []
-    for x in range(height):
+
+    for y in range(height):
         t = []
-        for y in range(width):
-            t.append(pixels[x, y][0])
-        p.append(t)
+        for x in range(width):
+            h, s, v = img_hsv.getpixel((x,y))
+            t.append(couleur(h,s,v))
+        pixels.append(t)
+
+    return pixels
+
+def print_card():
+    pixels = analyse()
+    for y in pixels:
+        for x in y:
+            print_colored_square(x)
+        print()
 
 
-    """for i in range(h_r):
-        t2 = []
-        for j in range(w_r):
-            for k in range(4)
-                v = p.pop()
 
-    """
+def print_colored_square(color_code):
+    # Code ANSI pour changer la couleur de fond
+    print(f"\033[{color_code}m  \033[0m", end="")
 
 
-
-    print(i)
-    return i
 
 # Exemple avec plusieurs carrés colorés
 def print_squares():
@@ -54,5 +80,5 @@ def print_squares():
             print_colored_square(44)
         print()
 
-#print_squares()
-analyse()
+print_card()
+#analyse()
