@@ -75,9 +75,30 @@ class Partie():
             reprendre la partie là où elle c'est arrêté"""
         pass
 
+
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
         pass
+        for k in range(50): # rest screen
+            print("\n")
+        for role in self.get_roles():
+            for i in range(0,self.nombre_joueur):
+                joueur = self.joueurs[i]
+
+                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
+                input("Presser entré :")
+                role_joueur = joueur.get_role()
+                if  role_joueur == role:
+                    pass
+
+                    for k in range(50):
+                        print("\n")
+                else:
+                    for k in range(50):
+                        print("\n")
+                    print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
+                    input("Presser entré :")
+
 
     def get_id(self):
         return self.id_partie
@@ -88,8 +109,7 @@ class Partie():
     def get_etat(self):
         return self.etat_partie
 
-
-
 if __name__ == "__main__":
     newparti = Partie()
     newparti.creer()
+    newparti.tour()
