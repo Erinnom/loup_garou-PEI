@@ -93,9 +93,9 @@ class Partie():
 
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
-        pass
-        for k in range(50): # rest screen
+        for k in range(50): # reinitialise l'ecran
             print("\n")
+
         for role in self.get_roles():
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
@@ -104,7 +104,24 @@ class Partie():
                 input("Presser entré :")
                 role_joueur = joueur.get_role()
                 if  role_joueur == role:
-                    pass
+                    if role == "Loup Garou":
+                        pass
+                    elif role == "Voyante":
+                        pass
+                    elif role == "Simple Villageois":
+                        pass
+                    elif role == "Sorcière":
+                        pass
+                    elif role == "Petite Fille":
+                        pass
+                    elif role == "Chasseur":
+                        pass
+                    elif role == "Cupidon":
+                        pass
+                    elif role == "Voleur":
+                        pass
+                    else:
+                        print("Erreur")
 
                     for k in range(50):
                         print("\n")
