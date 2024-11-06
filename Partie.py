@@ -1,5 +1,6 @@
 from random import randint
 from Joueur import *
+from Role import *
 import json
 
 class Partie():
@@ -93,33 +94,33 @@ class Partie():
 
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
-        for k in range(50): # reinitialise l'ecran
-            print("\n")
+        rls = Role()
+        rls.demasquage_petite_fille()
 
         for role in self.get_roles():
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
-
+                rls = Role()
                 print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
                 input("Presser entré :")
                 role_joueur = joueur.get_role()
                 if  role_joueur == role:
                     if role == "Loup Garou":
-                        pass
+                        rls.loup_garou()
                     elif role == "Voyante":
-                        pass
+                        rls.voyante()
                     elif role == "Simple Villageois":
-                        pass
+                        rls.villageois()
                     elif role == "Sorcière":
-                        pass
+                        rls.sorciere()
                     elif role == "Petite Fille":
-                        pass
+                        rls.petite_fille()
                     elif role == "Chasseur":
-                        pass
+                        rls.chasseur()
                     elif role == "Cupidon":
-                        pass
+                        rls.cupidon()
                     elif role == "Voleur":
-                        pass
+                        rls.voleur()
                     else:
                         print("Erreur")
 
