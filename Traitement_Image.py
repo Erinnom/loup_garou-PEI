@@ -128,7 +128,7 @@ def analyse():
     image = Image.open("/home/ulyx/Travail/Projet-PEI/"+"Chasseur"+".jpg")
     img = image.resize((70, 50))
     img.save("/home/ulyx/Travail/Projet-PEI/"+"Chasseur_2"+".jpg")
-    img.show()
+    #img.show()
 
     width, height = img.size
 
@@ -136,9 +136,8 @@ def analyse():
         t = []
         for x in range(width):
             r,g,b = img.getpixel((x,y))
-            t.append(couleur(r,g,b))
+            t.append((r,g,b))
         pixels.append(t)
-
     return pixels
 
 def print_card():
@@ -152,8 +151,9 @@ def print_card():
 
 
 
-def print_colored_square(color_code):
-    print(f"\033[48;5;{color_code}m  \033[0m", end="")
+def print_colored_square(rgb):
+    r, g, b = rgb[0], rgb[1], rgb[2]
+    print(f"\033[48;2;{r};{g};{b}m   \033[0m", end='')
 
 
 
