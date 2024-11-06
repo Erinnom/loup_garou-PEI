@@ -96,7 +96,7 @@ class Partie():
         """Méthode qui effectue tout un tour de jeu"""
         rls = Role()
         rls.demasquage_petite_fille()
-
+        print("La nuit tombe sur le village de tierce lieux... Le Village s'endore...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
         for role in self.get_roles():
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
@@ -123,14 +123,13 @@ class Partie():
                         rls.voleur()
                     else:
                         print("Erreur")
+                #else:
+                    #for k in range(50):
+                    #    print("\n")
+                    #print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
+                    #input("Presser entré :")
+        for i in range(0,self.nombre_joueur):
 
-                    for k in range(50):
-                        print("\n")
-                else:
-                    for k in range(50):
-                        print("\n")
-                    print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
-                    input("Presser entré :")
 
 
     def get_id(self):
