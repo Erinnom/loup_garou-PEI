@@ -1,11 +1,16 @@
+from random import *
 import LG_Affichage as affichage
 import Joueur
 import Partie
 import random
+
 class Role():
     def __init__(self):
         self.potion_vie = True
         self.potion_mort = True
+        self.lettre_loup_garou = []
+        self.lettre_petite_fille = ""
+
     """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
     paramètre : moment
     """
@@ -95,42 +100,133 @@ class Role():
             for i in liste :
                 if liste[i].get_joueur() == reponse:
                     resultat = liste[i].get_role()
-                    return resultat
+                    print("Le rôle de ce joueur est "+ resultat)
 
 
-        else :
-            vote = affichage.Affichage()
-            vote.vote()
+
     """Méthode permettant de créer le rôle loup_garou où il votent la nuit
     paramètre : moment
     """
     def loup_garou(self,moment,joueur):
         pass
 
-    """Méthode permettant de créer le rôle petite_fille où elle obtient des lettres aléatoire des noms des loups-garous
-    paramètre : moment
-    """
-    def petite_fille(self,moment):
-        dico = "abcdefhijklmnopqrstuvwxyz"
+    def demasquage_petite_fille(self,moment):
         if moment == "nuit":
             joueurs = Partie.Partie()
             liste = joueurs.get_joueurs()
-            liste_loup =[]
-            total_loup = ""
 
-            for i in liste:
-                if liste[i].get_role() == "Loup Garou":
-                    liste_loup.append(i)
-                    total_loup += liste[i].get_joueur()
+            # Affichage des noms des joueurs
+            print("Liste des joueurs dans la partie :")
 
-            for i in range(len(dico)):
-                valeur = 0
-                pourcentage = []
-                for j in range (len(total_loup)):
-                    total_loup[i].lower()
-                    if dico[i] == liste_loup[j] :
-                        valeur += 1
-                    pourcentage.append(valeur/len(total_loup))
+            # Créer une liste avec la petite fille
+            fille = ""
+            for joueur in liste:
+                if joueur.get_role() == "Petite Fille":
+                    fille = joueur.get_joueur().lower()
+                    break
+
+            # fréquence de chaque lettre
+            lettre_freq = {}
+            for joueur in liste:
+                nom_joueur = joueur.get_joueur().lower()
+                for lettre in nom_joueur:
+                    lettre_freq[lettre] = lettre_freq.get(lettre, 0) + 1
+
+            # liste de la petite fille sans lettres uniques
+            fille_filtre = ""
+            for lettre in fille:
+                if lettre_freq[lettre] > 1:
+                    fille_filtre += lettre
+
+            if not self.lettre_petite_fille:
+                self.lettre_petite_fille = [[] for i in fille]
+
+            lettres_dispo = []
+            for lettre in fille_filtre:
+                if lettre not in self.lettre_petite_fille:
+                    lettres_dispo.append(lettre)
+
+            max_lettres = len(fille) // 2
+
+            if lettres_dispo and len(self.lettre_petite_fille) < max_lettres:
+                lettre = lettres_dispo[randint(0, len(lettres_dispo) - 1)]
+                self.lettre_petite_fille.append(lettre)
+
+            shuffle(liste)
+            print(liste)
+
+            if self.lettre_petite_fille:
+                print(f"Lettres pour la petite fille : {', '.join(self.lettre_petite_fille)}")
+            else:
+                print(f"Aucune lettre retournée pour la petite fille ")
+
+    """
+    Méthode permettant de créer le rôle petite_fille où elle obtient des lettres aléatoire des noms des loups-garous
+    """
+
+    def petite_fille(self, moment):
+        if moment == "nuit":
+            joueurs = Partie.Partie()
+            liste = joueurs.get_joueurs()
+
+            # Affichage des noms des joueurs
+            print("Liste des joueurs dans la partie :")
+
+            # Créer une liste des noms des Loups
+            loups = []
+            for joueur in liste:
+                if joueur.get_role() == "Loup Garou":
+                    loups.append(joueur.get_joueur().lower())
+
+            # fréquence de chaque lettre
+            lettre_freq = {}
+            for joueur in liste:
+                nom_joueur = joueur.get_joueur().lower()
+                for lettre in nom_joueur:
+                    lettre_freq[lettre] = lettre_freq.get(lettre, 0) + 1
+
+            # liste noms des Loups san lettres uniques
+            loups_filtre = []
+            for loup in loups:
+                loup_filtre = ""
+                for lettre in loup:
+                    if lettre_freq[lettre] > 1:
+                        loup_filtre += lettre
+                loups_filtre.append(loup_filtre)
+
+            # Initialiser self.lettre_loup_garou
+            if not self.lettre_loup_garou:
+                self.lettre_loup_garou = [[] for i in loups]
+
+            # Sélectionner aléatoirement environ la moitié des Loups
+            nombre_loups_a_afficher = len(loups) // 2
+            indices_choisis = set()
+            while len(indices_choisis) < nombre_loups_a_afficher:
+                indices_choisis.add(randint(0, len(loups) - 1))
+
+            #  une lettre aléatoire pour chaque Loup sélectionné
+            for i in indices_choisis:
+                lettres_dispo = []
+                for lettre in loups_filtre[i]:
+                    if lettre not in self.lettre_loup_garou[i]:
+                        lettres_dispo.append(lettre)
+
+                max_lettres = len(loups[i]) // 2
+
+                if lettres_dispo and len(self.lettre_loup_garou[i]) < max_lettres:
+                    lettre = lettres_dispo[randint(0, len(lettres_dispo) - 1)]
+                    self.lettre_loup_garou[i].append(lettre)
+
+            shuffle(liste)
+            print(liste)
+            # Affichage des lettres
+            i = 0
+            for lettres in self.lettre_loup_garou:
+                if lettres:
+                    print(f"Lettres pour le loup-garou '[i]': {', '.join(lettres)}")
+                else:
+                    print(f"Aucune lettre retournée pour le loup-garou '[i]'")
+                i += 1
 
     """Méthode permettant de créer le rôle chasseur où quand il meurt il tue une personne qu'il choisit
     paramètre : moment
@@ -148,4 +244,7 @@ class Role():
     paramètre : 
     """
     def capitaine(self,moment,joueur):
+        pass
+
+    def vote(self,moment):
         pass
