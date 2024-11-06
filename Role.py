@@ -9,7 +9,7 @@ class Role():
         self.potion_vie = True
         self.potion_mort = True
         self.lettre_loup_garou = []
-        self.lettre_petite_fille = ""
+        self.lettre_petite_fille = []
 
     """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
     paramètre : moment
@@ -46,14 +46,23 @@ class Role():
     """
     def voleur(self):
 
-        print("Entrée le nom du joueur dont vous voulez voler le rôle ")
 
-        indice = input()
         joueurs = Partie.Partie()
         liste = joueurs.get_joueurs()
 
-        nouveau_role = liste[indice].get_role()
-        liste[indice].set_role("Villageois")
+        print("Liste des joueurs dans la partie : " + str(liste))
+
+        print("Entrée le nom du joueur dont vous voulez voler le rôle ")
+        indice = input()
+
+        while indice not in liste:
+            print("Ce joueur n'existe pas , veuillez renseigner un autre nom")
+            indice = input()
+
+        for i in liste :
+            if liste[i].get_prenom() == indice:
+                nouveau_role = liste[i].get_role()
+                liste[i].set_role("Villageois")
 
         for i in liste:
             if liste[i].get_role() == "Voleur":
@@ -72,9 +81,12 @@ class Role():
     paramètre : moment
     """
     def voyante(self):
+
             joueurs = Partie.Partie()
             liste = joueurs.get_joueurs()
-            print("")
+            print("Liste des joueurs dans la partie : " + str(liste))
+
+            print("Entrée le nom du joueur dont vous voulez voir le rôle ")
             reponse = input()
 
             while reponse not in liste :
@@ -142,7 +154,7 @@ class Role():
             liste = joueurs.get_joueurs()
 
             # Affichage des noms des joueurs
-            print("Liste des joueurs dans la partie :")
+            print("Liste des joueurs dans la partie : " +str(liste) )
 
             # Créer une liste des noms des Loups
             loups = []
@@ -208,7 +220,7 @@ class Role():
             liste = joueurs.get_joueurs()
             for i in range (0, len(liste)):
                 if liste[i].get_role() == "Chasseur" and liste[i]:
-                    print("Voici la liste des noms de tous les joueurs :" + liste)
+                    print("Voici la liste des noms de tous les joueurs :" + str(liste))
                     print("Qui voulez vous tuer")
                     reponse = input()
                     while reponse not in liste :
@@ -222,7 +234,7 @@ class Role():
     def cupidon(self):
             joueurs = Partie.Partie()
             liste = joueurs.get_joueurs()
-            print("Voici la liste des noms de tous les joueurs :" + liste)
+            print("Voici la liste des noms de tous les joueurs :" + str(liste))
 
             print("Quel est la première personne du couple ?")
             couple1 = input()
@@ -239,10 +251,10 @@ class Role():
             for i in range (0, len(liste)):
 
                 if liste[i].get_prenom() == couple1 :
-                    liste[i].get_marie() == True
+                    liste[i].set_marie(True)
 
                 if liste[i].get_prenom() == couple2 :
-                    liste[i].get_marie() == True
+                    liste[i].set_marie(True)
 
     """Méthode permettant de créer le rôle capitaine où il a vote double 
     paramètre : 
@@ -257,7 +269,7 @@ class Role():
         for i in range (0,len(liste)):
             if liste[i].get_mort() == True :
                 liste[i].pop()
-        print("Voici la liste des noms de tous les joueurs :" + liste)
+        print("Voici la liste des noms de tous les joueurs :" + str(liste))
 
         for i in range (0, len(liste)):
             print("Avez vous déja voté oui/non ")
