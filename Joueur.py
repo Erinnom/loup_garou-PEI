@@ -37,6 +37,12 @@ class Joueur:
         """
         return self.est_mort
 
+    def set_marie(self,bool):
+        self.est_marie = bool
+
+    def set_mort(self,bool):
+        self.est_mort = bool
+
     def set_role(self,role:str):
         """
         Objectif : Définir l'attribut role au role choisit
