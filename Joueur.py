@@ -13,12 +13,29 @@ class Joueur:
     def __init__ (self, prenom, role): # Nom par défaut dans le cas ou le prenom est vide
         self.prenom = str(prenom)
         self.role = str(role)
-        self.prenom = "" # prenom du joueur
-        self.role = "" # role du joueur
         self.est_maire = 0 # booleen 1 si maire 0 sinon
         self.votes = 0
+        self.est_mort = False
+        self.est_marie = False
 
     # Méthodes
+
+    def get_marie(self):
+        """
+        Objectif : Renvoyer si le joueur est marié (Vraie) ou pas (Faux)
+        Entrée : Aucune
+        Sortie : Booleen
+        """
+        return self.est_marie
+
+
+    def get_mort(self):
+        """
+        Objectif : Renvoyer si le joueur est mort (Vraie) ou en vie (Faux)
+        Entrée : Aucune
+        Sortie : booleen
+        """
+        return self.est_mort
 
     def set_role(self,role:str):
         """
