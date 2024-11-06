@@ -14,8 +14,7 @@ class Role():
     """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
     paramètre : moment
     """
-    def sorciere(self,moment):
-        if moment == "nuit" :
+    def sorciere(self):
             if self.potion_vie == True:
                 print("Voulez vous utiliser votre potion de vie, oui ou non")
                 reponse = input()
@@ -47,11 +46,12 @@ class Role():
     """
     def voleur(self):
 
-        vol = affichage.Affichage()
-        vol.voleur(0,"joueur")
-        indice = input("Entrée le nom du joueur dont vous voulez voler le rôle : ")
+        print("Entrée le nom du joueur dont vous voulez voler le rôle ")
+
+        indice = input()
         joueurs = Partie.Partie()
         liste = joueurs.get_joueurs()
+
         nouveau_role = liste[indice].get_role()
         liste[indice].set_role("Villageois")
 
@@ -66,13 +66,12 @@ class Role():
     """Méthode permettant de créer le rôle villageois 
     paramètre : moment
     """
-    def villageois(self,moment):
+    def villageois(self):
         pass
     """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour 
     paramètre : moment
     """
-    def voyante(self,moment):
-        if moment == "nuit" :
+    def voyante(self):
             joueurs = Partie.Partie()
             liste = joueurs.get_joueurs()
             print("")
@@ -92,11 +91,10 @@ class Role():
     """Méthode permettant de créer le rôle loup_garou où il votent la nuit
     paramètre : moment
     """
-    def loup_garou(self,moment,joueur):
+    def loup_garou(self):
         pass
 
-    def demasquage_petite_fille(self,moment):
-        if moment == "nuit":
+    def demasquage_petite_fille(self):
             joueurs = Partie.Partie()
             liste = joueurs.get_joueurs()
 
@@ -139,8 +137,7 @@ class Role():
     Méthode permettant de créer le rôle petite_fille où elle obtient des lettres aléatoire des noms des loups-garous
     """
 
-    def petite_fille(self, moment):
-        if moment == "nuit":
+    def petite_fille(self):
             joueurs = Partie.Partie()
             liste = joueurs.get_joueurs()
 
@@ -160,7 +157,7 @@ class Role():
                 for lettre in nom_joueur:
                     lettre_freq[lettre] = lettre_freq.get(lettre, 0) + 1
 
-            # liste noms des Loups san lettres uniques
+            # liste noms des Loups sans lettres uniques
             loups_filtre = []
             for loup in loups:
                 loup_filtre = ""
@@ -206,8 +203,7 @@ class Role():
     """Méthode permettant de créer le rôle chasseur où quand il meurt il tue une personne qu'il choisit
     paramètre : moment
     """
-    def chasseur(self,moment):
-        if moment == "nuit":
+    def chasseur(self):
             joueurs = Partie.Partie()
             liste = joueurs.get_joueurs()
             for i in range (0, len(liste)):
@@ -215,7 +211,7 @@ class Role():
                     print("Voici la liste des noms de tous les joueurs :" + liste)
                     print("Qui voulez vous tuer")
                     reponse = input()
-                    if reponse not in liste:
+                    while reponse not in liste :
                         print("Nom pas présent dans la liste, recommencer")
                         reponse = input()
 
@@ -223,20 +219,64 @@ class Role():
     """Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts 
     paramètre : moment
     """
-    def cupidon(self,moment):
-        if moment == "nuit":
+    def cupidon(self):
             joueurs = Partie.Partie()
             liste = joueurs.get_joueurs()
             print("Voici la liste des noms de tous les joueurs :" + liste)
 
+            print("Quel est la première personne du couple ?")
+            couple1 = input()
+            while couple1 not in liste:
+                print("Nom pas présent dans la liste, recommencer")
+                couple1 = input()
+
+            print("Quel est la deuxième personne du couple ?")
+            couple2 = input()
+            while couple2 not in liste:
+                print("Nom pas présent dans la liste, recommencer")
+                couple2 = input()
+
+            for i in range (0, len(liste)):
+
+                if liste[i].get_prenom() == couple1 :
+                    liste[i].get_marie() == True
+
+                if liste[i].get_prenom() == couple2 :
+                    liste[i].get_marie() == True
+
     """Méthode permettant de créer le rôle capitaine où il a vote double 
     paramètre : 
     """
-    def capitaine(self,moment):
-        if moment == "nuit":
+    def capitaine(self):
             pass
 
     def vote(self):
         joueurs = Partie.Partie()
         liste = joueurs.get_joueurs()
+
+        for i in range (0,len(liste)):
+            if liste[i].get_mort() == True :
+                liste[i].pop()
         print("Voici la liste des noms de tous les joueurs :" + liste)
+
+        for i in range (0, len(liste)):
+            print("Avez vous déja voté oui/non ")
+            reponse = input()
+            while reponse != "non" :
+                print("Ce n'est pas à vous de voter, passez la tablette à votre voisin")
+                # clear screen
+                print("Avez vous déja voté oui/non ")
+                reponse = input()
+
+            print("Pour qui voulez vous voter ?")
+            reponse = input()
+            while reponse not in liste:
+                print("Nom pas présent dans la liste, recommencer")
+                reponse = input()
+
+            for i in range (0, len(liste)):
+                if liste[i].get_prenom() == reponse :
+                    liste[i].vote()
+            print("Vous avez voté ")
+            #clear screen
+
