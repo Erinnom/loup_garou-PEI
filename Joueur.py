@@ -7,15 +7,11 @@ class Joueur:
     Attributs : prenom (str), role (str), est_maire (bool)
     Méthodes : set_role(self,role:str), set_maire(self,est_maire:bool = 0),get_maire(self),get_role(self),get_prenom(self)
     """
-    # Attributs
-
     # Constructeur
     def __init__ (self, prenom, role): # Nom par défaut dans le cas ou le prenom est vide
         self.prenom = str(prenom)
         self.role = str(role)
-        self.prenom = "" # prenom du joueur
-        self.role = "" # role du joueur
-        self.est_maire = 0 # booleen 1 si maire 0 sinon
+        self.est_maire = 0  # booleen 1 si maire 0 sinon
         self.votes = 0
 
     # Méthodes
@@ -72,3 +68,16 @@ class Joueur:
 
     def reset_vote(self):
         self.votes = 0
+
+    def get_data(self):
+        """
+        Méthode qui renvoie les données du joueur
+        formaté dans un dictionnaire pour la sauvegarde json
+        """
+        res = {
+            "prenom" : self.prenom,
+            "role" : self.role,
+            "maire" : self.est_maire,
+            "votes" : self.votes
+        }
+        return res

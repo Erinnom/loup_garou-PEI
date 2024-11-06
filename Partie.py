@@ -1,5 +1,6 @@
 from random import randint
-from Joueur import Joueur
+from Joueur import *
+import json
 
 class Partie():
     def __init__(self):
@@ -65,15 +66,30 @@ class Partie():
                 self.joueurs.append(j)
                 i+=1
 
-    def sauvegarder(self, nom_fichier: str):
+    def sauvegarder(self):
         """Méthode permettant de sauvegarder la partie en cours
             dans un document Json"""
-        pass
+        data = {"id_partie" : self.id_partie,
+                "nombre_joueur" : self.nombre_joueur,
+                "etat_partie" : self.etat_partie,
+                "joueurs" : [x.get_data() for x in self.joueurs]
+                }
+
+        sauvegarde = json.dumps(data, indent=4)
+
+        with open(self.id_partie + ".json", "w") as outfile:
+            outfile.write(sauvegarde)
 
     def charger(self, id_partie: str):
         """Méthode permettant de charger un fichier Json pour
-            reprendre la partie là où elle c'est arrêté"""
-        pass
+            reprendre la partie là où elle s'est arrêté"""
+        with open(id_partie+".json") as file:
+            data = json.load(file)
+
+        self.id_partie = data["id_partie"]
+        self.nombre_joueur = data["nombre_joueur"]
+        self.etat_partie = data["etat_partie"]
+        self.joueurs = data["joueurs"]
 
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
@@ -88,8 +104,17 @@ class Partie():
     def get_etat(self):
         return self.etat_partie
 
-
+    def __str__(self):
+        """
+        Renvoie le statut de la partie formaté correctement
+        """
+        res = ""
+        res += "Id Partie : " + str(self.id_partie) + "\n"
+        res += "Etat Partie : " + str(self.etat_partie) + "\n"
+        res += "Nombre de joueurs : " + str(self.nombre_joueur) + "\n"
+        for joueur in self.joueurs:
+            res += str(joueur) + "\n"
+        return res
 
 if __name__ == "__main__":
-    newparti = Partie()
-    newparti.creer()
+    pass
