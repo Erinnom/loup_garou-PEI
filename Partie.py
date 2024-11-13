@@ -123,7 +123,7 @@ class Partie():
         """Méthode qui effectue tout un tour de jeu"""
         rls = Role()
         rls.demasquage_petite_fille()
-        print("La nuit tombe sur le village de tierce lieux... Le Village s'endore...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+        print("La nuit tombe sur le village de tierce lieux... Le Village s'endor...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
         for role in self.get_roles():
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
