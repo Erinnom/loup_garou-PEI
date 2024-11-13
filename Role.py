@@ -279,3 +279,13 @@ class Role():
                     liste[i].vote()
             print("Vous avez voté ")
             #clear screen
+
+    def get_data(self):
+        res = {
+            "potion_vie" : self.potion_vie,
+            "potion_mort" : self.potion_mort,
+            "lettre_loup_garou" : self.lettre_loup_garou,
+            "lettre_petite_fille" : self.lettre_petite_fille
+        }
+
+        return res
