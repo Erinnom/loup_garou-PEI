@@ -1,4 +1,5 @@
 from PIL import Image
+import os as os
 
 def analyse(chemin_fichier : str, heigth, width):
     pixels = []
@@ -33,4 +34,5 @@ def print_colored_square(rgb):
     print(f"\033[48;2;{r};{g};{b}m   \033[0m", end='')
 
 
-print_card("./illustration/Villageois.jpg", 50, 50)
+#os.system("clear")
+#print_card("./illustration/bandeau.jpg", 50, 30)

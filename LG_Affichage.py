@@ -1,4 +1,6 @@
 import Traitement_Image as TI
+import os as os
+
 
 
 class Affichage:
@@ -6,6 +8,17 @@ class Affichage:
     def __init__(self):
         pass
 
+
+    """#####################################################################################################################################################
+
+                        _     __  __ _      _                      		 ___
+                       / \   / _|/ _(_) ___| |__   __ _  __ _  ___ 		|_ _|_ __ ___   __ _  __ _  ___  ___
+                      / _ \ | |_| |_| |/ __| '_ \ / _` |/ _` |/ _ \		 | || '_ ` _ \ / _` |/ _` |/ _ \/ __|
+                     / ___ \|  _|  _| | (__| | | | (_| | (_| |  __/		 | || | | | | | (_| | (_| |  __/\__ \
+                    /_/   \_\_| |_| |_|\___|_| |_|\__,_|\__, |\___|		|___|_| |_| |_|\__,_|\__, |\___||___/
+                                        |___/      		                     |___/
+
+    #####################################################################################################################################################"""
     def jour(self):
         """
         Méthode qui permettra un affichage d'un fond illustrant la journee et l'arrivee du vote
@@ -149,15 +162,149 @@ class Affichage:
         """
         Méthode qui permettra un affichage du joueur qui a été éliminé
         Parameters : nom du joueur
-        Return : NOne
+        Return : None
         """
         TI.print_card("./illustration/faucheuse.jpg", 40, 40)
         pass
 
+    def anonyme_screen(self):
+        """
+        Méthode qui permettra un affichage de l'écran d'attente, pour tous les joueurs à qui ce ne sera pas le tour de jouer
+        Parameters : None
+        Return : None
+        """
+        TI.print_card("./illustration/bandeau.jpg", 50, 30)
+        pass
+
+    def reinitialiser_screen(self):
+        """
+        Méthode qui permettra d'effacer le terminal
+        Parameters : None
+        Return : None
+        """
+        os.system("clear")
+        pass
+
+    """#####################################################################################################################################################
+                             _     __  __ _      _                        _____         _
+                            / \   / _|/ _(_) ___| |__   __ _  __ _  ___  |_   _|____  _| |_ ___
+                           / _ \ | |_| |_| |/ __| '_ \ / _` |/ _` |/ _ \   | |/ _ \ \/ / __/ _ \
+                          / ___ \|  _|  _| | (__| | | | (_| | (_| |  __/   | |  __/>  <| ||  __/
+                         /_/   \_\_| |_| |_|\___|_| |_|\__,_|\__, |\___|   |_|\___/_/\_\\__\___|
+                                                            |___/
+
+    #####################################################################################################################################################"""
 
 
     """
-    Méthode qui permettra un affichage d
-    Parameters :
-    Return :
+    Méthode qui permettra d'afficher la liste des joueurs
+    Parameters : Liste des joueurs, lliste des alliés
+    Return : None
     """
+    def liste_joueurs(self,  l : list, allies : list):
+        #Caractères pour construire le tableau
+        char = ["┌", "┐", "└", "┘", "┴", "┬","─", "├", "┼", "┤", "│"]
+
+        #Couleurs pour différencier allies et ennemis
+        RED = "\033[31m"
+        GREEN = "\033[32m"
+        BLUE = "\033[34m"
+        RESET = "\033[0m"
+
+        length = len(l)
+        max = 0
+
+        for j in l:
+            if len(j) > max:
+                max = len(j)
+
+        """
+        Fonction qui affiche le contours du tableau (ligne du haut)
+        Parameters : None
+        Return : None
+        """
+        def ligne_haut(t):
+            print(char[0], end = "")
+            for _ in range(t):
+                for __ in range (max+4):
+                    print(char[6], end ="")
+                if _ != t-1:
+                    print(char[5], end = "")
+            print(char[1])
+            return
+
+        """
+        Fonction qui affiche le contours du tableau (ligne du bas)
+        Parameters : None
+        Return : None
+        """
+        def ligne_bas(t):
+            print()
+            print(char[2], end="")
+            for _ in range(t):
+                for __ in range (max+4):
+                    print(char[6], end ="")
+                if _ != t-1:
+                    print(char[4], end = "")
+            print(char[3])
+            return
+
+        ligne_supp = 0
+        if len(l) < 10:
+            t = len(l)
+        else :
+            t = 10
+        if length%10 != 0:
+            ligne_supp +=1
+
+        #Affichage des prénoms dans le tableau
+
+        for joueur in range (length//10 + ligne_supp):
+            ligne_haut(t)
+            print(char[-1], end = "")
+            for _ in range(10):
+                if l == [] :
+                    for __ in range (max+4):
+                        print(" ", end ="")
+                else :
+                    nom = l.pop(0)
+                    ecart = max-len(nom)
+                    for __ in range (ecart//2+2):
+                        print(" ", end = "")
+                    if nom in allies:
+                        print(f"{RED}{nom}{RESET}", end="")
+
+                    else :
+                        print(f"{GREEN}{nom}{RESET}", end="")
+                    for __ in range (ecart//2 + ecart%2 +2):
+                        print(" ", end = "")
+                    print(char[-1], end ="")
+
+            ligne_bas(t)
+
+        return
+
+    def phrases(self, text : str, text_color : str,  color = "WHITE"):
+        COLORS = {
+            "BLACK": "\033[30m",
+            "RED": "\033[31m",
+            "GREEN": "\033[32m",
+            "YELLOW": "\033[33m",
+            "BLUE": "\033[34m",
+            "MAGENTA": "\033[35m",
+            "CYAN": "\033[36m",
+            "PINK": "\033[38;5;205m",
+            "WHITE": "\033[37m",
+        }
+        RESET = "\033[0m"
+        color = color.upper()
+        if color not in COLORS:
+            color = "WHITE"
+        if text_color != "" :
+            avant, milieu, apres = text.partition(text_color)
+            print(f"{COLORS["WHITE"]}{avant}{RESET}", end ="")
+            print(f"{COLORS[color]}{milieu}{RESET}", end ="")
+            print(f"{COLORS["WHITE"]}{apres}{RESET}")
+        else :
+            print(f"{COLORS["WHITE"]}{text}{RESET}")
+        return
