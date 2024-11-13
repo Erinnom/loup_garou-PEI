@@ -1,6 +1,6 @@
 from random import randint
 from Joueur import *
-#from Role import *
+from Role import *
 import json
 
 class Partie():
@@ -28,8 +28,11 @@ class Partie():
             ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
             ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
             ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
-            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois']
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois']
         ]
+        for i in role_partie:
+            print(len(i))
         """repartition = {
             "Voleur"            : [0]*7    +    [1,1] + [1]*4,
             "Cupidon"           : [0]*3+[1,1,1,1,1,1] + [1]*4,
@@ -128,7 +131,7 @@ class Partie():
                 print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
                 input("Presser entré :")
                 role_joueur = joueur.get_role()
-                if  role_joueur == role:
+                if  role_joueur == role and joueur.get_mort == False:
                     if role == "Loup Garou":
                         rls.loup_garou()
                     elif role == "Voyante":
