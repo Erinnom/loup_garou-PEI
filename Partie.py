@@ -1,6 +1,6 @@
 from random import randint
 from Joueur import *
-from Role import *
+#from Role import *
 import json
 
 class Partie():
@@ -17,20 +17,44 @@ class Partie():
         Sortie : liste des roles
         """
         role_partie = [
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Capitaine"],  # 6 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Capitaine"],  # 7 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Capitaine"],  # 8 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Chasseur", "Cupidon"],  # 9 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Petite Fille", "Chasseur", "Cupidon"],  # 10 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Chasseur", "Cupidon"],  # 11 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Petite Fille", "Chasseur", "Cupidon", "Voleur"],  # 12 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Chasseur", "Cupidon", "Voleur"],  # 13 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Petite Fille", "Chasseur", "Cupidon", "Voleur"],  # 14 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Chasseur", "Cupidon", "Voleur"],  # 15 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Petite Fille", "Chasseur", "Cupidon", "Voleur"],  # 16 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Petite Fille", "Chasseur", "Cupidon", "Voleur"],  # 17 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Petite Fille", "Chasseur", "Cupidon", "Voleur"]  # 18 joueurs
+            ['Loup Garous','Loup Garous','Voyante','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Loup Garous','Loup Garous','Voyante','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Loup Garous','Loup Garous','Voyante','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Cupidon','Loup Garous','Loup Garous','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Cupidon','Loup Garous','Loup Garous','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Cupidon','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois']
         ]
+        """repartition = {
+            "Voleur"            : [0]*7    +    [1,1] + [1]*4,
+            "Cupidon"           : [0]*3+[1,1,1,1,1,1] + [1]*4,
+            "Loup Garous"       : [2,2,2,2,2,2,3,3,3] + [3]*4,
+            "Sorcière"          : [0] * 5 + [1,1,1,1] + [1]*4,
+            "Petite Fille"      : [0]*4 + [1,1,1,1,1] + [1]*4,
+            "Voyante"           : [1,1,1,1,1,1,1,1,1] + [1]*4,
+            "Chasseur"          : [0]*3+[1,1,1,1,1,1] + [1]*4,
+            "Simple Villageois" : [3,4,5,4,4,4,4,4,4,5,6,7,8],
+
+        }"""
+
+        """for i in range(0,13):
+            print(f"{i+6} Joueurs : ",end=" ")
+            for role in repartition.keys():
+                print(f"{repartition.get(role)[i]} {role}",end=", ")
+            print("")"""
+
+        """for i in range(0,13):
+            print("[",end="")
+            for role in repartition.keys():
+                for k in range(0,repartition.get(role)[i]):
+                    print(f"'{role}'", end=",")
+            print("],")"""
+
         return role_partie[self.nombre_joueur - 6]
 
     def get_joueurs(self):
@@ -128,7 +152,7 @@ class Partie():
                     #    print("\n")
                     #print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
                     #input("Presser entré :")
-        for i in range(0,self.nombre_joueur):
+        #for i in range(0,self.nombre_joueur):
 
 
 
@@ -154,4 +178,5 @@ class Partie():
         return res
 
 if __name__ == "__main__":
-    pass
+    test = Partie()
+    print(test.get_roles())
