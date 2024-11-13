@@ -115,4 +115,4 @@ class Joueur:
         """
         Affiche correctement les joueurs
         """
-        return str(self.get_data() + "\n")
+        return (str(self.get_data()) + "\n")
