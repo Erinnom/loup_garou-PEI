@@ -9,6 +9,7 @@ class Partie():
         self.nombre_joueur = 0
         self.joueurs = []
         self.etat_partie = 0
+        self.action = Role()
 
     def get_roles(self):
         """
@@ -97,7 +98,8 @@ class Partie():
         data = {"id_partie" : self.id_partie,
                 "nombre_joueur" : self.nombre_joueur,
                 "etat_partie" : self.etat_partie,
-                "joueurs" : [x.get_data() for x in self.joueurs]
+                "joueurs" : [x.get_data() for x in self.joueurs],
+                "action" : self.action.get_data()
                 }
 
         sauvegarde = json.dumps(data, indent=4)
@@ -114,6 +116,7 @@ class Partie():
         self.id_partie = data["id_partie"]
         self.nombre_joueur = data["nombre_joueur"]
         self.etat_partie = data["etat_partie"]
+        self.action.load_data(data["action"])
 
         #Génère des joueurs et leurs donnes les bons attributs.
         for i in range(len(data["joueurs"])):
@@ -125,33 +128,32 @@ class Partie():
 
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
-        rls = Role()
-        rls.demasquage_petite_fille()
+        self.action.demasquage_petite_fille()
         print("La nuit tombe sur le village de tierce lieux... Le Village s'endore...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
         for role in self.get_roles():
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
-                rls = Role()
+                self.action = Role()
                 print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
                 input("Presser entré :")
                 role_joueur = joueur.get_role()
                 if  role_joueur == role:
                     if role == "Loup Garou":
-                        rls.loup_garou()
+                        self.action.loup_garou()
                     elif role == "Voyante":
-                        rls.voyante()
+                        self.action.voyante()
                     elif role == "Simple Villageois":
-                        rls.villageois()
+                        self.action.villageois()
                     elif role == "Sorcière":
-                        rls.sorciere()
+                        self.action.sorciere()
                     elif role == "Petite Fille":
-                        rls.petite_fille()
+                        self.action.petite_fille()
                     elif role == "Chasseur":
-                        rls.chasseur()
+                        self.action.chasseur()
                     elif role == "Cupidon":
-                        rls.cupidon()
+                        self.action.cupidon()
                     elif role == "Voleur":
-                        rls.voleur()
+                        self.action.voleur()
                     else:
                         print("Erreur")
                 #else:
