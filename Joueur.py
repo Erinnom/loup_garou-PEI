@@ -110,3 +110,9 @@ class Joueur:
             "mort" : self.est_mort
         }
         return res
+
+    def __str__(self):
+        """
+        Affiche correctement les joueurs
+        """
+        return str(self.get_data() + "\n")
