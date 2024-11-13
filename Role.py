@@ -2,7 +2,6 @@ from random import *
 import LG_Affichage as affichage
 import Joueur
 import Partie
-import random
 
 class Role():
     def __init__(self,joueurs):
@@ -227,41 +226,45 @@ class Role():
             liste[i].reset_vote()
 
     def demasquage_petite_fille(self,joueurs):
-            liste = joueurs
+        total = joueurs
+        liste = []
 
-            # Créer une liste avec la petite fille
-            fille = ""
-            for joueur in liste:
-                if joueur.get_role() == "Petite Fille":
-                    fille = joueur.get_joueur().lower()
-                    break
+        for i in range(0, len(total)):
+            if total.get_mort == False:
+                liste.append(total[i])
 
-            # fréquence de chaque lettre
-            lettre_freq = {}
-            for joueur in liste:
-                nom_joueur = joueur.get_joueur().lower()
-                for lettre in nom_joueur:
-                    lettre_freq[lettre] = lettre_freq.get(lettre, 0) + 1
+        # Créer une liste avec la petite fille
+        fille = ""
+        for joueur in liste:
+            if joueur.get_role() == "Petite Fille":
+                fille = joueur.get_joueur().lower()
 
-            # liste de la petite fille sans lettres uniques
-            fille_filtre = ""
-            for lettre in fille:
-                if lettre_freq[lettre] > 1:
-                    fille_filtre += lettre
+        # fréquence de chaque lettre
+        lettre_freq = {}
+        for joueur in liste:
+            nom_joueur = joueur.get_joueur().lower()
+            for lettre in nom_joueur:
+                lettre_freq[lettre] = lettre_freq.get(lettre, 0) + 1
 
-            if not self.lettre_petite_fille:
-                self.lettre_petite_fille = [[] for i in fille]
+        # liste de la petite fille sans lettres uniques
+        fille_filtre = ""
+        for lettre in fille:
+            if lettre_freq[lettre] > 1:
+                fille_filtre += lettre
 
-            lettres_dispo = []
-            for lettre in fille_filtre:
-                if lettre not in self.lettre_petite_fille:
-                    lettres_dispo.append(lettre)
+        if not self.lettre_petite_fille:
+            self.lettre_petite_fille = [[] for i in fille]
 
-            max_lettres = len(fille) // 2
+        lettres_dispo = []
+        for lettre in fille_filtre:
+            if lettre not in self.lettre_petite_fille:
+                lettres_dispo.append(lettre)
 
-            if lettres_dispo and len(self.lettre_petite_fille) < max_lettres:
-                lettre = lettres_dispo[randint(0, len(lettres_dispo) - 1)]
-                self.lettre_petite_fille.append(lettre)
+        max_lettres = len(fille) // 2
+
+        if lettres_dispo and len(self.lettre_petite_fille) < max_lettres:
+            lettre = lettres_dispo[randint(0, len(lettres_dispo) - 1)]
+            self.lettre_petite_fille.append(lettre)
 
 
     """
@@ -531,3 +534,5 @@ class Role():
         print("Les morts de la partie sont : " + str(self.mort))
         self.mort_tour = []
 
+    def nouveau_maire(self):
+        pass
