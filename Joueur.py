@@ -37,6 +37,12 @@ class Joueur:
         """
         return self.est_mort
 
+    def set_marie(self,bool):
+        self.est_marie = bool
+
+    def set_mort(self,bool):
+        self.est_mort = bool
+
     def set_role(self,role:str):
         """
         Objectif : Définir l'attribut role au role choisit
@@ -99,6 +105,14 @@ class Joueur:
             "prenom" : self.prenom,
             "role" : self.role,
             "maire" : self.est_maire,
-            "votes" : self.votes
+            "votes" : self.votes,
+            "marie" : self.est_marie,
+            "mort" : self.est_mort
         }
         return res
+
+    def __str__(self):
+        """
+        Affiche correctement les joueurs
+        """
+        return (str(self.get_data()) + "\n")
