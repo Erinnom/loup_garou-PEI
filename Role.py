@@ -6,36 +6,54 @@ import random
 
 class Role():
     def __init__(self):
+
         self.potion_vie = True
         self.potion_mort = True
         self.lettre_loup_garou = []
         self.lettre_petite_fille = []
+        self.mort_tour = []
+        self.mort =[]
+
+        joueurs = Partie.Partie()
+        liste = joueurs.get_joueurs()
+        self.loup = [joueur.get_prenom() for joueur in liste if joueur.get_role() == "Loup Garou"]
+        self.vote_loup = []
 
     """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
     paramètre : moment
     """
     def sorciere(self):
-            if self.potion_vie == True:
-                print("Voulez vous utiliser votre potion de vie, oui ou non")
+
+        joueurs = Partie.Partie()
+        liste = joueurs.get_joueurs()
+        prenom = []
+        for i in range(0, len(liste)):
+            prenom.append(liste[i].get_prenom())
+
+        print("Liste des joueurs dans la partie : " + str(prenom))
+
+        if self.potion_vie == True:
+            print("Voulez vous utiliser votre potion de vie, oui ou non")
+            reponse = input()
+
+            while reponse == "oui" or reponse == "non":
+                print("Réponse non accepté")
                 reponse = input()
 
-                while reponse == "oui" or reponse == "non":
-                    print("Réponse non accepté")
-                    reponse = input()
+            if reponse == "oui":
+                self.potion_vie = False
+                print("Voici les morts du tour" + self.mort_tour)
 
-                if reponse == "oui":
-                    self.potion_vie = False
+        elif self.potion_mort == True :
+            print("Voulez vous utiliser votre potion de mort, oui ou non")
+            reponse = input()
 
-            elif self.potion_mort == True :
-                print("Voulez vous utiliser votre potion de mort, oui ou non")
+            while reponse == "oui" or reponse == "non":
+                print("Réponse non accepté")
                 reponse = input()
 
-                while reponse == "oui" or reponse == "non":
-                    print("Réponse non accepté")
-                    reponse = input()
-
-                if reponse == "oui":
-                    self.potion_vie = False
+            if reponse == "oui":
+                self.potion_vie = False
 
 
 
@@ -46,11 +64,13 @@ class Role():
     """
     def voleur(self):
 
-
         joueurs = Partie.Partie()
         liste = joueurs.get_joueurs()
+        prenom = []
+        for i in range(0, len(liste)):
+            prenom.append(liste[i].get_prenom())
 
-        print("Liste des joueurs dans la partie : " + str(liste))
+        print("Liste des joueurs dans la partie : " + str(prenom))
 
         print("Entrée le nom du joueur dont vous voulez voler le rôle ")
         indice = input()
@@ -84,7 +104,11 @@ class Role():
 
             joueurs = Partie.Partie()
             liste = joueurs.get_joueurs()
-            print("Liste des joueurs dans la partie : " + str(liste))
+            prenom = []
+            for i in range(0, len(liste)):
+                prenom.append(liste[i].get_prenom())
+
+            print("Liste des joueurs dans la partie : " + str(prenom))
 
             print("Entrée le nom du joueur dont vous voulez voir le rôle ")
             reponse = input()
@@ -104,7 +128,49 @@ class Role():
     paramètre : moment
     """
     def loup_garou(self):
-        pass
+        joueurs = Partie.Partie()
+        liste = joueurs.get_joueurs()
+        prenom = []
+        for i in range(0,len(liste)):
+            prenom.append(liste[i].get_prenom())
+
+        print("Liste des joueurs dans la partie : " + str(prenom))
+
+        print("Vote des autres loups"+ self.vote_loup)
+
+        nombre_loup = len(self.loup)
+        print("Pour qui veux tu voter")
+        reponse = input()
+        while reponse not in liste:
+            print("Nom pas présent dans la liste, recommencer")
+            reponse = input()
+        if nombre_loup > 1:
+            self.vote_loup.append(reponse)
+            self.loup.pop(0)
+            for i in range (0, len(liste)):
+                if liste[i].get_prenom() == reponse :
+                    liste[i].vote()
+
+        if nombre_loup == 1:
+            for i in range (0, len(liste)):
+                if liste[i].get_prenom() == reponse :
+                    liste[i].vote()
+
+            max = 0
+            indice = 0
+            for i in range(0, len(liste)):
+                if max < liste[i].get_vote():
+                    max = liste[i].get_vote()
+                    indice = i
+
+            liste[indice].set_mort(True)
+            if liste[indice].get_marier() == True:
+                for i in range(0, len(liste)):
+                    if liste[i].get_marie() == True:
+                        liste[indice].set_mort(True)
+
+        for i in range(0, len(liste)):
+            liste[i].reset_vote()
 
     def demasquage_petite_fille(self):
             joueurs = Partie.Partie()
@@ -227,6 +293,19 @@ class Role():
                         print("Nom pas présent dans la liste, recommencer")
                         reponse = input()
 
+            for i in range(0,len(liste)):
+                if liste[i].get_prenom == reponse:
+                    liste[i].set_mort(True)
+                    self.mort.append(liste[i].get_prenom())
+                    self.mort_tour.append(liste[i].get_prenom())
+
+                if liste[i].get_marier() == True:
+                    for i in range(0, len(liste)):
+                        if liste[i].get_marie() == True:
+                            liste[i].set_mort(True)
+                            self.mort.append(liste[i].get_prenom())
+                            self.mort_tour.append(liste[i].get_prenom())
+
 
     """Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts 
     paramètre : moment
@@ -244,7 +323,7 @@ class Role():
 
             print("Quel est la deuxième personne du couple ?")
             couple2 = input()
-            while couple2 not in liste:
+            while couple2 not in liste or couple1 == couple2:
                 print("Nom pas présent dans la liste, recommencer")
                 couple2 = input()
 
@@ -260,7 +339,45 @@ class Role():
     paramètre : 
     """
     def capitaine(self):
-            pass
+        joueurs = Partie.Partie()
+        liste = joueurs.get_joueurs()
+
+        for i in range(0, len(liste)):
+            if liste[i].get_mort() == True:
+                liste[i].pop()
+        print("Voici la liste des noms de tous les joueurs :" + str(liste))
+
+        for i in range(0, len(liste)):
+            print("Avez vous déja voté oui/non ")
+            reponse = input()
+            while reponse != "non":
+                print("Ce n'est pas à vous de voter, passez la tablette à votre voisin")
+                # clear screen
+                print("Avez vous déja voté oui/non ")
+                reponse = input()
+
+            print("Pour qui voulez vous voter ?")
+            reponse = input()
+            while reponse not in liste:
+                print("Nom pas présent dans la liste, recommencer")
+                reponse = input()
+
+            for i in range(0, len(liste)):
+                if liste[i].get_prenom() == reponse:
+                    liste[i].vote()
+            print("Vous avez voté ")
+
+        max = 0
+        indice = 0
+        for i in range(0, len(liste)):
+            if max < liste[i].get_vote():
+                max = liste[i].get_vote()
+                indice = i
+
+        liste[indice].set_maire(True)
+
+        for i in range(0, len(liste)):
+            liste[i].reset_vote()
 
     def vote(self):
         joueurs = Partie.Partie()
@@ -291,4 +408,29 @@ class Role():
                     liste[i].vote()
             print("Vous avez voté ")
             #clear screen
+        max = 0
+        indice = 0
+        for i in range (0, len(liste)):
+            if max < liste[i].get_vote() :
+                max = liste[i].get_vote()
+                indice = i
+
+        liste[indice].set_mort(True)
+        self.mort.append(liste[indice].get_prenom())
+        self.mort_tour.append(liste[indice].get_prenom())
+
+        if liste[indice].get_marier() == True:
+            for i in range (0, len(liste)):
+                if liste[i].get_marie() == True:
+                    liste[i].set_mort(True)
+                    self.mort.append(liste[i].get_prenom())
+                    self.mort_tour.append(liste[i].get_prenom())
+
+        for i in range(0, len(liste)):
+            liste[i].reset_vote()
+
+    def afficher_mort(self):
+        print("Les morts de ce tour sont : " + self.mort_tour)
+        print("Les morts de la partie sont : " + self.mort)
+        self.mort_tour = []
 
