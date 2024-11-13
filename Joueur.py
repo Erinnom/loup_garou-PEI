@@ -1,4 +1,5 @@
-
+# Import de la librairie random
+from random import randint
 
 class Joueur:
     """
@@ -35,6 +36,12 @@ class Joueur:
         Sortie : booleen
         """
         return self.est_mort
+
+    def set_marie(self,bool):
+        self.est_marie = bool
+
+    def set_mort(self,bool):
+        self.est_mort = bool
 
     def set_role(self,role:str):
         """
@@ -88,3 +95,18 @@ class Joueur:
 
     def reset_vote(self):
         self.votes = 0
+
+    def get_data(self):
+        """
+        Méthode qui renvoie les données du joueur
+        formaté dans un dictionnaire pour la sauvegarde json
+        """
+        res = {
+            "prenom" : self.prenom,
+            "role" : self.role,
+            "maire" : self.est_maire,
+            "votes" : self.votes,
+            "marie" : self.est_marie,
+            "mort" : self.est_mort
+        }
+        return res
