@@ -56,7 +56,7 @@ class Affichage:
         Return : None
         """
         if temp :
-            TI.print_card("./illustration/Sorciére.jpg", 50, 50)
+            TI.print_card("./illustration/Sorciere.jpg", 50, 50)
         else :
             TI.print_card("./illustration/potion.jpg", 40, 40)
         pass
@@ -98,7 +98,7 @@ class Affichage:
             TI.print_card("./illustration/pas.jpg", 40, 40)
         pass
 
-    def cupidon(self, temp : bool, nom : str, nom : str):
+    def cupidon(self, temp : bool, nom1 : str, nom2 : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom des joueurs vises
@@ -308,3 +308,7 @@ class Affichage:
         else :
             print(f"{COLORS["WHITE"]}{text}{RESET}")
         return
+
+
+
+objet = Affichage()
