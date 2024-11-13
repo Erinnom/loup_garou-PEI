@@ -1,4 +1,6 @@
 from random import randint
+
+import Joueur
 from Joueur import *
 from Role import *
 import json
@@ -63,7 +65,7 @@ class Partie():
             tmp = input(f"Nom du joueur [{i+1}] :")
             if tmp != "":
                 rand_role = roles.pop(randint(0,len(roles)-1))
-                j = Joueur(tmp,rand_role)
+                j = Joueur.Joueur(tmp,rand_role)
                 self.joueurs.append(j)
                 i+=1
 
@@ -93,7 +95,7 @@ class Partie():
 
         #Génère des joueurs et leurs donnes les bons attributs.
         for i in range(len(data["joueurs"])):
-            self.joueurs.append(Joueur(data["joueurs"][i]["prenom"], data["joueurs"][i]["role"]))
+            self.joueurs.append(Joueur.Joueur(data["joueurs"][i]["prenom"], data["joueurs"][i]["role"]))
             self.joueurs[i].est_maire = data["joueurs"][i]["maire"]
             self.joueurs[i].votes = data["joueurs"][i]["votes"]
             self.joueurs[i].est_mort = data["joueurs"][i]["mort"]
@@ -136,7 +138,7 @@ class Partie():
                     #print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
                     #input("Presser entré :")
         for i in range(0,self.nombre_joueur):
-
+            pass
 
 
     def get_id(self):
