@@ -534,5 +534,29 @@ class Role():
         print("Les morts de la partie sont : " + str(self.mort))
         self.mort_tour = []
 
+    def get_data(self):
+        res = {
+            "potion_vie" : self.potion_vie,
+            "potion_mort" : self.potion_mort,
+            "lettre_loup_garou" : self.lettre_loup_garou,
+            "lettre_petite_fille" : self.lettre_petite_fille,
+            "mort_tour" : self.mort_tour,
+            "mort" : self.mort,
+            "loup" : self.loup,
+            "vote_loup" : self.vote_loup
+        }
+
+        return res
+
+    def load_data(self, data : dict):
+        self.potion_vie = data["potion_vie"]
+        self.potion_mort = data["potion_mort"]
+        self.lettre_loup_garout = data["lettre_loup_garout"]
+        self.lettre_petite_fille = data["lettre_petite_fille"]
+        self.mort_tour = data["mort_tour"]
+        self.mort = data["mort"]
+        self.loup = data["loup"]
+        self.vote_loup = data["vote_loup"]
+
     def nouveau_maire(self):
         pass
