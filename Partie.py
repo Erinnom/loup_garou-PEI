@@ -1,4 +1,5 @@
 from random import randint
+import Affichage import *
 from Joueur import *
 from Role import *
 import json
@@ -122,12 +123,12 @@ class Partie():
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
         rls = Role()
+        afg = Affichage()
         rls.demasquage_petite_fille()
-        print("La nuit tombe sur le village de tierce lieux... Le Village s'endor...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
         for role in self.get_roles():
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
-                rls = Role()
                 print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
                 input("Presser entré :")
                 role_joueur = joueur.get_role()
@@ -155,7 +156,32 @@ class Partie():
                     #    print("\n")
                     #print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
                     #input("Presser entré :")
-        #for i in range(0,self.nombre_joueur):
+
+        alv_joueurs_id = []
+        for i in range(0,self.nombre_joueur):
+            if not self.joueurs[i].get_mort():
+                alv_joueurs_id.append(i)
+
+        for i in range(0,self.nombre_joueur):
+            joueur = self.joueurs[i]
+            print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
+            input("Presser entré :")
+            if i not in alv_joueurs_id:
+                print("Ohhh.. NON!! il semblerait que vous ayez été dévoré par les méchants loups...")
+            else:
+                print("Pour qui souhaitez vous voter :")
+                afg.liste_joueurs((str(i) + " : " + self.joueurs[i].get_prenom()) for i in alv_joueurs_id)
+                vote = int(input("Indice du joueur [1-"+str(self.nombre_joueur)+"] : "))
+                while vote not in alv_joueurs_id:
+                    vote = int(input("Indice du joueur [1-"+str(self.nombre_joueur)+"] : "))
+                self.joueurs[vote].vote()
+                if joueur.get_maire():
+                    self.joueurs[vote].vote()
+
+        votes = [0] * self.nombre_joueur
+        for i in range(0,self.nombre_joueur):
+
+
 
 
 
