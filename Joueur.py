@@ -95,3 +95,16 @@ class Joueur:
 
     def reset_vote(self):
         self.votes = 0
+
+    def get_data(self):
+        """
+        Méthode qui renvoie les données du joueur
+        formaté dans un dictionnaire pour la sauvegarde json
+        """
+        res = {
+            "prenom" : self.prenom,
+            "role" : self.role,
+            "maire" : self.est_maire,
+            "votes" : self.votes
+        }
+        return res
