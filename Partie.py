@@ -180,7 +180,7 @@ class Partie():
 
         votes = [0] * self.nombre_joueur
         for i in range(0,self.nombre_joueur):
-
+            pass
 
 
 
