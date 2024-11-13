@@ -1,7 +1,7 @@
 class Affichage:
 
     def __init__(self):
-
+        pass
 
     def jour(self):
         """
@@ -27,7 +27,7 @@ class Affichage:
         """
         pass
 
-    def sorciere(self, temp : bool, choix : bool, , nom : str):
+    def sorciere(self, temp : bool, choix : bool , nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage
@@ -59,7 +59,7 @@ class Affichage:
         """
         pass
 
-    def cupidon(self, temp : bool, nom : str, nom : str):
+    def cupidon(self, temp : bool, nom : str, nom_bis : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage
