@@ -105,6 +105,8 @@ class Joueur:
             "prenom" : self.prenom,
             "role" : self.role,
             "maire" : self.est_maire,
-            "votes" : self.votes
+            "votes" : self.votes,
+            "marie" : self.est_marie,
+            "mort" : self.est_mort
         }
         return res
