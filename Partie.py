@@ -90,7 +90,14 @@ class Partie():
         self.id_partie = data["id_partie"]
         self.nombre_joueur = data["nombre_joueur"]
         self.etat_partie = data["etat_partie"]
-        self.joueurs = data["joueurs"]
+
+        #Génère des joueurs et leurs donnes les bons attributs.
+        for i in range(len(data["joueurs"])):
+            self.joueurs.append(Joueur(data["joueurs"][i]["prenom"], data["joueurs"][i]["role"]))
+            self.joueurs[i].est_maire = data["joueurs"][i]["maire"]
+            self.joueurs[i].votes = data["joueurs"][i]["votes"]
+            self.joueurs[i].est_mort = data["joueurs"][i]["mort"]
+            self.joueurs[i].marie = data["joueurs"][i]["marie"]
 
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
