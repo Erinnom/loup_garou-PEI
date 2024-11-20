@@ -3,6 +3,8 @@ import os as os
 
 
 
+
+
 class Affichage:
 
     def __init__(self):
@@ -11,12 +13,7 @@ class Affichage:
 
     """#####################################################################################################################################################
 
-                        _     __  __ _      _                      		 ___
-                       / \   / _|/ _(_) ___| |__   __ _  __ _  ___ 		|_ _|_ __ ___   __ _  __ _  ___  ___
-                      / _ \ | |_| |_| |/ __| '_ \ / _` |/ _` |/ _ \		 | || '_ ` _ \ / _` |/ _` |/ _ \/ __|
-                     / ___ \|  _|  _| | (__| | | | (_| | (_| |  __/		 | || | | | | | (_| | (_| |  __/\__ \
-                    /_/   \_\_| |_| |_|\___|_| |_|\__,_|\__, |\___|		|___|_| |_| |_|\__,_|\__, |\___||___/
-                                        |___/      		                     |___/
+                                                                        AFFICHAGE IMAGES
 
     #####################################################################################################################################################"""
     def jour(self):
@@ -186,12 +183,8 @@ class Affichage:
         pass
 
     """#####################################################################################################################################################
-                             _     __  __ _      _                        _____         _
-                            / \   / _|/ _(_) ___| |__   __ _  __ _  ___  |_   _|____  _| |_ ___
-                           / _ \ | |_| |_| |/ __| '_ \ / _` |/ _` |/ _ \   | |/ _ \ \/ / __/ _ \
-                          / ___ \|  _|  _| | (__| | | | (_| | (_| |  __/   | |  __/>  <| ||  __/
-                         /_/   \_\_| |_| |_|\___|_| |_|\__,_|\__, |\___|   |_|\___/_/\_\\__\___|
-                                                            |___/
+
+                                                                AFFICHAGE TEXTE
 
     #####################################################################################################################################################"""
 
@@ -284,6 +277,12 @@ class Affichage:
 
         return
 
+
+    """
+    Méthode qui permettra d'afficher du etxte, avec de la couleur sur une partie si voulu
+    Parameters : texte, texte à colorer, couleur
+    Return : None
+    """
     def phrases(self, text : str, text_color : str,  color = "WHITE"):
         COLORS = {
             "BLACK": "\033[30m",
@@ -297,18 +296,70 @@ class Affichage:
             "WHITE": "\033[37m",
         }
         RESET = "\033[0m"
+        DEFAUT = "WHITE"
         color = color.upper()
         if color not in COLORS:
             color = "WHITE"
         if text_color != "" :
             avant, milieu, apres = text.partition(text_color)
-            print(f"{COLORS["WHITE"]}{avant}{RESET}", end ="")
+            print(f"{COLORS[DEFAUT]}{avant}{RESET}", end ="")
             print(f"{COLORS[color]}{milieu}{RESET}", end ="")
-            print(f"{COLORS["WHITE"]}{apres}{RESET}")
+            print(f"{COLORS[DEFAUT]}{apres}{RESET}")
         else :
-            print(f"{COLORS["WHITE"]}{text}{RESET}")
+            print(f"{COLORS[DEFAUT]}{text}{RESET}")
         return
 
+    """
+    Méthode qui permettra d'afficher le menu d'acceuil du jeu
+    Parameters : None
+    Return : None
+    """
+    def menu_principal(self):
+        LG = [
+        "     _                                 ____                       ",
+        "    | |    ___  _   _ _ __            / ___| __ _ _ __ ___  _   _ ",
+        "    | |   / _ \| | | | '_ \   _____  | |  _ / _` | '__/ _ \| | | |",
+        "    | |__| (_) | |_| | |_) | |_____| | |_| | (_| | | | (_) | |_| |",
+        "    |_____\___/ \__,_| .__/           \____|\__,_|_|  \___/ \__,_|",
+        "                     |_|                                          ",
+        ]
+        for ligne in LG:
+            print(f"\t\t\t{ligne}")
+        print(f"\n \t\t\t\t\t🄼 🄰 🄳 🄴  🄱 🅈  🄼 🄴 🄰 🄼  🅃 🄴 🄰 🄼\n")
+        options = [
+            "ℂ𝕣𝕖́𝕖𝕣 𝕦𝕟𝕖 𝕡𝕒𝕣𝕥𝕚𝕖 - 𝟙",
+            "ℂ𝕙𝕒𝕣𝕘𝕖𝕣 𝕦𝕟𝕖 𝕡𝕒𝕣𝕥𝕚𝕖 - 𝟚", 
+            "ℚ𝕦𝕚𝕥𝕥𝕖𝕣 𝕝𝕖 𝕛𝕖𝕦 - 𝟛"
 
+        ]
+        for o in options:
+            print()
+            print("\t\t\t\t\t", o)
+        
+        print("\n\n")
+        return
+
+    """
+    Méthode qui permettra d'afficher le menu de chargement d'une partie
+    Parameters : None
+    Return : None
+    """
+    def menu_partie(self):
+        LG = [
+            " ____   _    ____ _____ ___ _____ ", 
+            "|  _ \ / \  |  _ \_   _|_ _| ____|",
+            "| |_) / _ \ | |_) || |  | ||  _|  ",
+            "|  __/ ___ \|  _ < | |  | || |___ ",
+            "|_| /_/   \_\_| \_\|_| |___|_____|",
+        ]
+        for ligne in LG:
+            print(f"\t\t\t\t\t{ligne}")
+        print("\n\n")
+        print("\t\t\t\t\t𝕍𝕖𝕦𝕚𝕝𝕝𝕖𝕫 𝕖𝕟𝕥𝕣𝕖𝕣 𝕝𝕖 𝕟𝕠𝕞 𝕕𝕖 𝕝𝕒 𝕡𝕒𝕣𝕥𝕚𝕖  :")
+        
+        print("\n\n")
+        return
 
 objet = Affichage()
+objet.menu_principal()
+objet.menu_partie()
