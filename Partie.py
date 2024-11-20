@@ -1,5 +1,4 @@
 from random import randint
-from typing_extensions import _F
 from Affichage import *
 from Joueur import Joueur
 from Role import Role
@@ -188,9 +187,28 @@ class Partie():
             if (mort.get_role() == "Chasseur"):
                  self.action.chasseur(self.joueurs)
             if (mort.est_maire()):
-                 self.action.nouveau_maire(self.joueurs)
-        self.premier_tour = False
+                self.action.nouveau_maire(self.joueurs)
+                self.premier_tour = False
 
+
+    def fin_de_partie(self):
+        """
+        Fonction qui permet de tester si la partie est finis ou non
+        """
+        nb_loup = sum(1 for i in self.joueurs if i.getrole() == "Loup Garous")
+        nb_joueurs = len(self.joueurs)
+
+        #Victoire des mariées
+        if nb_joueurs == 2 and self.joueurs[0].get_marie and self.joueurs[1].get_marie:
+            return 2
+
+        #Victoire des Villageois
+        elif nb_loup == 0 and nb_joueurs != 0:
+            return 1
+
+        #Victoire des loups
+        elif nb_loup >= nb_joueurs - nb_loup:
+            return 0
 
 
     def get_id(self):
