@@ -130,11 +130,11 @@ class Partie():
                 role_joueur = joueur.get_role()
                 if  role_joueur == role and i in alv_joueurs_id:
                     if role == "Loup Garou":
-                        self.action.loup_garou(self.joueurs)
+                        self.action.loup_garou(self.joueurs,joueur)
                     elif role == "Voyante":
                         self.action.voyante(self.joueurs)
                     elif role == "Simple Villageois":
-                        self.action.villageois()
+                        self.action.villageois(joueur)
                     elif role == "Sorcière":
                         self.action.sorciere(self.joueurs)
                     elif role == "Petite Fille":
