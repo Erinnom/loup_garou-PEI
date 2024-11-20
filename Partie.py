@@ -122,6 +122,7 @@ class Partie():
 
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
             for i in range(0,self.nombre_joueur):
+                joueur = self.joueurs[i]
                 print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
                 input("Presser entré :")
                 role_joueur = joueur.get_role()
