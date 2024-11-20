@@ -1,4 +1,5 @@
 from random import randint
+from typing_extensions import _F
 from Affichage import *
 from Joueur import Joueur
 from Role import Role
@@ -108,7 +109,7 @@ class Partie():
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
         afg = Affichage()
-        self.action.demasquage_petite_fille()
+        self.action.demasquage_petite_fille(self.joueurs)
         print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
 
         # Obtention des joueurs encore en liste
@@ -122,9 +123,10 @@ class Partie():
 
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
             for i in range(0,self.nombre_joueur):
+                joueur = self.joueurs[i]
                 print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
                 input("Presser entré :")
-                joueur = self.joueurs[i]
+
                 role_joueur = joueur.get_role()
                 if  role_joueur == role and i in alv_joueurs_id:
                     if role == "Loup Garou":
@@ -132,7 +134,7 @@ class Partie():
                     elif role == "Voyante":
                         self.action.voyante(self.joueurs)
                     elif role == "Simple Villageois":
-                        self.action.villageois(self.joueurs)
+                        self.action.villageois()
                     elif role == "Sorcière":
                         self.action.sorciere(self.joueurs)
                     elif role == "Petite Fille":
@@ -186,8 +188,8 @@ class Partie():
             if (mort.get_role() == "Chasseur"):
                  self.action.chasseur(self.joueurs)
             if (mort.est_maire()):
-                 self.action.nouveau_maire()
-
+                 self.action.nouveau_maire(self.joueurs)
+        self.premier_tour = False
 
 
 
