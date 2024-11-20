@@ -59,7 +59,6 @@ class Affichage:
             TI.print_card("./illustration/Sorciere.jpg", 50, 50)
         else :
             TI.print_card("./illustration/potion.jpg", 40, 40)
-        pass
 
 
     def chasseur(self, temp : bool, nom : str):
@@ -308,7 +307,3 @@ class Affichage:
         else :
             print(f"{COLORS["WHITE"]}{text}{RESET}")
         return
-
-
-
-objet = Affichage()
