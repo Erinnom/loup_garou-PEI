@@ -11,6 +11,7 @@ class Partie():
         self.joueurs = []
         self.etat_partie = 0
         self.action = Role()
+        self.premier_tour = True
 
     def get_roles(self):
         """
@@ -33,32 +34,6 @@ class Partie():
             ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
             ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois']
         ]
-        for i in role_partie:
-            print(len(i))
-        """repartition = {
-            "Voleur"            : [0]*7    +    [1,1] + [1]*4,
-            "Cupidon"           : [0]*3+[1,1,1,1,1,1] + [1]*4,
-            "Loup Garous"       : [2,2,2,2,2,2,3,3,3] + [3]*4,
-            "Sorcière"          : [0] * 5 + [1,1,1,1] + [1]*4,
-            "Petite Fille"      : [0]*4 + [1,1,1,1,1] + [1]*4,
-            "Voyante"           : [1,1,1,1,1,1,1,1,1] + [1]*4,
-            "Chasseur"          : [0]*3+[1,1,1,1,1,1] + [1]*4,
-            "Simple Villageois" : [3,4,5,4,4,4,4,4,4,5,6,7,8],
-
-        }"""
-
-        """for i in range(0,13):
-            print(f"{i+6} Joueurs : ",end=" ")
-            for role in repartition.keys():
-                print(f"{repartition.get(role)[i]} {role}",end=", ")
-            print("")"""
-
-        """for i in range(0,13):
-            print("[",end="")
-            for role in repartition.keys():
-                for k in range(0,repartition.get(role)[i]):
-                    print(f"'{role}'", end=",")
-            print("],")"""
 
         return role_partie[self.nombre_joueur - 6]
 
@@ -132,59 +107,66 @@ class Partie():
 
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
-        rls = Role()
         afg = Affichage()
-        rls.demasquage_petite_fille()
-        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
-        for role in self.get_roles():
-            for i in range(0,self.nombre_joueur):
-                joueur = self.joueurs[i]
         self.action.demasquage_petite_fille()
         print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
-        for role in self.get_roles():
-            for i in range(0,self.nombre_joueur):
-                joueur = self.joueurs[i]
-                self.action = Role()
-                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
-                input("Presser entré :")
-                role_joueur = joueur.get_role()
-                if  role_joueur == role and joueur.get_mort == False:
-                    if role == "Loup Garou":
-                        self.action.loup_garou()
-                    elif role == "Voyante":
-                        self.action.voyante()
-                    elif role == "Simple Villageois":
-                        self.action.villageois()
-                    elif role == "Sorcière":
-                        self.action.sorciere()
-                    elif role == "Petite Fille":
-                        self.action.petite_fille()
-                    elif role == "Chasseur":
-                        self.action.chasseur()
-                    elif role == "Cupidon":
-                        self.action.cupidon()
-                    elif role == "Voleur":
-                        self.action.voleur()
-                    else:
-                        print("Erreur")
-                #else:
-                    #for k in range(50):
-                    #    print("\n")
-                    #print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
-                    #input("Presser entré :")
 
-        alv_joueurs_id = []
-        votes = [0] * self.nombre_joueur
+        # Obtention des joueurs encore en liste
+        alv_joueurs_id = [] # liste des indices des joueurs encore en vie
         for i in range(0,self.nombre_joueur):
             if not self.joueurs[i].get_mort():
                 alv_joueurs_id.append(i)
 
+        # Boucle pour faire jouer tous les rôles
+        for role in self.get_roles():
+
+            # Boucle afin de faire jouer les rôles en fonctiton de son rôle
+            for i in range(0,self.nombre_joueur):
+                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+                input("Presser entré :")
+                role_joueur = joueur.get_role()
+                if  role_joueur == role and i in alv_joueurs_id:
+                    if role == "Loup Garou":
+                        self.action.loup_garou(self.joueurs)
+                    elif role == "Voyante":
+                        self.action.voyante(self.joueurs)
+                    elif role == "Simple Villageois":
+                        self.action.villageois(self.joueurs)
+                    elif role == "Sorcière":
+                        self.action.sorciere(self.joueurs)
+                    elif role == "Petite Fille":
+                        self.action.petite_fille(self.joueurs)
+                    elif role == "Chasseur":
+                        self.action.chasseur(self.joueurs)
+                    elif role == "Cupidon":
+                        self.action.cupidon(self.joueurs)
+                    elif role == "Voleur" and self.premier_tour:
+                        self.action.voleur(self.joueurs)
+                    else:
+                        print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
+                        input("Presser entré :")
+                else:
+                    print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
+                    input("Presser entré :")
+
+        # Actualisation des joueur encore en vie
+        alv_joueurs_id = [] # liste des indices des joueurs encore en vie
+        for i in range(0,self.nombre_joueur):
+            if not self.joueurs[i].get_mort():
+                alv_joueurs_id.append(i)
+
+        # Election du premier maire
+        if self.premier_tour:
+            self.action.capitaine(self.joueurs)
+
+        # Vote du village
+        votes = [0] * self.nombre_joueur # inialise la liste des votes
         for i in range(0,self.nombre_joueur):
             joueur = self.joueurs[i]
             print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
             input("Presser entré :")
             if i not in alv_joueurs_id:
-                print("Ohhh.. NON!! il semblerait que vous ayez été dévoré par les méchants loups...")
+                print("Ohhh.. NON!! il semblerait que vous êtes mort...")
             else:
                 print("Pour qui souhaitez vous voter :")
                 afg.liste_joueurs([str(i) + " : " + self.joueurs[i].get_prenom() for i in alv_joueurs_id],[])
@@ -196,9 +178,14 @@ class Partie():
                 if joueur.get_maire():
                     self.joueurs[vote].vote()
                     votes[vote]+=1
-
-        for i in range(0,self.nombre_joueur):
-            pass
+            mort_indice = votes.index(max(votes))
+            mort = self.joueurs[mort_indice]
+            mort.set_mort(True)
+            print(f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} à été pendu par le village... Il était ... {mort.get_role()}")
+            if (mort.get_role() == "Chasseur"):
+                 self.action.chasseur(self.joueurs)
+            if (mort.est_maire()):
+                 self.action.nouveau_maire()
 
 
 

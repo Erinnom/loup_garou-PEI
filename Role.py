@@ -1,5 +1,5 @@
 from random import *
-import LG_Affichage as affichage
+import Affichage as affichage
 import Joueur
 import Partie
 import random
