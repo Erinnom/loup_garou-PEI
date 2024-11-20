@@ -1,5 +1,7 @@
 from random import randint
-from Joueur import *
+from Affichage import *
+from Joueur import Joueur
+from Role import Role
 import json
 
 class Partie():
@@ -8,6 +10,8 @@ class Partie():
         self.nombre_joueur = 0
         self.joueurs = []
         self.etat_partie = 0
+        self.action = Role()
+        self.premier_tour = True
 
     def get_roles(self):
         """
@@ -16,20 +20,21 @@ class Partie():
         Sortie : liste des roles
         """
         role_partie = [
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Capitaine"],  # 6 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Capitaine"],  # 7 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Capitaine"],  # 8 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Chasseur", "Cupidon"],  # 9 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Petite Fille", "Chasseur", "Cupidon"],  # 10 joueurs
-            ["Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Chasseur", "Cupidon"],  # 11 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Petite Fille", "Chasseur", "Cupidon", "Voleur"],  # 12 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Chasseur", "Cupidon", "Voleur"],  # 13 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Petite Fille", "Chasseur", "Cupidon", "Voleur"],  # 14 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Chasseur", "Cupidon", "Voleur"],  # 15 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Petite Fille", "Chasseur", "Cupidon", "Voleur"],  # 16 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Petite Fille", "Chasseur", "Cupidon", "Voleur"],  # 17 joueurs
-            ["Loup Garou", "Loup Garou", "Loup Garou", "Loup Garou", "Voyante", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Simple Villageois", "Sorcière", "Petite Fille", "Chasseur", "Cupidon", "Voleur"]  # 18 joueurs
+            ['Loup Garous','Loup Garous','Voyante','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Loup Garous','Loup Garous','Voyante','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Loup Garous','Loup Garous','Voyante','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Cupidon','Loup Garous','Loup Garous','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Cupidon','Loup Garous','Loup Garous','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Cupidon','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois'],
+            ['Voleur','Cupidon','Loup Garous','Loup Garous','Loup Garous','Sorcière','Petite Fille','Voyante','Chasseur','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois','Simple Villageois']
         ]
+
         return role_partie[self.nombre_joueur - 6]
 
     def get_joueurs(self):
@@ -72,7 +77,8 @@ class Partie():
         data = {"id_partie" : self.id_partie,
                 "nombre_joueur" : self.nombre_joueur,
                 "etat_partie" : self.etat_partie,
-                "joueurs" : [x.get_data() for x in self.joueurs]
+                "joueurs" : [x.get_data() for x in self.joueurs],
+                "action" : self.action.get_data()
                 }
 
         sauvegarde = json.dumps(data, indent=4)
@@ -89,47 +95,99 @@ class Partie():
         self.id_partie = data["id_partie"]
         self.nombre_joueur = data["nombre_joueur"]
         self.etat_partie = data["etat_partie"]
-        self.joueurs = data["joueurs"]
+        self.action.load_data(data["action"])
+
+        #Génère des joueurs et leurs donnes les bons attributs.
+        for i in range(len(data["joueurs"])):
+            self.joueurs.append(Joueur(data["joueurs"][i]["prenom"], data["joueurs"][i]["role"]))
+            self.joueurs[i].est_maire = data["joueurs"][i]["maire"]
+            self.joueurs[i].votes = data["joueurs"][i]["votes"]
+            self.joueurs[i].est_mort = data["joueurs"][i]["mort"]
+            self.joueurs[i].marie = data["joueurs"][i]["marie"]
 
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
-        for k in range(50): # reinitialise l'ecran
-            print("\n")
+        afg = Affichage()
+        self.action.demasquage_petite_fille()
+        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
 
+        # Obtention des joueurs encore en liste
+        alv_joueurs_id = [] # liste des indices des joueurs encore en vie
+        for i in range(0,self.nombre_joueur):
+            if not self.joueurs[i].get_mort():
+                alv_joueurs_id.append(i)
+
+        # Boucle pour faire jouer tous les rôles
         for role in self.get_roles():
-            for i in range(0,self.nombre_joueur):
-                joueur = self.joueurs[i]
 
-                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
+            # Boucle afin de faire jouer les rôles en fonctiton de son rôle
+            for i in range(0,self.nombre_joueur):
+                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
                 input("Presser entré :")
                 role_joueur = joueur.get_role()
-                if  role_joueur == role:
+                if  role_joueur == role and i in alv_joueurs_id:
                     if role == "Loup Garou":
-                        pass
+                        self.action.loup_garou(self.joueurs)
                     elif role == "Voyante":
-                        pass
+                        self.action.voyante(self.joueurs)
                     elif role == "Simple Villageois":
-                        pass
+                        self.action.villageois(self.joueurs)
                     elif role == "Sorcière":
-                        pass
+                        self.action.sorciere(self.joueurs)
                     elif role == "Petite Fille":
-                        pass
+                        self.action.petite_fille(self.joueurs)
                     elif role == "Chasseur":
-                        pass
+                        self.action.chasseur(self.joueurs)
                     elif role == "Cupidon":
-                        pass
-                    elif role == "Voleur":
-                        pass
+                        self.action.cupidon(self.joueurs)
+                    elif role == "Voleur" and self.premier_tour:
+                        self.action.voleur(self.joueurs)
                     else:
-                        print("Erreur")
-
-                    for k in range(50):
-                        print("\n")
+                        print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
+                        input("Presser entré :")
                 else:
-                    for k in range(50):
-                        print("\n")
                     print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
                     input("Presser entré :")
+
+        # Actualisation des joueur encore en vie
+        alv_joueurs_id = [] # liste des indices des joueurs encore en vie
+        for i in range(0,self.nombre_joueur):
+            if not self.joueurs[i].get_mort():
+                alv_joueurs_id.append(i)
+
+        # Election du premier maire
+        if self.premier_tour:
+            self.action.capitaine(self.joueurs)
+
+        # Vote du village
+        votes = [0] * self.nombre_joueur # inialise la liste des votes
+        for i in range(0,self.nombre_joueur):
+            joueur = self.joueurs[i]
+            print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
+            input("Presser entré :")
+            if i not in alv_joueurs_id:
+                print("Ohhh.. NON!! il semblerait que vous êtes mort...")
+            else:
+                print("Pour qui souhaitez vous voter :")
+                afg.liste_joueurs([str(i) + " : " + self.joueurs[i].get_prenom() for i in alv_joueurs_id],[])
+                vote = int(input("Indice du joueur [1-"+str(self.nombre_joueur)+"] : "))
+                while vote not in alv_joueurs_id:
+                    vote = int(input("Indice du joueur [1-"+str(self.nombre_joueur)+"] : "))
+                self.joueurs[vote].vote()
+                votes[vote]+=1
+                if joueur.get_maire():
+                    self.joueurs[vote].vote()
+                    votes[vote]+=1
+            mort_indice = votes.index(max(votes))
+            mort = self.joueurs[mort_indice]
+            mort.set_mort(True)
+            print(f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} à été pendu par le village... Il était ... {mort.get_role()}")
+            if (mort.get_role() == "Chasseur"):
+                 self.action.chasseur(self.joueurs)
+            if (mort.est_maire()):
+                 self.action.nouveau_maire()
+
+
 
 
     def get_id(self):
