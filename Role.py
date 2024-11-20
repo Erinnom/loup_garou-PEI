@@ -17,7 +17,7 @@ class Role():
 
         self.aff = Affichage.Affichage()
 
-    """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
+    """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables
     paramètre : moment
     """
     def sorciere(self,joueurs):
@@ -101,7 +101,7 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-    """Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour 
+    """Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour
     paramètre : moment
     """
     def voleur(self,joueurs):
@@ -149,7 +149,7 @@ class Role():
 
 
 
-    """Méthode permettant de créer le rôle villageois 
+    """Méthode permettant de créer le rôle villageois
     paramètre : moment
     """
     def villageois(self):
@@ -164,7 +164,7 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-    """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour 
+    """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour
     paramètre : moment
     """
     def voyante(self,joueurs):
@@ -443,7 +443,7 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-    """Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts 
+    """Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts
     paramètre : moment
     """
     def cupidon(self,joueurs):
@@ -490,8 +490,8 @@ class Role():
 
         self.aff.reinitialiser_screen()
 
-    """Méthode permettant de créer le rôle capitaine où il a vote double 
-    paramètre : 
+    """Méthode permettant de créer le rôle capitaine où il a vote double
+    paramètre :
     """
     def capitaine(self,joueurs):
         liste = []
