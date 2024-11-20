@@ -9,16 +9,7 @@ class Affichage:
         pass
 
 
-    """#####################################################################################################################################################
 
-                        _     __  __ _      _                      		 ___
-                       / \   / _|/ _(_) ___| |__   __ _  __ _  ___ 		|_ _|_ __ ___   __ _  __ _  ___  ___
-                      / _ \ | |_| |_| |/ __| '_ \ / _` |/ _` |/ _ \		 | || '_ ` _ \ / _` |/ _` |/ _ \/ __|
-                     / ___ \|  _|  _| | (__| | | | (_| | (_| |  __/		 | || | | | | | (_| | (_| |  __/\__ \
-                    /_/   \_\_| |_| |_|\___|_| |_|\__,_|\__, |\___|		|___|_| |_| |_|\__,_|\__, |\___||___/
-                                        |___/      		                     |___/
-
-    #####################################################################################################################################################"""
     def jour(self):
         """
         Méthode qui permettra un affichage d'un fond illustrant la journee et l'arrivee du vote
@@ -37,7 +28,7 @@ class Affichage:
         TI.print_card("./illustration/nuit.jpg", 70, 60)
         pass
 
-    def loup_garou(self, temp : bool, nom : str):
+    def loup_garou(self, temp : bool):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -49,7 +40,7 @@ class Affichage:
             TI.print_card("./illustration/griffes.jpg", 40, 40)
         pass
 
-    def sorciere(self, temp : bool, choix : bool, nom : str):
+    def sorciere(self, temp : bool):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -62,7 +53,7 @@ class Affichage:
         pass
 
 
-    def chasseur(self, temp : bool, nom : str):
+    def chasseur(self, temp : bool):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -86,7 +77,7 @@ class Affichage:
             TI.print_card("./illustration/ours.jpg", 40, 40)
         pass
 
-    def voleur(self, temp : bool, nom : str):
+    def voleur(self, temp : bool):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -98,7 +89,7 @@ class Affichage:
             TI.print_card("./illustration/pas.jpg", 40, 40)
         pass
 
-    def cupidon(self, temp : bool, nom1 : str, nom2 : str):
+    def cupidon(self, temp : bool):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom des joueurs vises
@@ -110,7 +101,7 @@ class Affichage:
             TI.print_card("./illustration/coeur.jpg", 50, 40)
         pass
 
-    def voyante(self, temp : bool, nom : str):
+    def voyante(self, temp : bool):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -131,7 +122,7 @@ class Affichage:
         TI.print_card("./illustration/Villageois.jpg", 50, 50)
         pass
 
-    def capitaine(self, nom : str):
+    def capitaine(self):
         """
         Méthode qui permettra un affichage de l'affichage de la carte
         Parameters : None
@@ -140,7 +131,7 @@ class Affichage:
         TI.print_card("./illustration/Capitaine.jpg", 50, 50)
         pass
 
-    def voter(self, nom : str):
+    def voter(self):
         """
         Méthode qui permettra un affichage de la seance de vote
         Parameters : None
@@ -158,7 +149,7 @@ class Affichage:
         TI.print_card("./illustration/lettre-ouverte.jpg", 40, 40)
         pass
 
-    def eliminer(self, nom : str):
+    def eliminer(self):
         """
         Méthode qui permettra un affichage du joueur qui a été éliminé
         Parameters : nom du joueur
@@ -185,15 +176,7 @@ class Affichage:
         os.system("clear")
         pass
 
-    """#####################################################################################################################################################
-                             _     __  __ _      _                        _____         _
-                            / \   / _|/ _(_) ___| |__   __ _  __ _  ___  |_   _|____  _| |_ ___
-                           / _ \ | |_| |_| |/ __| '_ \ / _` |/ _` |/ _ \   | |/ _ \ \/ / __/ _ \
-                          / ___ \|  _|  _| | (__| | | | (_| | (_| |  __/   | |  __/>  <| ||  __/
-                         /_/   \_\_| |_| |_|\___|_| |_|\__,_|\__, |\___|   |_|\___/_/\_\\__\___|
-                                                            |___/
 
-    #####################################################################################################################################################"""
 
 
     """

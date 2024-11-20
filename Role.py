@@ -1,10 +1,8 @@
 from random import *
 import Affichage
 
-
-
 class Role():
-    def __init__(self,joueurs):
+    def __init__(self):
 
         self.potion_vie = True
         self.potion_mort = True
@@ -13,7 +11,7 @@ class Role():
         self.mort_tour = []
         self.mort =[]
 
-        liste = joueurs
+
         self.loup = []
         self.vote_loup = []
 
@@ -23,6 +21,7 @@ class Role():
     paramètre : moment
     """
     def sorciere(self,joueurs):
+        self.aff.sorciere(True)
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -44,6 +43,7 @@ class Role():
                 reponse = input().strip().lower()
 
             if reponse == "oui":
+                self.aff.sorciere(False)
                 self.potion_vie = False
                 self.aff.phrases("Voici les morts du tour","WHITE")
                 self.aff.liste_joueurs(self.mort_tour,self.mort_tour)
@@ -63,6 +63,8 @@ class Role():
                 self.mort.remove(reponse)
 
                 self.aff.phrases("Vous avez ressuscité "+reponse,"WHITE")
+
+
 
         if self.potion_mort == True :
             self.aff.phrases("Voulez vous utiliser votre potion de mort, oui ou non","WHITE")
@@ -104,6 +106,8 @@ class Role():
     """
     def voleur(self,joueurs):
 
+        self.aff.voleur(True)
+
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -123,6 +127,7 @@ class Role():
             self.aff.phrases("Ce joueur n'existe pas , veuillez renseigner un autre nom","WHITE")
             indice = input().strip()
 
+        nouveau_role = ""
         for i in liste :
             if liste[i].get_prenom() == indice:
                 nouveau_role = liste[i].get_role()
@@ -148,11 +153,23 @@ class Role():
     paramètre : moment
     """
     def villageois(self):
-        pass
+        self.aff.villageois()
+
+        self.aff.phrases("Vous n'avez rien à faire, écrirez oui pour finir votre tour", "WHITE")
+        effacer = input().strip()
+        while effacer != "oui":
+            self.aff.phrases("Veuillez écrire oui", "WHITE")
+            effacer = input().strip()
+
+        self.aff.reinitialiser_screen()
+
+
     """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour 
     paramètre : moment
     """
     def voyante(self,joueurs):
+
+        self.aff.voyante(True)
 
         liste = []
         for joueur in joueurs:
@@ -192,6 +209,8 @@ class Role():
     paramètre : joueurs
     """
     def loup_garou(self,joueurs):
+
+        self.aff.loup_garou(True)
 
         liste = []
         for joueur in joueurs:
@@ -298,6 +317,9 @@ class Role():
     """
 
     def petite_fille(self,joueurs):
+
+        self.aff.petite_fille(True)
+
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -378,6 +400,9 @@ class Role():
     paramètre : moment
     """
     def chasseur(self,joueurs):
+
+        self.aff.chasseur(True)
+
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -422,6 +447,9 @@ class Role():
     paramètre : moment
     """
     def cupidon(self,joueurs):
+
+        self.aff.cupidon(True)
+
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -517,6 +545,9 @@ class Role():
         self.mort_tour = []
 
     def nouveau_maire(self,joueurs):
+
+        self.aff.capitaine()
+
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -571,4 +602,3 @@ class Role():
         self.mort = data["mort"]
         self.loup = data["loup"]
         self.vote_loup = data["vote_loup"]
-
