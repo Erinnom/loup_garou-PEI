@@ -174,6 +174,7 @@ class Partie():
                     #input("Presser entré :")
 
         alv_joueurs_id = []
+        votes = [0] * self.nombre_joueur
         for i in range(0,self.nombre_joueur):
             if not self.joueurs[i].get_mort():
                 alv_joueurs_id.append(i)
@@ -191,10 +192,11 @@ class Partie():
                 while vote not in alv_joueurs_id:
                     vote = int(input("Indice du joueur [1-"+str(self.nombre_joueur)+"] : "))
                 self.joueurs[vote].vote()
+                votes[vote]+=1
                 if joueur.get_maire():
                     self.joueurs[vote].vote()
+                    votes[vote]+=1
 
-        votes = [0] * self.nombre_joueur
         for i in range(0,self.nombre_joueur):
             pass
 
