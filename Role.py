@@ -1,7 +1,7 @@
 from random import *
-import LG_Affichage as affichage
-import Joueur
-import Partie
+import Affichage
+
+
 
 class Role():
     def __init__(self,joueurs):
@@ -14,76 +14,73 @@ class Role():
         self.mort =[]
 
         liste = joueurs
-        self.loup = [joueurs.get_prenom() for joueurs in liste if joueurs.get_role() == "Loup Garou"]
+        self.loup = []
         self.vote_loup = []
+
+        self.aff = Affichage.Affichage()
 
     """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
     paramètre : moment
     """
     def sorciere(self,joueurs):
-
-        total = joueurs
         liste = []
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
-        for i in range (0,len(total)):
-            if total.get_mort == False:
-                liste.append(total[i])
+        prenoms = []
+        for joueur in liste:
+            prenoms.append(joueur.get_prenom())
 
-        prenom = []
-        for i in range(0, len(liste)):
-                prenom.append(liste[i].get_prenom())
-
-        print("Liste des joueurs dans la partie : " + str(prenom))
+        self.aff.phrases("Liste des joueurs dans la partie : ","WHITE")
+        self.aff.liste_joueurs(prenoms,prenoms)
 
         if self.potion_vie == True:
-            print("Voulez vous utiliser votre potion de vie, oui ou non")
-            reponse = input()
+            self.aff.phrases("Voulez vous utiliser votre potion de vie, oui ou non","WHITE")
+            reponse = input().strip().lower()
 
-            while reponse == "oui" or reponse == "non":
-                print("Réponse non accepté")
-                reponse = input()
+            while reponse not in ["oui", "non"]:
+                self.aff.phrases("Réponse non accepté","WHITE")
+                reponse = input().strip().lower()
 
             if reponse == "oui":
                 self.potion_vie = False
-                print("Voici les morts du tour" + str(self.mort_tour))
+                self.aff.phrases("Voici les morts du tour","WHITE")
+                self.aff.liste_joueurs(self.mort_tour,self.mort_tour)
 
-                print("Qui voulez vous ressusciter ?")
-                reponse = input()
+                self.aff.phrases("Qui voulez vous ressusciter ?","WHITE")
+                reponse = input().strip()
                 while reponse not in self.mort_tour :
-                    print("Ce joueur n'existe pas , veuillez renseigner un autre nom")
-                    reponse = input()
+                    self.aff.phrases("Ce joueur n'existe pas , veuillez renseigner un autre nom","WHITE")
+                    reponse = input().strip()
 
                 for i in range(0, len(liste)):
                     if reponse == liste[i].get_prenom():
                         liste[i].get_mort(False)
 
-                for i in range (0, len(self.mort_tour)):
-                    if reponse == self.mort_tour[i]:
-                        self.mort_tour.pop(i)
 
-                for i in range (0, len(self.mort)):
-                    if reponse == self.mort[i]:
-                        self.mort.pop(i)
+                self.mort_tour.remove(reponse)
+                self.mort.remove(reponse)
 
-                print("Vous avez ressuscité "+reponse)
+                self.aff.phrases("Vous avez ressuscité "+reponse,"WHITE")
 
-        elif self.potion_mort == True :
-            print("Voulez vous utiliser votre potion de mort, oui ou non")
-            reponse = input()
+        if self.potion_mort == True :
+            self.aff.phrases("Voulez vous utiliser votre potion de mort, oui ou non","WHITE")
+            reponse = input().strip().lower()
 
-            while reponse == "oui" or reponse == "non":
-                print("Réponse non accepté")
-                reponse = input()
+            while reponse not in ["oui", "non"]:
+                self.aff.phrases("Réponse non accepté","WHITE")
+                reponse = input().strip().lower()
 
 
             if reponse == "oui":
                 self.potion_mort = False
 
-                print("Qui voulez vous tuez ?")
-                reponse = input()
-                while reponse not in self.mort_tour:
-                    print("Ce joueur n'existe pas , veuillez renseigner un autre nom")
-                    reponse = input()
+                self.aff.phrases("Qui voulez vous tuez ?","WHITE")
+                reponse = input().strip()
+                while reponse not in prenoms:
+                    self.aff.phrases("Ce joueur n'existe pas , veuillez renseigner un autre nom","WHITE")
+                    reponse = input().strip()
 
                 for i in range(0, len(liste)):
                     if reponse == liste[i].get_prenom():
@@ -91,9 +88,15 @@ class Role():
                         self.mort.append(liste[i].get_prenom())
                         self.mort_tour.append(liste[i].get_prenom())
 
-                print("Vous avez tué " + reponse)
+                self.aff.phrases("Vous avez tué " + reponse,"WHITE")
 
+        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
+        effacer = input().strip()
+        while effacer != "oui":
+            self.aff.phrases("Veuillez écrire oui", "WHITE")
+            effacer = input().strip()
 
+        self.aff.reinitialiser_screen()
 
 
     """Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour 
@@ -101,25 +104,24 @@ class Role():
     """
     def voleur(self,joueurs):
 
-        total = joueurs
         liste = []
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
-        for i in range(0, len(total)):
-            if total.get_mort == False:
-                liste.append(total[i])
+        prenoms = []
+        for joueur in liste:
+            prenoms.append(joueur.get_prenom())
 
-        prenom = []
-        for i in range(0, len(liste)):
-            prenom.append(liste[i].get_prenom())
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, prenoms)
 
-        print("Liste des joueurs dans la partie : " + str(prenom))
+        self.aff.phrases("Entrée le nom du joueur dont vous voulez voler le rôle ","WHITE")
+        indice = input().strip()
 
-        print("Entrée le nom du joueur dont vous voulez voler le rôle ")
-        indice = input()
-
-        while indice not in liste:
-            print("Ce joueur n'existe pas , veuillez renseigner un autre nom")
-            indice = input()
+        while indice not in prenoms:
+            self.aff.phrases("Ce joueur n'existe pas , veuillez renseigner un autre nom","WHITE")
+            indice = input().strip()
 
         for i in liste :
             if liste[i].get_prenom() == indice:
@@ -129,7 +131,15 @@ class Role():
         for i in liste:
             if liste[i].get_role() == "Voleur":
                 liste[i].set_role(nouveau_role)
-                print("Votre nouveau rôle est "+liste[i].get_role())
+                self.aff.phrases("Votre nouveau rôle est "+liste[i].get_role(),"WHITE")
+
+        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
+        effacer = input().strip()
+        while effacer != "oui":
+            self.aff.phrases("Veuillez écrire oui", "WHITE")
+            effacer = input().strip()
+
+        self.aff.reinitialiser_screen()
 
 
 
@@ -144,59 +154,69 @@ class Role():
     """
     def voyante(self,joueurs):
 
-        total = joueurs
         liste = []
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
-        for i in range(0, len(total)):
-            if total.get_mort == False:
-                liste.append(total[i])
+        prenoms = []
+        for joueur in liste:
+            prenoms.append(joueur.get_prenom())
 
-        prenom = []
-        for i in range(0, len(liste)):
-            prenom.append(liste[i].get_prenom())
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, prenoms)
 
-            print("Liste des joueurs dans la partie : " + str(prenom))
+        self.aff.phrases("Entrée le nom du joueur dont vous voulez voir le rôle ","WHITE")
+        reponse = input().strip()
 
-            print("Entrée le nom du joueur dont vous voulez voir le rôle ")
-            reponse = input()
+        while reponse not in prenoms :
+            self.aff.phrases("Ce joueur n'existe pas , veuillez renseigner un autre nom","WHITE")
+            reponse = input().strip()
 
-            while reponse not in liste :
-                print("Ce joueur n'existe pas , veuillez renseigner un autre nom")
-                reponse = input()
+        for i in liste :
+            if liste[i].get_prenom() == reponse:
+                resultat = liste[i].get_role()
+                self.aff.phrases("Le rôle de ce joueur est "+ resultat,"WHITE")
 
-            for i in liste :
-                if liste[i].get_joueur() == reponse:
-                    resultat = liste[i].get_role()
-                    print("Le rôle de ce joueur est "+ resultat)
+        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
+        effacer = input().strip()
+        while effacer != "oui":
+            self.aff.phrases("Veuillez écrire oui", "WHITE")
+            effacer = input().strip()
+
+        self.aff.reinitialiser_screen()
 
 
 
     """Méthode permettant de créer le rôle loup_garou où il votent la nuit
-    paramètre : moment
+    paramètre : joueurs
     """
     def loup_garou(self,joueurs):
 
-        total = joueurs
         liste = []
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
-        for i in range(0, len(total)):
-            if total.get_mort == False:
-                liste.append(total[i])
+        prenoms = []
+        for joueur in liste:
+            prenoms.append(joueur.get_prenom())
 
-        prenom = []
-        for i in range(0, len(liste)):
-            prenom.append(liste[i].get_prenom())
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, prenoms)
 
-        print("Liste des joueurs dans la partie : " + str(prenom))
+        self.loup = [joueurs.get_prenom() for joueurs in liste if joueurs.get_role() == "Loup Garou"]
 
-        print("Vote des autres loups"+ str(self.vote_loup))
+        self.aff.phrases("Vote des autres loups :", "WHITE")
+        self.aff.liste_joueurs(self.vote_loup, self.vote_loup)
 
         nombre_loup = len(self.loup)
-        print("Pour qui veux tu voter")
-        reponse = input()
-        while reponse not in liste:
-            print("Nom pas présent dans la liste, recommencer")
-            reponse = input()
+        self.aff.phrases("Pour qui veux tu voter","WHITE")
+        reponse = input().strip()
+        while reponse not in prenoms:
+            self.aff.phrases("Nom pas présent dans la liste, recommencez","WHITE")
+            reponse = input().strip()
+
         if nombre_loup > 1:
             self.vote_loup.append(reponse)
             self.loup.pop(0)
@@ -222,16 +242,22 @@ class Role():
                     if liste[i].get_marie() == True:
                         liste[indice].set_mort(True)
 
-        for i in range(0, len(liste)):
-            liste[i].reset_vote()
+            for i in range(0, len(liste)):
+                liste[i].reset_vote()
+
+        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
+        effacer = input().strip()
+        while effacer != "oui":
+            self.aff.phrases("Veuillez écrire oui", "WHITE")
+            effacer = input().strip()
+
+        self.aff.reinitialiser_screen()
 
     def demasquage_petite_fille(self,joueurs):
-        total = joueurs
         liste = []
-
-        for i in range(0, len(total)):
-            if total.get_mort == False:
-                liste.append(total[i])
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
         # Créer une liste avec la petite fille
         fille = ""
@@ -272,99 +298,103 @@ class Role():
     """
 
     def petite_fille(self,joueurs):
-            total = joueurs
-            liste = []
+        liste = []
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
-            for i in range(0, len(total)):
-                if total.get_mort == False:
-                    liste.append(total[i])
+        prenoms = []
+        for joueur in liste:
+            prenoms.append(joueur.get_prenom())
 
-            prenom = []
-            for i in range(0, len(liste)):
-                prenom.append(liste[i].get_prenom())
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, prenoms)
 
-            # Affichage des noms des joueurs
-            print("Liste des joueurs dans la partie : " + str(prenom) )
+        # Créer une liste des noms des Loups
+        loups = []
+        for joueur in liste:
+            if joueur.get_role() == "Loup Garou":
+                loups.append(joueur.get_joueur().lower())
 
-            # Créer une liste des noms des Loups
-            loups = []
-            for joueur in liste:
-                if joueur.get_role() == "Loup Garou":
-                    loups.append(joueur.get_joueur().lower())
+        # fréquence de chaque lettre
+        lettre_freq = {}
+        for joueur in liste:
+            nom_joueur = joueur.get_joueur().lower()
+            for lettre in nom_joueur:
+                lettre_freq[lettre] = lettre_freq.get(lettre, 0) + 1
 
-            # fréquence de chaque lettre
-            lettre_freq = {}
-            for joueur in liste:
-                nom_joueur = joueur.get_joueur().lower()
-                for lettre in nom_joueur:
-                    lettre_freq[lettre] = lettre_freq.get(lettre, 0) + 1
+        # liste noms des Loups sans lettres uniques
+        loups_filtre = []
+        for loup in loups:
+            loup_filtre = ""
+            for lettre in loup:
+                if lettre_freq[lettre] > 1:
+                    loup_filtre += lettre
+                    loups_filtre.append(loup_filtre)
 
-            # liste noms des Loups sans lettres uniques
-            loups_filtre = []
-            for loup in loups:
-                loup_filtre = ""
-                for lettre in loup:
-                    if lettre_freq[lettre] > 1:
-                        loup_filtre += lettre
-                loups_filtre.append(loup_filtre)
+        # Initialiser self.lettre_loup_garou
+        if not self.lettre_loup_garou:
+            self.lettre_loup_garou = [[] for i in loups]
 
-            # Initialiser self.lettre_loup_garou
-            if not self.lettre_loup_garou:
-                self.lettre_loup_garou = [[] for i in loups]
+        # Sélectionner aléatoirement environ la moitié des Loups
+        nombre_loups_a_afficher = len(loups) // 2
+        indices_choisis = set()
+        while len(indices_choisis) < nombre_loups_a_afficher:
+            indices_choisis.add(randint(0, len(loups) - 1))
 
-            # Sélectionner aléatoirement environ la moitié des Loups
-            nombre_loups_a_afficher = len(loups) // 2
-            indices_choisis = set()
-            while len(indices_choisis) < nombre_loups_a_afficher:
-                indices_choisis.add(randint(0, len(loups) - 1))
+        #  une lettre aléatoire pour chaque Loup sélectionné
+        for i in indices_choisis:
+            lettres_dispo = []
+            for lettre in loups_filtre[i]:
+                if lettre not in self.lettre_loup_garou[i]:
+                    lettres_dispo.append(lettre)
 
-            #  une lettre aléatoire pour chaque Loup sélectionné
-            for i in indices_choisis:
-                lettres_dispo = []
-                for lettre in loups_filtre[i]:
-                    if lettre not in self.lettre_loup_garou[i]:
-                        lettres_dispo.append(lettre)
+            max_lettres = len(loups[i]) // 2
 
-                max_lettres = len(loups[i]) // 2
+            if lettres_dispo and len(self.lettre_loup_garou[i]) < max_lettres:
+                lettre = lettres_dispo[randint(0, len(lettres_dispo) - 1)]
+                self.lettre_loup_garou[i].append(lettre)
 
-                if lettres_dispo and len(self.lettre_loup_garou[i]) < max_lettres:
-                    lettre = lettres_dispo[randint(0, len(lettres_dispo) - 1)]
-                    self.lettre_loup_garou[i].append(lettre)
+        autre = shuffle(liste)
+        print(autre)
+        # Affichage des lettres
+        i = 0
+        for lettres in self.lettre_loup_garou:
+            if lettres:
+                self.aff.phrases(f"Lettres pour le loup-garou '[i]': {', '.join(lettres)}","WHITE")
+            else:
+                self.aff.phrases("Aucune lettre retournée pour le loup-garou '[i]'","WHITE")
+            i += 1
 
-            shuffle(liste)
-            print(liste)
-            # Affichage des lettres
-            i = 0
-            for lettres in self.lettre_loup_garou:
-                if lettres:
-                    print(f"Lettres pour le loup-garou '[i]': {', '.join(lettres)}")
-                else:
-                    print(f"Aucune lettre retournée pour le loup-garou '[i]'")
-                i += 1
+        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
+        effacer = input().strip()
+        while effacer != "oui":
+            self.aff.phrases("Veuillez écrire oui", "WHITE")
+            effacer = input().strip()
+
+        self.aff.reinitialiser_screen()
 
     """Méthode permettant de créer le rôle chasseur où quand il meurt il tue une personne qu'il choisit
     paramètre : moment
     """
     def chasseur(self,joueurs):
-        total = joueurs
         liste = []
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
-        for i in range(0, len(total)):
-            if total.get_mort == False:
-                liste.append(total[i])
+        prenoms = []
+        for joueur in liste:
+            prenoms.append(joueur.get_prenom())
 
-        prenom = []
-        for i in range(0, len(liste)):
-            prenom.append(liste[i].get_prenom())
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, prenoms)
 
-        for i in range (0, len(liste)):
-            if liste[i].get_role() == "Chasseur" and liste[i]:
-                print("Voici la liste des noms de tous les joueurs :" + str(prenom))
-                print("Qui voulez vous tuer")
-                reponse = input()
-                while reponse not in liste :
-                    print("Nom pas présent dans la liste, recommencer")
-                    reponse = input()
+        self.aff.phrases("Qui voulez vous tuer","WHITE")
+        reponse = input().strip()
+        while reponse not in prenoms :
+            self.aff.phrases("Nom pas présent dans la liste, recommencez","WHITE")
+            reponse = input().strip()
 
         for i in range(0,len(liste)):
             if liste[i].get_prenom == reponse:
@@ -379,34 +409,41 @@ class Role():
                         self.mort.append(liste[i].get_prenom())
                         self.mort_tour.append(liste[i].get_prenom())
 
+        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
+        effacer = input().strip()
+        while effacer != "oui":
+            self.aff.phrases("Veuillez écrire oui", "WHITE")
+            effacer = input().strip()
+
+        self.aff.reinitialiser_screen()
+
 
     """Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts 
     paramètre : moment
     """
     def cupidon(self,joueurs):
-        total = joueurs
         liste = []
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
-        for i in range(0, len(total)):
-            if total.get_mort == False:
-                liste.append(total[i])
+        prenoms = []
+        for joueur in liste:
+            prenoms.append(joueur.get_prenom())
 
-        prenom = []
-        for i in range(0, len(liste)):
-            prenom.append(liste[i].get_prenom())
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, prenoms)
 
-        print("Voici la liste des noms de tous les joueurs :" + str(prenom))
-
-        print("Quel est la première personne du couple ?")
+        self.aff.phrases("Quel est la première personne du couple ?","WHITE")
         couple1 = input()
         while couple1 not in liste:
-            print("Nom pas présent dans la liste, recommencer")
+            self.aff.phrases("Nom pas présent dans la liste, recommencer","WHITE")
             couple1 = input()
 
-        print("Quel est la deuxième personne du couple ?")
+        self.aff.phrases("Quel est la deuxième personne du couple ?","WHITE")
         couple2 = input()
         while couple2 not in liste or couple1 == couple2:
-            print("Nom pas présent dans la liste, recommencer")
+            self.aff.phrases("Nom pas présent dans la liste, recommencer","WHITE")
             couple2 = input()
 
         for i in range (0, len(liste)):
@@ -417,25 +454,29 @@ class Role():
             if liste[i].get_prenom() == couple2 :
                 liste[i].set_marie(True)
 
+        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
+        effacer = input().strip()
+        while effacer != "oui":
+            self.aff.phrases("Veuillez écrire oui", "WHITE")
+            effacer = input().strip()
+
+        self.aff.reinitialiser_screen()
+
     """Méthode permettant de créer le rôle capitaine où il a vote double 
     paramètre : 
     """
     def capitaine(self,joueurs):
-        total = joueurs
         liste = []
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
-        for i in range(0, len(total)):
-            if total.get_mort == False:
-                liste.append(total[i])
+        prenoms = []
+        for joueur in liste:
+            prenoms.append(joueur.get_prenom())
 
-        prenom = []
-        for i in range(0, len(liste)):
-            prenom.append(liste[i].get_prenom())
-
-        for i in range(0, len(liste)):
-            if liste[i].get_mort() == True:
-                liste[i].pop()
-        print("Voici la liste des noms de tous les joueurs :" + str(prenom))
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, prenoms)
 
         for i in range(0, len(liste)):
             print("Avez vous déja voté oui/non ")
@@ -469,70 +510,43 @@ class Role():
         for i in range(0, len(liste)):
             liste[i].reset_vote()
 
-    def vote(self,joueurs):
-        total = joueurs
-        liste = []
 
-        for i in range(0, len(total)):
-            if total.get_mort == False:
-                liste.append(total[i])
-
-        prenom = []
-        for i in range(0, len(liste)):
-            prenom.append(liste[i].get_prenom())
-
-        for i in range (0,len(liste)):
-            if liste[i].get_mort() == True :
-                liste[i].pop()
-        print("Voici la liste des noms de tous les joueurs :" + str(prenom))
-
-        for i in range (0, len(liste)):
-            print("Avez vous déja voté oui/non ")
-            reponse = input()
-            while reponse != "non" :
-                print("Ce n'est pas à vous de voter, passez la tablette à votre voisin")
-                # clear screen
-                print("Avez vous déja voté oui/non ")
-                reponse = input()
-
-            print("Pour qui voulez vous voter ?")
-            reponse = input()
-            while reponse not in liste:
-                print("Nom pas présent dans la liste, recommencer")
-                reponse = input()
-
-            for i in range (0, len(liste)):
-                if liste[i].get_prenom() == reponse :
-                    liste[i].vote()
-            print("Vous avez voté ")
-            #clear screen
-        max = 0
-        indice = 0
-        for i in range (0, len(liste)):
-            if max < liste[i].get_vote() :
-                max = liste[i].get_vote()
-                indice = i
-
-        liste[indice].set_mort(True)
-        self.mort.append(liste[indice].get_prenom())
-        self.mort_tour.append(liste[indice].get_prenom())
-
-        if liste[indice].get_marier() == True:
-            for i in range (0, len(liste)):
-                if liste[i].get_marie() == True:
-                    liste[i].set_mort(True)
-                    self.mort.append(liste[i].get_prenom())
-                    self.mort_tour.append(liste[i].get_prenom())
-
-        for i in range(0, len(liste)):
-            liste[i].reset_vote()
-
-        self.loup = [joueur.get_prenom() for joueur in liste if joueur.get_role() == "Loup Garou"]
-
-    def afficher_mort(self):
-        print("Les morts de ce tour sont : " + str(self.mort_tour))
-        print("Les morts de la partie sont : " + str(self.mort))
+    def afficher_mort_tour(self,joueurs):
+        self.aff.phrases("Les morts de ce tour sont : ","WHITE")
+        self.aff.liste_joueurs(self.mort_tour, self.mort_tour)
         self.mort_tour = []
+
+    def nouveau_maire(self,joueurs):
+        liste = []
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
+
+        prenoms = []
+        for joueur in liste:
+            prenoms.append(joueur.get_prenom())
+
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, prenoms)
+
+        self.aff.phrases("Qui voulez vous choisir comme nouveau maire", "WHITE")
+        reponse = input().strip()
+        while reponse not in prenoms:
+            self.aff.phrases("Nom pas présent dans la liste, recommencez", "WHITE")
+            reponse = input().strip()
+
+        for i in range (0, len(liste)):
+
+            if liste[i].get_prenom() == reponse :
+                liste[i].set_maire(True)
+
+        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
+        effacer = input().strip()
+        while effacer != "oui":
+            self.aff.phrases("Veuillez écrire oui", "WHITE")
+            effacer = input().strip()
+
+        self.aff.reinitialiser_screen()
 
     def get_data(self):
         res = {
@@ -558,5 +572,3 @@ class Role():
         self.loup = data["loup"]
         self.vote_loup = data["vote_loup"]
 
-    def nouveau_maire(self):
-        pass
