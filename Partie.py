@@ -124,6 +124,7 @@ class Partie():
             for i in range(0,self.nombre_joueur):
                 print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
                 input("Presser entré :")
+                joueur = self.joueurs[i]
                 role_joueur = joueur.get_role()
                 if  role_joueur == role and i in alv_joueurs_id:
                     if role == "Loup Garou":
