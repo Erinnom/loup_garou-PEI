@@ -1,5 +1,5 @@
 from random import randint
-from Affichage import *
+from Affichage import Affichage
 from Joueur import Joueur
 from Role import Role
 import json
@@ -105,21 +105,33 @@ class Partie():
             self.joueurs[i].est_mort = data["joueurs"][i]["mort"]
             self.joueurs[i].marie = data["joueurs"][i]["marie"]
 
-    def tour(self):
-        """Méthode qui effectue tout un tour de jeu"""
-        afg = Affichage()
-        self.action.demasquage_petite_fille(self.joueurs)
-        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
-
-        # Obtention des joueurs encore en liste
+    def get_joueur_en_vie(self):
+        """
+        Objectif : Retourner une liste d'id des joueurs encore en jeux
+        Entrée : aucune
+        Sortie : liste d'entier entre 0 et nombre de joueurs
+        """
         alv_joueurs_id = [] # liste des indices des joueurs encore en vie
         for i in range(0,self.nombre_joueur):
             if not self.joueurs[i].get_mort():
                 alv_joueurs_id.append(i)
+        return alv_joueurs_id
+
+    def tour_nuit(self):
+        """
+        Objectif : faire un tour durant la nuit
+        Entrée : Aucune
+        Sortie : Aucune
+        """
+        self.action.demasquage_petite_fille(self.joueurs)
+        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+
+
+        # Obtention des joueurs encore en liste
+        alv_joueurs_id = self.get_joueur_en_vie() # liste des indices des joueurs encore en vie
 
         # Boucle pour faire jouer tous les rôles
         for role in self.get_roles():
-
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
@@ -145,22 +157,16 @@ class Partie():
                     elif role == "Voleur" and self.premier_tour:
                         self.action.voleur(self.joueurs)
                     else:
-                        print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
+                        print(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                         input("Presser entré :")
                 else:
-                    print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
+                    print(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                     input("Presser entré :")
 
+    def tour_jour(self):
         # Actualisation des joueur encore en vie
-        alv_joueurs_id = [] # liste des indices des joueurs encore en vie
-        for i in range(0,self.nombre_joueur):
-            if not self.joueurs[i].get_mort():
-                alv_joueurs_id.append(i)
-
-        # Election du premier maire
-        if self.premier_tour:
-            self.action.capitaine(self.joueurs)
-
+        alv_joueurs_id = self.get_joueur_en_vie() # liste des indices des joueurs encore en vie
+        afg = Affichage()
         # Vote du village
         votes = [0] * self.nombre_joueur # inialise la liste des votes
         for i in range(0,self.nombre_joueur):
@@ -189,6 +195,20 @@ class Partie():
             if (mort.est_maire()):
                 self.action.nouveau_maire(self.joueurs)
                 self.premier_tour = False
+
+            # reset vote
+            for i in alv_joueurs_id:
+                self.joueurs[i].reset_vote()
+
+    def tour(self):
+        """Méthode qui effectue tout un tour de jeu"""
+        self.tour_nuit() # tour de nuit
+
+        # Election du premier maire
+        if self.premier_tour:
+            self.action.capitaine(self.joueurs)
+
+        self.tour_jour() # tour de jour
 
 
     def fin_de_partie(self):
