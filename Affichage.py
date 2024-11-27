@@ -1,6 +1,6 @@
 import Traitement_Image as TI
 import os as os
-
+from pyfiglet import Figlet
 
 
 
@@ -315,27 +315,18 @@ class Affichage:
     Return : None
     """
     def menu_principal(self):
-        LG = [
-        "     _                                 ____                       ",
-        "    | |    ___  _   _ _ __            / ___| __ _ _ __ ___  _   _ ",
-        "    | |   / _ \| | | | '_ \   _____  | |  _ / _` | '__/ _ \| | | |",
-        "    | |__| (_) | |_| | |_) | |_____| | |_| | (_| | | | (_) | |_| |",
-        "    |_____\___/ \__,_| .__/           \____|\__,_|_|  \___/ \__,_|",
-        "                     |_|                                          ",
-        ]
-        for ligne in LG:
-            print(f"\t\t\t{ligne}")
+        self.afficher_texte('Loup - Garou', 'big')
         print(f"\n \t\t\t\t\t🄼 🄰 🄳 🄴  🄱 🅈  🄼 🄴 🄰 🄼  🅃 🄴 🄰 🄼\n")
         options = [
             "ℂ𝕣𝕖́𝕖𝕣 𝕦𝕟𝕖 𝕡𝕒𝕣𝕥𝕚𝕖 - 𝟙",
-            "ℂ𝕙𝕒𝕣𝕘𝕖𝕣 𝕦𝕟𝕖 𝕡𝕒𝕣𝕥𝕚𝕖 - 𝟚", 
+            "ℂ𝕙𝕒𝕣𝕘𝕖𝕣 𝕦𝕟𝕖 𝕡𝕒𝕣𝕥𝕚𝕖 - 𝟚",
             "ℚ𝕦𝕚𝕥𝕥𝕖𝕣 𝕝𝕖 𝕛𝕖𝕦 - 𝟛"
 
         ]
         for o in options:
             print()
             print("\t\t\t\t\t", o)
-        
+
         print("\n\n")
         return
 
@@ -345,20 +336,15 @@ class Affichage:
     Return : None
     """
     def menu_partie(self):
-        LG = [
-            " ____   _    ____ _____ ___ _____ ", 
-            "|  _ \ / \  |  _ \_   _|_ _| ____|",
-            "| |_) / _ \ | |_) || |  | ||  _|  ",
-            "|  __/ ___ \|  _ < | |  | || |___ ",
-            "|_| /_/   \_\_| \_\|_| |___|_____|",
-        ]
-        for ligne in LG:
-            print(f"\t\t\t\t\t{ligne}")
-        print("\n\n")
-        print("\t\t\t\t\t𝕍𝕖𝕦𝕚𝕝𝕝𝕖𝕫 𝕖𝕟𝕥𝕣𝕖𝕣 𝕝𝕖 𝕟𝕠𝕞 𝕕𝕖 𝕝𝕒 𝕡𝕒𝕣𝕥𝕚𝕖  :")
-        
-        print("\n\n")
+        pass
         return
+
+
+    def afficher_texte(self, texte : str, font_t = 'big'):
+        f = Figlet(font=font_t)
+        print(f.renderText(texte))
+
+
 
 objet = Affichage()
 objet.menu_principal()

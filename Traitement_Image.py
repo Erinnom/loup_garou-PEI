@@ -1,5 +1,4 @@
 from PIL import Image
-import os as os
 
 def analyse(chemin_fichier : str, heigth, width):
     pixels = []
