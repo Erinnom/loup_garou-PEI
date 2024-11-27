@@ -241,7 +241,7 @@ class Partie():
         """
         Fonction qui permet de tester si la partie est finis ou non
         """
-        nb_loup = sum(1 for i in self.joueurs if i.getrole() == "Loup Garous")
+        nb_loup = sum(1 for i in self.joueurs if i.get_role() == "Loup Garous")
         nb_joueurs = len(self.joueurs)
 
         #Victoire des mariées
