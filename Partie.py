@@ -137,10 +137,10 @@ class Partie():
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
-                afg.afficher_texte(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
-                #print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+                afg.afficher_texte(f"Passer l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+                #print(f"Passer l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
 
-                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+                print(f"Passer l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
 
                 input("Presser entré :")
 
