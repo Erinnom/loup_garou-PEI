@@ -14,19 +14,9 @@ from Partie import *
 from Affichage import *
 
 
-
 # Déclatation de Variables
 partie_actuelle = Partie()
 screen_display = Affichage()
-
-
-# Déclaration de Fonctions
-
-
-
-# Déclaration de Classes
-
-
 
 
 # Programme Principal
@@ -34,10 +24,10 @@ screen_display = Affichage()
 Programme principal qui fait se dérouler la partie correctement
 """
 
-screen_display.debut_partie()
-choix = input(screen_display.choix_debut_partie())
-while choix not in [1,2,3]:
-    choix = input(screen_display.choix_debut_partie())
+screen_display.menu_principal()
+choix = input()
+while int(choix) not in [1,2,3]:
+    choix = input()
 
 #choix n°1 création d'une nouvelle partie
 if choix == 1:
@@ -45,13 +35,15 @@ if choix == 1:
 
 #choix n°2 charge une partie grâce à son nom de fichier (extension non nécessaire)
 if choix == 2:
-    partie_actuelle.charger(screen_display.selection_fichier())
+    screen_display.selection_fichier()
+    partie_actuelle.charger(input())
 
 #choix n°3 permet la sortie du programme
 if choix == 3:
     raise SystemExit(0)
-
+"""
 while partie_actuelle.tour() == 0:
     partie_actuelle.tour()
 
 if partie_actuelle.tour() == 1:
+    pass"""

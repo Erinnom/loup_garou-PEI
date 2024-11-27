@@ -345,7 +345,7 @@ class Affichage:
         print(f.renderText(texte))
 
 
-
-objet = Affichage()
-objet.menu_principal()
-objet.menu_partie()
+if __name__ == "__main__":
+    objet = Affichage()
+    objet.menu_principal()
+    objet.menu_partie()

@@ -265,4 +265,5 @@ class Partie():
         return res
 
 if __name__ == "__main__":
-    pass
+    test = Partie()
+    test.creer()
