@@ -140,6 +140,8 @@ class Partie():
                 afg.afficher_texte(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
                 #print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
 
+                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+
                 input("Presser entré :")
 
                 role_joueur = joueur.get_role()

@@ -308,9 +308,6 @@ class Affichage:
         else :
             print(f"{COLORS[DEFAUT]}{text}{RESET}")
         return
-<<<<<<< HEAD
-=======
-
     """
     Méthode qui permettra d'afficher le menu d'acceuil du jeu
     Parameters : None
@@ -345,13 +342,8 @@ class Affichage:
     def afficher_texte(self, texte : str, font_t = 'big'):
         f = Figlet(font=font_t)
         print(f.renderText(texte))
->>>>>>> Partie
-
-
 
 objet = Affichage()
-<<<<<<< HEAD
-=======
+
 objet.menu_principal()
 objet.menu_partie()
->>>>>>> Partie
