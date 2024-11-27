@@ -123,8 +123,10 @@ class Partie():
         Entrée : Aucune
         Sortie : Aucune
         """
+        afg = Affichage()
         self.action.demasquage_petite_fille(self.joueurs)
-        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+        afg.afficher_texte("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+        #print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
 
 
         # Obtention des joueurs encore en liste
@@ -135,7 +137,9 @@ class Partie():
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
-                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+                afg.afficher_texte(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+                #print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+
                 input("Presser entré :")
 
                 role_joueur = joueur.get_role()
@@ -160,7 +164,8 @@ class Partie():
                         print(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                         input("Presser entré :")
                 else:
-                    print(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
+                    afg.afficher_texte(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
+                    #print(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                     input("Presser entré :")
 
     def tour_jour(self):
@@ -171,12 +176,17 @@ class Partie():
         votes = [0] * self.nombre_joueur # inialise la liste des votes
         for i in range(0,self.nombre_joueur):
             joueur = self.joueurs[i]
-            print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
+            afg.afficher_texte(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+            #print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+
             input("Presser entré :")
+
             if i not in alv_joueurs_id:
-                print("Ohhh.. NON!! il semblerait que vous êtes mort...")
+                afg.afficher_texte("Ohhh.. NON!! il semblerait que vous êtes mort...")
+                #print("Ohhh.. NON!! il semblerait que vous êtes mort...")
             else:
-                print("Pour qui souhaitez vous voter :")
+                #print("Pour qui souhaitez vous voter :")
+                afg.afficher_texte("Pour qui souhaitez vous voter :")
                 afg.liste_joueurs([str(i) + " : " + self.joueurs[i].get_prenom() for i in alv_joueurs_id],[])
                 vote = int(input("Indice du joueur [1-"+str(self.nombre_joueur)+"] : "))
                 while vote not in alv_joueurs_id:
@@ -189,7 +199,9 @@ class Partie():
             mort_indice = votes.index(max(votes))
             mort = self.joueurs[mort_indice]
             mort.set_mort(True)
-            print(f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} à été pendu par le village... Il était ... {mort.get_role()}")
+
+            afg.afficher_texte(f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} à été pendu par le village... Il était ... {mort.get_role()}")
+            #print(f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} à été pendu par le village... Il était ... {mort.get_role()}")
             if (mort.get_role() == "Chasseur"):
                  self.action.chasseur(self.joueurs)
             if (mort.est_maire()):
