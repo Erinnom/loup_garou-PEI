@@ -140,8 +140,6 @@ class Partie():
                 afg.afficher_texte(f"Passer l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
                 #print(f"Passer l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
 
-                print(f"Passer l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
-
                 input("Presser entré :")
 
                 role_joueur = joueur.get_role()
@@ -267,4 +265,5 @@ class Partie():
         return res
 
 if __name__ == "__main__":
-    pass
+    test = Partie()
+    test.creer()
