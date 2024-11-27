@@ -32,6 +32,16 @@ while choix not in [1,2,3]:
 #choix n°1 création d'une nouvelle partie
 if choix == 1:
     partie_actuelle.creer()
+    while  partie_actuelle.fin_de_partie() == -1:
+        partie_actuelle.tour()
+    if partie_actuelle.fin_de_partie() == 2:
+        pass
+    elif partie_actuelle.fin_de_partie() == 1:
+        pass
+    elif partie_actuelle.fin_de_partie() == 0:
+        pass
+    else:
+        print("une erreur s'est produite")
 
 #choix n°2 charge une partie grâce à son nom de fichier (extension non nécessaire)
 if choix == 2:

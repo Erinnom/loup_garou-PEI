@@ -241,6 +241,7 @@ class Partie():
         #Victoire des loups
         elif nb_loup >= nb_joueurs - nb_loup:
             return 0
+        return -1
 
 
     def get_id(self):
