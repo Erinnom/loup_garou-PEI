@@ -241,7 +241,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         couple = ""
-        if joueur_actuel.get_mairie() == True:
+        if joueur_actuel.get_marie() == True:
             for i in range(len(liste)):
                 if liste[i].get_marie() == True and liste[i] != joueur_actuel.get_prenom():
                     couple += liste[i].get_prenom()
@@ -250,20 +250,19 @@ class Role():
         if joueur_actuel.get_maire() == True:
             self.aff.phrases("Vous êtes maire", "WHITE")
 
-        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
-
         self.loup = [joueurs.get_prenom() for joueurs in liste if joueurs.get_role() == "Loup Garou"]
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, self.loup)
 
         self.aff.phrases("Vote des autres loups :", "WHITE")
-        self.aff.liste_joueurs(self.vote_loup, self.vote_loup)
+        self.aff.liste_joueurs(self.vote_loup, self.loup)
 
         nombre_loup = len(self.loup)
         self.aff.phrases("Pour qui veux tu voter","WHITE")
-        reponse = input().strip()
+        reponse = input(":")#.strip()
         while reponse not in prenoms:
             self.aff.phrases("Nom pas présent dans la liste, recommencez","WHITE")
-            reponse = input().strip()
+            reponse = input(":")#.strip()
 
         if nombre_loup > 1:
             self.vote_loup.append(reponse)
