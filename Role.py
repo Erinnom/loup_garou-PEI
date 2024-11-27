@@ -10,11 +10,8 @@ class Role():
         self.lettre_petite_fille = []
         self.mort_tour = []
         self.mort =[]
-
-
         self.loup = []
         self.vote_loup = []
-
         self.aff = Affichage.Affichage()
 
     """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
@@ -651,7 +648,7 @@ class Role():
     def load_data(self, data : dict):
         self.potion_vie = data["potion_vie"]
         self.potion_mort = data["potion_mort"]
-        self.lettre_loup_garout = data["lettre_loup_garout"]
+        self.lettre_loup_garou = data["lettre_loup_garou"]
         self.lettre_petite_fille = data["lettre_petite_fille"]
         self.mort_tour = data["mort_tour"]
         self.mort = data["mort"]
