@@ -17,8 +17,8 @@ class Role():
     """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
     paramètre : moment
     """
-    def sorciere(self,joueurs,joueur_actuel):
-        self.aff.sorciere(True,True,joueur_actuel.get_prenom())
+    def sorciere(self,joueurs):
+        self.aff.sorciere(True,"")
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -40,7 +40,6 @@ class Role():
                 reponse = input().strip().lower()
 
             if reponse == "oui":
-                self.aff.sorciere(False,True,joueur_actuel.get_prenom())
                 self.potion_vie = False
                 self.aff.phrases("Voici les morts du tour","WHITE")
                 self.aff.liste_joueurs(self.mort_tour,self.mort_tour)
@@ -60,7 +59,7 @@ class Role():
                 self.mort.remove(reponse)
 
                 self.aff.phrases("Vous avez ressuscité "+reponse,"WHITE")
-
+                self.aff.sorciere(False, reponse, "vie")
 
 
         if self.potion_mort == True :
@@ -73,7 +72,6 @@ class Role():
 
 
             if reponse == "oui":
-                self.aff.sorciere(False,False,joueur_actuel.get_prenom())
                 self.potion_mort = False
                 self.aff.phrases("Qui voulez vous tuez ?","WHITE")
                 reponse = input().strip()
@@ -88,6 +86,7 @@ class Role():
                         self.mort_tour.append(liste[i].get_prenom())
 
                 self.aff.phrases("Vous avez tué " + reponse,"WHITE")
+                self.aff.sorciere(False, reponse, "mort")
 
         self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
         effacer = input().strip()
