@@ -11,7 +11,7 @@ Auteurs :
 """
 #Import
 from Partie import *
-from Affichage import *
+from Affichage import Affichage
 
 
 # Déclatation de Variables
@@ -25,9 +25,9 @@ Programme principal qui fait se dérouler la partie correctement
 """
 
 screen_display.menu_principal()
-choix = input()
-while int(choix) not in [1,2,3]:
-    choix = input()
+choix = int(input())
+while choix not in [1,2,3]:
+    choix = int(input())
 
 #choix n°1 création d'une nouvelle partie
 if choix == 1:
