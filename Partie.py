@@ -1,5 +1,5 @@
 from random import randint
-from Affichage import *
+from Affichage import Affichage
 from Joueur import Joueur
 from Role import Role
 import json
@@ -105,71 +105,88 @@ class Partie():
             self.joueurs[i].est_mort = data["joueurs"][i]["mort"]
             self.joueurs[i].marie = data["joueurs"][i]["marie"]
 
-    def tour(self):
-        """Méthode qui effectue tout un tour de jeu"""
-        afg = Affichage()
-        self.action.demasquage_petite_fille()
-        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
-
-        # Obtention des joueurs encore en liste
+    def get_joueur_en_vie(self):
+        """
+        Objectif : Retourner une liste d'id des joueurs encore en jeux
+        Entrée : aucune
+        Sortie : liste d'entier entre 0 et nombre de joueurs
+        """
         alv_joueurs_id = [] # liste des indices des joueurs encore en vie
         for i in range(0,self.nombre_joueur):
             if not self.joueurs[i].get_mort():
                 alv_joueurs_id.append(i)
+        return alv_joueurs_id
+
+    def tour_nuit(self):
+        """
+        Objectif : faire un tour durant la nuit
+        Entrée : Aucune
+        Sortie : Aucune
+        """
+        afg = Affichage()
+        self.action.demasquage_petite_fille(self.joueurs)
+        afg.afficher_texte("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+        #print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+
+
+        # Obtention des joueurs encore en liste
+        alv_joueurs_id = self.get_joueur_en_vie() # liste des indices des joueurs encore en vie
 
         # Boucle pour faire jouer tous les rôles
         for role in self.get_roles():
-
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
-                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+                afg.afficher_texte(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+                #print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+
                 input("Presser entré :")
+
                 role_joueur = joueur.get_role()
                 if  role_joueur == role and i in alv_joueurs_id:
                     if role == "Loup Garou":
-                        self.action.loup_garou(self.joueurs)
+                        self.action.loup_garou(self.joueurs,joueur)
                     elif role == "Voyante":
-                        self.action.voyante(self.joueurs)
+                        self.action.voyante(self.joueurs,joueur)
                     elif role == "Simple Villageois":
-                        self.action.villageois(self.joueurs)
+                        self.action.villageois(joueur)
                     elif role == "Sorcière":
-                        self.action.sorciere(self.joueurs)
+                        self.action.sorciere(self.joueurs,joueur)
                     elif role == "Petite Fille":
-                        self.action.petite_fille(self.joueurs)
+                        self.action.petite_fille(self.joueurs,joueur)
                     elif role == "Chasseur":
-                        self.action.chasseur(self.joueurs)
+                        self.action.chasseur(self.joueurs,joueur)
                     elif role == "Cupidon":
-                        self.action.cupidon(self.joueurs)
+                        self.action.cupidon(self.joueurs,joueur)
                     elif role == "Voleur" and self.premier_tour:
-                        self.action.voleur(self.joueurs)
+                        self.action.voleur(self.joueurs,joueur)
                     else:
-                        print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
+                        print(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                         input("Presser entré :")
                 else:
-                    print(f"Joueur {i+1} : {joueur.get_username()} \n ne n'est pas a vous de jouer...")
+                    afg.afficher_texte(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
+                    #print(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                     input("Presser entré :")
 
+    def tour_jour(self):
         # Actualisation des joueur encore en vie
-        alv_joueurs_id = [] # liste des indices des joueurs encore en vie
-        for i in range(0,self.nombre_joueur):
-            if not self.joueurs[i].get_mort():
-                alv_joueurs_id.append(i)
-
-        # Election du premier maire
-        if self.premier_tour:
-            self.action.capitaine(self.joueurs)
-
+        alv_joueurs_id = self.get_joueur_en_vie() # liste des indices des joueurs encore en vie
+        afg = Affichage()
         # Vote du village
         votes = [0] * self.nombre_joueur # inialise la liste des votes
         for i in range(0,self.nombre_joueur):
             joueur = self.joueurs[i]
-            print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_username()}")
+            afg.afficher_texte(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+            #print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+
             input("Presser entré :")
+
             if i not in alv_joueurs_id:
-                print("Ohhh.. NON!! il semblerait que vous êtes mort...")
+                afg.afficher_texte("Ohhh.. NON!! il semblerait que vous êtes mort...")
+                #print("Ohhh.. NON!! il semblerait que vous êtes mort...")
             else:
-                print("Pour qui souhaitez vous voter :")
+                #print("Pour qui souhaitez vous voter :")
+                afg.afficher_texte("Pour qui souhaitez vous voter :")
                 afg.liste_joueurs([str(i) + " : " + self.joueurs[i].get_prenom() for i in alv_joueurs_id],[])
                 vote = int(input("Indice du joueur [1-"+str(self.nombre_joueur)+"] : "))
                 while vote not in alv_joueurs_id:
@@ -182,13 +199,48 @@ class Partie():
             mort_indice = votes.index(max(votes))
             mort = self.joueurs[mort_indice]
             mort.set_mort(True)
-            print(f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} à été pendu par le village... Il était ... {mort.get_role()}")
+
+            afg.afficher_texte(f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} à été pendu par le village... Il était ... {mort.get_role()}")
+            #print(f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} à été pendu par le village... Il était ... {mort.get_role()}")
             if (mort.get_role() == "Chasseur"):
                  self.action.chasseur(self.joueurs)
             if (mort.est_maire()):
-                 self.action.nouveau_maire()
+                self.action.nouveau_maire(self.joueurs)
+                self.premier_tour = False
+
+            # reset vote
+            for i in alv_joueurs_id:
+                self.joueurs[i].reset_vote()
+
+    def tour(self):
+        """Méthode qui effectue tout un tour de jeu"""
+        self.tour_nuit() # tour de nuit
+
+        # Election du premier maire
+        if self.premier_tour:
+            self.action.capitaine(self.joueurs)
+
+        self.tour_jour() # tour de jour
 
 
+    def fin_de_partie(self):
+        """
+        Fonction qui permet de tester si la partie est finis ou non
+        """
+        nb_loup = sum(1 for i in self.joueurs if i.getrole() == "Loup Garous")
+        nb_joueurs = len(self.joueurs)
+
+        #Victoire des mariées
+        if nb_joueurs == 2 and self.joueurs[0].get_marie and self.joueurs[1].get_marie:
+            return 2
+
+        #Victoire des Villageois
+        elif nb_loup == 0 and nb_joueurs != 0:
+            return 1
+
+        #Victoire des loups
+        elif nb_loup >= nb_joueurs - nb_loup:
+            return 0
 
 
     def get_id(self):

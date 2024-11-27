@@ -1,5 +1,7 @@
 import Traitement_Image as TI
 import os as os
+from pyfiglet import Figlet
+
 
 
 
@@ -9,7 +11,11 @@ class Affichage:
         pass
 
 
+    """#####################################################################################################################################################
 
+                                                                        AFFICHAGE IMAGES
+
+    #####################################################################################################################################################"""
     def jour(self):
         """
         Méthode qui permettra un affichage d'un fond illustrant la journee et l'arrivee du vote
@@ -28,7 +34,7 @@ class Affichage:
         TI.print_card("./illustration/nuit.jpg", 70, 60)
         pass
 
-    def loup_garou(self, temp : bool):
+    def loup_garou(self, temp : bool, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -40,7 +46,7 @@ class Affichage:
             TI.print_card("./illustration/griffes.jpg", 40, 40)
         pass
 
-    def sorciere(self, temp : bool):
+    def sorciere(self, temp : bool, choix : bool, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -50,9 +56,10 @@ class Affichage:
             TI.print_card("./illustration/Sorciere.jpg", 50, 50)
         else :
             TI.print_card("./illustration/potion.jpg", 40, 40)
+        pass
 
 
-    def chasseur(self, temp : bool):
+    def chasseur(self, temp : bool, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -76,7 +83,7 @@ class Affichage:
             TI.print_card("./illustration/ours.jpg", 40, 40)
         pass
 
-    def voleur(self, temp : bool):
+    def voleur(self, temp : bool, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -88,7 +95,7 @@ class Affichage:
             TI.print_card("./illustration/pas.jpg", 40, 40)
         pass
 
-    def cupidon(self, temp : bool):
+    def cupidon(self, temp : bool, nom1 : str, nom2 : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom des joueurs vises
@@ -100,7 +107,7 @@ class Affichage:
             TI.print_card("./illustration/coeur.jpg", 50, 40)
         pass
 
-    def voyante(self, temp : bool):
+    def voyante(self, temp : bool, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -121,7 +128,7 @@ class Affichage:
         TI.print_card("./illustration/Villageois.jpg", 50, 50)
         pass
 
-    def capitaine(self):
+    def capitaine(self, nom : str):
         """
         Méthode qui permettra un affichage de l'affichage de la carte
         Parameters : None
@@ -130,7 +137,7 @@ class Affichage:
         TI.print_card("./illustration/Capitaine.jpg", 50, 50)
         pass
 
-    def voter(self):
+    def voter(self, nom : str):
         """
         Méthode qui permettra un affichage de la seance de vote
         Parameters : None
@@ -148,7 +155,7 @@ class Affichage:
         TI.print_card("./illustration/lettre-ouverte.jpg", 40, 40)
         pass
 
-    def eliminer(self):
+    def eliminer(self, nom : str):
         """
         Méthode qui permettra un affichage du joueur qui a été éliminé
         Parameters : nom du joueur
@@ -175,7 +182,11 @@ class Affichage:
         os.system("clear")
         pass
 
+    """#####################################################################################################################################################
 
+                                                                AFFICHAGE TEXTE
+
+    #####################################################################################################################################################"""
 
 
     """
@@ -266,6 +277,12 @@ class Affichage:
 
         return
 
+
+    """
+    Méthode qui permettra d'afficher du etxte, avec de la couleur sur une partie si voulu
+    Parameters : texte, texte à colorer, couleur
+    Return : None
+    """
     def phrases(self, text : str, text_color : str,  color = "WHITE"):
         COLORS = {
             "BLACK": "\033[30m",
@@ -279,14 +296,56 @@ class Affichage:
             "WHITE": "\033[37m",
         }
         RESET = "\033[0m"
+        DEFAUT = "WHITE"
         color = color.upper()
         if color not in COLORS:
             color = "WHITE"
         if text_color != "" :
             avant, milieu, apres = text.partition(text_color)
-            print(f"{COLORS["WHITE"]}{avant}{RESET}", end ="")
+            print(f"{COLORS[DEFAUT]}{avant}{RESET}", end ="")
             print(f"{COLORS[color]}{milieu}{RESET}", end ="")
-            print(f"{COLORS["WHITE"]}{apres}{RESET}")
+            print(f"{COLORS[DEFAUT]}{apres}{RESET}")
         else :
-            print(f"{COLORS["WHITE"]}{text}{RESET}")
+            print(f"{COLORS[DEFAUT]}{text}{RESET}")
         return
+
+    """
+    Méthode qui permettra d'afficher le menu d'acceuil du jeu
+    Parameters : None
+    Return : None
+    """
+    def menu_principal(self):
+        self.afficher_texte('Loup - Garou', 'big')
+        print(f"\n \t\t\t\t\t🄼 🄰 🄳 🄴  🄱 🅈  🄼 🄴 🄰 🄼  🅃 🄴 🄰 🄼\n")
+        options = [
+            "ℂ𝕣𝕖́𝕖𝕣 𝕦𝕟𝕖 𝕡𝕒𝕣𝕥𝕚𝕖 - 𝟙",
+            "ℂ𝕙𝕒𝕣𝕘𝕖𝕣 𝕦𝕟𝕖 𝕡𝕒𝕣𝕥𝕚𝕖 - 𝟚",
+            "ℚ𝕦𝕚𝕥𝕥𝕖𝕣 𝕝𝕖 𝕛𝕖𝕦 - 𝟛"
+
+        ]
+        for o in options:
+            print()
+            print("\t\t\t\t\t", o)
+
+        print("\n\n")
+        return
+
+    """
+    Méthode qui permettra d'afficher le menu de chargement d'une partie
+    Parameters : None
+    Return : None
+    """
+    def menu_partie(self):
+        pass
+        return
+
+
+    def afficher_texte(self, texte : str, font_t = 'big'):
+        f = Figlet(font=font_t)
+        print(f.renderText(texte))
+
+
+
+objet = Affichage()
+objet.menu_principal()
+objet.menu_partie()
