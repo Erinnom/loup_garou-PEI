@@ -496,16 +496,11 @@ class Affichage:
         else :
             print(f"{COLORS[DEFAUT]}{text}{RESET}")
         return
-<<<<<<< HEAD
     """
     Méthode qui permettra d'afficher le menu d'acceuil du jeu
     Parameters : None
     Return : None
     """
-=======
-
-
->>>>>>> Role
     def menu_principal(self):
         """
         Methode qui permettra d'afficher le menu d'acceuil du jeu
@@ -551,14 +546,6 @@ class Affichage:
         f = Figlet(font=font_t)
         print(f.renderText(texte))
         return
-
-<<<<<<< HEAD
-objet = Affichage()
-
-objet.menu_principal()
-objet.menu_partie()
-=======
-
 
     def print_fonts(self):
         """
@@ -608,4 +595,3 @@ if __name__ == "__main__":
     objet.selection_fichier()
     objet.capitaine('nathan')
     #objet.print_fonts()
->>>>>>> Role
