@@ -137,11 +137,13 @@ class Partie():
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
+                afg.afficher_texte(f"Passez l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+                #print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
 
-                afg.afficher_texte(f"Passer l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
-                #print(f"Passer l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
-
-                input("Presser entré :")
+                print("Tapez save pour sauvegarder la partie")
+                if input("Pressez entrer :") == "save":
+                    self.sauvegarder()
+                    return
 
                 role_joueur = joueur.get_role()
                 if  role_joueur == role and i in alv_joueurs_id:
@@ -170,6 +172,10 @@ class Partie():
                     input("Presser entré :")
 
     def tour_jour(self):
+        #Test des conditions pour une fin de partie
+        if self.fin_de_partie() in [0,1,2]:
+            return self.fin_de_partie()
+
         # Actualisation des joueur encore en vie
         alv_joueurs_id = self.get_joueur_en_vie() # liste des indices des joueurs encore en vie
         afg = Affichage()
@@ -177,10 +183,13 @@ class Partie():
         votes = [0] * self.nombre_joueur # inialise la liste des votes
         for i in range(0,self.nombre_joueur):
             joueur = self.joueurs[i]
-            afg.afficher_texte(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+            afg.afficher_texte(f"Passez l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
             #print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
 
-            input("Presser entré :")
+            print("Tapez save pour sauvegarder la partie")
+            if input("Pressez entrer :") == "save":
+                self.sauvegarder()
+                return
 
             if i not in alv_joueurs_id:
                 afg.afficher_texte("Ohhh.. NON!! il semblerait que vous êtes mort...")
@@ -213,6 +222,10 @@ class Partie():
             for i in alv_joueurs_id:
                 self.joueurs[i].reset_vote()
 
+        # Test des conditions pour une fin de partie
+        if self.fin_de_partie() in [0, 1, 2]:
+            return self.fin_de_partie()
+
     def tour(self):
         """Méthode qui effectue tout un tour de jeu"""
         self.tour_nuit() # tour de nuit
@@ -228,7 +241,7 @@ class Partie():
         """
         Fonction qui permet de tester si la partie est finis ou non
         """
-        nb_loup = sum(1 for i in self.joueurs if i.get_role() == "Loup Garous")
+        nb_loup = sum(1 for i in self.joueurs if i.getrole() == "Loup Garous")
         nb_joueurs = len(self.joueurs)
 
         #Victoire des mariées
@@ -242,7 +255,6 @@ class Partie():
         #Victoire des loups
         elif nb_loup >= nb_joueurs - nb_loup:
             return 0
-        return -1
 
 
     def get_id(self):
@@ -269,3 +281,4 @@ class Partie():
 if __name__ == "__main__":
     test = Partie()
     test.creer()
+    test.tour_jour()
