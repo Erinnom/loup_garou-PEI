@@ -34,6 +34,7 @@ if choix == 1:
     partie_actuelle.creer()
     while  partie_actuelle.fin_de_partie() == -1:
         partie_actuelle.tour()
+
     if partie_actuelle.fin_de_partie() == 2:
         pass
     elif partie_actuelle.fin_de_partie() == 1:

@@ -314,12 +314,12 @@ class Role():
         fille = ""
         for joueur in liste:
             if joueur.get_role() == "Petite Fille":
-                fille = joueur.get_joueur().lower()
+                fille = joueur.get_prenom().lower()
 
         # fréquence de chaque lettre
         lettre_freq = {}
         for joueur in liste:
-            nom_joueur = joueur.get_joueur().lower()
+            nom_joueur = joueur.get_prenom().lower()
             for lettre in nom_joueur:
                 lettre_freq[lettre] = lettre_freq.get(lettre, 0) + 1
 
