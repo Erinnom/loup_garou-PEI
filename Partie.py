@@ -147,19 +147,19 @@ class Partie():
                     if role == "Loup Garou":
                         self.action.loup_garou(self.joueurs,joueur)
                     elif role == "Voyante":
-                        self.action.voyante(self.joueurs)
+                        self.action.voyante(self.joueurs,joueur)
                     elif role == "Simple Villageois":
                         self.action.villageois(joueur)
                     elif role == "Sorcière":
-                        self.action.sorciere(self.joueurs)
+                        self.action.sorciere(self.joueurs,joueur)
                     elif role == "Petite Fille":
-                        self.action.petite_fille(self.joueurs)
+                        self.action.petite_fille(self.joueurs,joueur)
                     elif role == "Chasseur":
-                        self.action.chasseur(self.joueurs)
+                        self.action.chasseur(self.joueurs,joueur)
                     elif role == "Cupidon":
-                        self.action.cupidon(self.joueurs)
+                        self.action.cupidon(self.joueurs,joueur)
                     elif role == "Voleur" and self.premier_tour:
-                        self.action.voleur(self.joueurs)
+                        self.action.voleur(self.joueurs,joueur)
                     else:
                         print(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                         input("Presser entré :")
