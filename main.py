@@ -11,7 +11,7 @@ Auteurs :
 """
 #Import
 from Partie import *
-from Affichage import *
+from Affichage import Affichage
 
 
 
