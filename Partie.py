@@ -135,7 +135,9 @@ class Partie():
         # Boucle pour faire jouer tous les rôles
         #for role in self.get_roles():
         roles = self.get_roles()
-        for j in range(len(roles)):
+        j = 0
+        while j < len(roles):
+        #for j in range(len(roles)):
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
             for i in range(0,self.nombre_joueur):
                 joueur = self.joueurs[i]
@@ -151,7 +153,7 @@ class Partie():
 
                 role_joueur = joueur.get_role()
                 role = roles[j]
-                if  role_joueur == role:
+                if  role_joueur == role and i in alv_joueurs_id:
                     if role == "Loup Garous":
                         self.action.loup_garou(self.joueurs,joueur)
                     elif role == "Voyante":
@@ -221,7 +223,7 @@ class Partie():
             if (mort.get_role() == "Chasseur"):
                  self.action.chasseur(self.joueurs)
             if (mort.est_maire()):
-                self.action.nouveau_maire(self.joueurs)
+                self.action.nouveau_maire(self.joueurs,joueur)
                 self.premier_tour = False
 
             # reset vote
