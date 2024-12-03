@@ -13,7 +13,7 @@ Auteurs :
 from Partie import *
 from Affichage import Affichage
 
-# Déclatation de Variables
+# Déclaration de Variables
 partie_actuelle = Partie()
 screen_display = Affichage()
 
@@ -33,7 +33,8 @@ if choix == 1:
 
 #choix n°2 charge une partie grâce à son nom de fichier (extension non nécessaire)
 if choix == 2:
-    partie_actuelle.charger(input("Entrez le nom du fichier à charger : "))
+    screen_display.selection_fichier()
+    partie_actuelle.charger(input())
 
 #choix n°3 permet la sortie du programme
 if choix == 3:
@@ -42,7 +43,10 @@ if choix == 3:
 active = True
 while active:
     status = partie_actuelle.tour()
-    if status == 2:
+    if status == 3:
+        active = False
+
+    elif status == 2:
         screen_display.afficher_texte("Les mariés ont gagnés !")
         active = False
 
