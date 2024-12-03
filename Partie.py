@@ -3,6 +3,7 @@ from Affichage import Affichage
 from Joueur import Joueur
 from Role import Role
 import json
+import os
 
 
 class Partie():
@@ -107,21 +108,30 @@ class Partie():
     def charger(self, id_partie: str):
         """Méthode permettant de charger un fichier Json pour
             reprendre la partie là où elle s'est arrêté"""
-        with open(id_partie + ".json") as file:
-            data = json.load(file)
 
-        self.id_partie = data["id_partie"]
-        self.nombre_joueur = data["nombre_joueur"]
-        self.etat_partie = data["etat_partie"]
-        self.action.load_data(data["action"])
+        while True:
+            fichier = id_partie + ".json"
+            if os.path.exists(fichier):
+                with open(fichier) as file:
+                    data = json.load(file)
 
-        #Génère des joueurs et leurs donnes les bons attributs.
-        for i in range(len(data["joueurs"])):
-            self.joueurs.append(Joueur(data["joueurs"][i]["prenom"], data["joueurs"][i]["role"]))
-            self.joueurs[i].est_maire = data["joueurs"][i]["maire"]
-            self.joueurs[i].votes = data["joueurs"][i]["votes"]
-            self.joueurs[i].est_mort = data["joueurs"][i]["mort"]
-            self.joueurs[i].marie = data["joueurs"][i]["marie"]
+                self.id_partie = data["id_partie"]
+                self.nombre_joueur = data["nombre_joueur"]
+                self.etat_partie = data["etat_partie"]
+                self.action.load_data(data["action"])
+
+                #Génère des joueurs et leurs donnes les bons attributs.
+                for i in range(len(data["joueurs"])):
+                    self.joueurs.append(Joueur(data["joueurs"][i]["prenom"], data["joueurs"][i]["role"]))
+                    self.joueurs[i].est_maire = data["joueurs"][i]["maire"]
+                    self.joueurs[i].votes = data["joueurs"][i]["votes"]
+                    self.joueurs[i].est_mort = data["joueurs"][i]["mort"]
+                    self.joueurs[i].marie = data["joueurs"][i]["marie"]
+
+                return
+
+            else:
+                id_partie = input("Fichier inexistant resaisissez le nom :")
 
     def get_joueur_en_vie(self):
         """
