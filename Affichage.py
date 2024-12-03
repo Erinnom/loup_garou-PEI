@@ -1,6 +1,6 @@
 import Traitement_Image as TI
 import os as os
-from pyfiglet import Figlet
+from pyfiglet import *
 import random as r
 
 
@@ -350,8 +350,7 @@ class Affichage:
         Parameters : None
         Return : None
         """
-        os.system("clear")
-        pass
+        os.system("cls")
 
     """#####################################################################################################################################################
 
@@ -571,8 +570,5 @@ class Affichage:
 
 
 if __name__ == "__main__":
-    objet = Affichage()
-    objet.menu_principal()
-    objet.selection_fichier()
-    objet.capitaine('nathan')
-    #objet.print_fonts()
+    pass
+
