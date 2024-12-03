@@ -33,8 +33,7 @@ if choix == 1:
 
 #choix n°2 charge une partie grâce à son nom de fichier (extension non nécessaire)
 if choix == 2:
-    screen_display.selection_fichier()
-    partie_actuelle.charger(input())
+    partie_actuelle.charger(input("Entrez le nom de votre fichier :"))
 
 #choix n°3 permet la sortie du programme
 if choix == 3:
