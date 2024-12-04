@@ -344,7 +344,7 @@ class Affichage:
         Entrée : Aucune
         Sortie : Aucune
         """
-        os.system("cls")
+        os.system('cls' if os.name == 'nt' else 'clear')
 
     """#####################################################################################################################################################
 
@@ -352,12 +352,16 @@ class Affichage:
 
     #####################################################################################################################################################"""
 
-    def liste_joueurs(self,  l : list, allies : list):
+    def liste_joueurs(self,  listes_joueurs : list, allies : list):
         """
         Objectif : Méthode qui permettra d'afficher la liste des joueurs
         Entrée : Liste des joueurs, lliste des alliés
         Sortie : Aucune
         """
+        #copie de liste pour éviter les manipulations sur liste d'origine
+        l = listes_joueurs.copy()
+
+
         #Caractères pour construire le tableau
         char = ["┌", "┐", "└", "┘", "┴", "┬","─", "├", "┼", "┤", "│"]
 
