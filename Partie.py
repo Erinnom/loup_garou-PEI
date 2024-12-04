@@ -6,7 +6,7 @@ import json
 import os
 
 
-class Partie():
+class Partie:
     def __init__(self):
         self.id_partie = ""
         self.nombre_joueur = 0
@@ -14,6 +14,9 @@ class Partie():
         self.etat_partie = 0
         self.action = Role()
         self.premier_tour = True
+        self.afg = Affichage()
+        self.joueur_en_jeux = 0
+        self.role_en_jeux = 0
 
     def get_roles(self):
         """
@@ -91,8 +94,11 @@ class Partie():
                 i += 1
 
     def sauvegarder(self):
-        """Méthode permettant de sauvegarder la partie en cours
-            dans un document Json"""
+        """
+        Objectif : Méthode permettant de sauvegarder la partie en cours dans un document Json
+        Entrée : Aucune
+        Sortie : un fichier Json de sauvegarde
+        """
         data = {"id_partie": self.id_partie,
                 "nombre_joueur": self.nombre_joueur,
                 "etat_partie": self.etat_partie,
@@ -106,9 +112,11 @@ class Partie():
             outfile.write(sauvegarde)
 
     def charger(self, id_partie: str):
-        """Méthode permettant de charger un fichier Json pour
-            reprendre la partie là où elle s'est arrêté"""
-
+        """
+        Objectif : Méthode permettant de charger un fichier Json pour reprendre la partie là où elle s'est arrêté
+        Entrée : id_partie : str
+        Sortie : Aucune
+        """
         while True:
             fichier = id_partie + ".json"
             if os.path.exists(fichier):
@@ -151,42 +159,42 @@ class Partie():
         Entrée : Aucune
         Sortie : Aucune
         """
-        afg = Affichage()
+        self.etat_partie = 0
+        self.afg.reinitialiser_screen()
+
         self.action.demasquage_petite_fille(self.joueurs)
-        #afg.afficher_texte("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
-        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+        print(
+            "La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
 
         # Obtention des joueurs encore en liste
         alv_joueurs_id = self.get_joueur_en_vie()  # liste des indices des joueurs encore en vie
 
         # Boucle pour faire jouer tous les rôles
-        #for role in self.get_roles():
         roles = self.get_roles()
-        j = 0
-        while j < len(roles):
-        #for j in range(len(roles)):
+        while self.role_en_jeux < len(roles):
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
-            for i in range(0, self.nombre_joueur):
-                joueur = self.joueurs[i]
-                #afg.afficher_texte(f"Passez l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
-                afg.reinitialiser_screen()
-                afg.anonyme_screen()
-                print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+            while self.joueur_en_jeux < self.nombre_joueur:
+            #for self.joueur_en_jeux in range(0, self.nombre_joueur):
+                joueur = self.joueurs[self.joueur_en_jeux]
+                self.afg.reinitialiser_screen()
+                self.afg.anonyme_screen()
+                print(f"Passé l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
 
-                #print("Tapez save pour sauvegarder la partie")
-                if input("Pressez entrer ou [save] pour sauvegarder:") == "save":
+                if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
                     self.sauvegarder()
-                    return -1
+                    return 3
 
+
+                # excution des actions des joueurs en fonction du role
                 role_joueur = joueur.get_role()
-                role = roles[j]
-                if  role_joueur == role and i in alv_joueurs_id:
+                role = roles[self.role_en_jeux]
+                if role_joueur == role and self.joueur_en_jeux in alv_joueurs_id:
                     if role == "Loup Garous":
-                        self.action.loup_garou(self.joueurs,joueur)
+                        self.action.loup_garou(self.joueurs, joueur)
                     elif role == "Voyante":
                         self.action.voyante(self.joueurs)
                     elif role == "Simple Villageois":
-                        self.action.villageois(self.joueurs,joueur)
+                        self.action.villageois(self.joueurs, joueur)
                     elif role == "Sorcière":
                         self.action.sorciere(self.joueurs)
                     elif role == "Petite Fille":
@@ -198,40 +206,50 @@ class Partie():
                     elif role == "Voleur" and self.premier_tour:
                         self.action.voleur(self.joueurs, joueur)
                     else:
-                        print(f"Joueur {i + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
+                        print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                         input("Presser entré :")
-                    j+=1
+                    self.role_en_jeux += 1
                 else:
-                    #afg.afficher_texte(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
-                    print(f"Joueur {i+1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
+                    print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                     input("Presser entré :")
+                self.joueur_en_jeux +=1
+            self.joueur_en_jeux = 0
+
+        self.etat_partie = 1
 
     def tour_jour(self):
+        """
+        Objectif : faire un tour durant le jour
+        Entrée : Aucune
+        Sortie : Aucune
+        """
+        self.etat_partie = 1
+        self.afg.reinitialiser_screen()
+
         #Test des conditions pour une fin de partie
-        if self.fin_de_partie() in [0,1,2]:
+        if self.fin_de_partie() in [0, 1, 2]:
             return self.fin_de_partie()
 
         # Actualisation des joueur encore en vie
         alv_joueurs_id = self.get_joueur_en_vie()  # liste des indices des joueurs encore en vie
-        afg = Affichage()
+
         # Vote du village
         votes = [0] * self.nombre_joueur  # inialise la liste des votes
-        for i in range(0, self.nombre_joueur):
-            joueur = self.joueurs[i]
-            afg.afficher_texte(f"Passez l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
-            #print(f"Passé l'appareil au Joueur {i+1} : {joueur.get_prenom()}")
+        while self.joueur_en_jeux < self.nombre_joueur:
+        #for self.joueur_en_jeux in range(0, self.nombre_joueur):
+            joueur = self.joueurs[self.joueur_en_jeux]
+            self.afg.afficher_texte(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
 
-            print("Tapez save pour sauvegarder la partie")
-            if input("Pressez entrer :") == "save":
+            if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
                 self.sauvegarder()
-                return
+                return 3
 
             if i not in alv_joueurs_id:
-                afg.afficher_texte("Ohhh.. NON!! il semblerait que vous êtes mort...")
+                self.afg.afficher_texte("Ohhh.. NON!! il semblerait que vous êtes mort...")
 
             else:
-                afg.afficher_texte("Pour qui souhaitez vous voter :")
-                afg.liste_joueurs([str(i) + " : " + self.joueurs[i].get_prenom() for i in alv_joueurs_id], [])
+                self.afg.afficher_texte("Pour qui souhaitez vous voter :")
+                self.afg.liste_joueurs([str(i) + " : " + self.joueurs[i].get_prenom() for i in alv_joueurs_id], [])
                 vote = int(input("Indice du joueur [1-" + str(self.nombre_joueur) + "] : "))
                 while vote not in alv_joueurs_id:
                     vote = int(input("Indice du joueur [1-" + str(self.nombre_joueur) + "] : "))
@@ -244,36 +262,57 @@ class Partie():
             mort = self.joueurs[mort_indice]
             mort.set_mort(True)
 
-            afg.afficher_texte(
+            self.afg.afficher_texte(
                 f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} a ete pendu par le village... Il etait ... {mort.get_role()}")
 
             if (mort.get_role() == "Chasseur"):
                 self.action.chasseur(self.joueurs)
             if (mort.est_maire()):
-                self.action.nouveau_maire(self.joueurs,joueur)
+                self.action.nouveau_maire(self.joueurs, joueur)
                 self.premier_tour = False
 
             # reset vote
             for i in alv_joueurs_id:
                 self.joueurs[i].reset_vote()
-
+            self.joueur_en_jeux+=1
+        self.joueur_en_jeux = 0
         # Test des conditions pour une fin de partie
         if self.fin_de_partie() in [0, 1, 2]:
             return self.fin_de_partie()
 
-    def tour(self):
-        """Méthode qui effectue tout un tour de jeu"""
-        self.tour_nuit()  # tour de nuit
+        self.etat_partie = 0
 
-        # Election du premier maire
+    def tour(self):
+        """
+        Objectif : Méthode qui effectue tout un tour de jeu
+        Entrée : Aucune
+        Sortie : Aucune
+        """
+
+        # Élection du premier maire
         if self.premier_tour:
             self.action.capitaine(self.joueurs)
 
-        self.tour_jour()  # tour de jour
+        if self.etat_partie == 0:
+            # Tour de nuit
+            result_nuit = self.tour_nuit()
+            if result_nuit in [0, 1, 2, 3]:
+                return result_nuit  # Fin de partie détectée pendant la nuit
+
+        elif self.etat_partie == 1:
+            # Tour de jour
+            result_jour = self.tour_jour()
+            if result_jour in [0, 1, 2, 3]:
+                return result_jour  # Fin de partie détectée pendant le jour
+
+        else:
+            raise ValueError("Etat de partie non conforme")
 
     def fin_de_partie(self):
         """
-        Fonction qui permet de tester si la partie est finis ou non
+        Objectif : Méthode qui permet de tester si la partie est finis ou non
+        Entrée : Aucune
+        Sortie : 0 si les loups gagnent, 1 si les villageois gagnent, 2 si les mariées gagnent
         """
         nb_loup = sum(1 for i in self.joueurs if i.get_role() == "Loup Garous")
         nb_joueurs = len(self.joueurs)
@@ -291,17 +330,34 @@ class Partie():
             return 0
 
     def get_id(self):
+        """
+        Objectif : Obtenir l'id de la partie
+        Entrée : Aucune
+        Sortie : id de la partie
+        """
         return self.id_partie
 
     def get_nombre_joueur(self):
+        """
+        Objectif : Obtenir le nombre de joueur de la partie
+        Entrée : Aucune
+        Sortie : nombre de joueur
+        """
         return self.nombre_joueur
 
     def get_etat(self):
+        """
+        Objectif : Obtenir l'état de la partie
+        Entrée : Aucune
+        Sortie : état de la partie
+        """
         return self.etat_partie
 
     def __str__(self):
         """
-        Renvoie le statut de la partie formaté correctement
+        Objectif : Renvoie le statut de la partie formaté correctement
+        Entrée : Aucune
+        Sortie : string
         """
         res = ""
         res += "Id Partie : " + str(self.id_partie) + "\n"
