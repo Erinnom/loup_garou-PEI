@@ -491,9 +491,6 @@ class Affichage:
 
         print("\n\n")
 
-        self.afficher_texte('Partie', 'big')
-        self.afficher_texte('Entrez le nom de votre sauvegarde', 'smbraille')
-
     def afficher_texte(self, texte: str, font_t='whimsy'):
         """
         Objectif : Methode qui permettra d'afficher le texte voulu
