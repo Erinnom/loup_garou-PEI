@@ -211,10 +211,10 @@ class Partie:
                         self.action.voleur(self.joueurs, joueur)
                     else:
                         print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
-                        input("Presser entré :")
+                        input("Pressez entrer :")
                 else:
                     print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
-                    input("Presser entré :")
+                    input("Pressez entrer :")
                 self.joueur_en_jeux +=1
             self.role_en_jeux += 1
             self.joueur_en_jeux = 0
@@ -243,18 +243,18 @@ class Partie:
         while self.joueur_en_jeux < self.nombre_joueur:
         #for self.joueur_en_jeux in range(0, self.nombre_joueur):
             joueur = self.joueurs[self.joueur_en_jeux]
-            self.afg.afficher_texte(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
+            print(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
 
             if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
                 self.sauvegarder()
                 return 3
 
             if self.joueur_en_jeux not in alv_joueurs_id:
-                self.afg.afficher_texte("Ohhh.. NON!! il semblerait que vous êtes mort...")
+                print("Ohhh.. NON!! il semblerait que vous êtes mort...")
 
             else:
-                self.afg.afficher_texte("Pour qui souhaitez vous voter :")
-                self.afg.liste_joueurs([str(i) + " : " + self.joueurs[i].get_prenom() for i in alv_joueurs_id], [])
+                print("Pour qui souhaitez vous voter :")
+                print([str(i) + " : " + self.joueurs[i].get_prenom() for i in alv_joueurs_id], [])
                 vote = int(input("Indice du joueur [1-" + str(self.nombre_joueur) + "] : "))
                 while vote not in alv_joueurs_id:
                     vote = int(input("Indice du joueur [1-" + str(self.nombre_joueur) + "] : "))
