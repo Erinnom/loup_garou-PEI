@@ -211,12 +211,12 @@ class Partie:
                         self.action.voleur(self.joueurs, joueur)
                     else:
                         print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
-                        input("Pressez entrer :")
+                        input("Presser entré :")
+                    self.role_en_jeux += 1
                 else:
                     print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                     input("Pressez entrer :")
                 self.joueur_en_jeux +=1
-            self.role_en_jeux += 1
             self.joueur_en_jeux = 0
 
         self.etat_partie = 1
@@ -293,7 +293,6 @@ class Partie:
         Entrée : Aucune
         Sortie : Aucune
         """
-
         # Élection du premier maire
         if self.premier_tour:
             self.action.capitaine(self.joueurs)
