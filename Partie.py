@@ -92,6 +92,7 @@ class Partie:
                 j = Joueur(tmp, rand_role)
                 self.joueurs.append(j)
                 i += 1
+        self.afg.reinitialiser_screen()
 
     def sauvegarder(self):
         """
@@ -167,60 +168,70 @@ class Partie:
         self.afg.reinitialiser_screen()
 
         self.action.demasquage_petite_fille(self.joueurs)
-        print(
-            "La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n"
+              "Les villageois dorment tous sur leurs deux oreilles... enfin presque...")
 
-        # Obtention des joueurs encore en liste
-        alv_joueurs_id = self.get_joueur_en_vie()  # liste des indices des joueurs encore en vie
+        # Obtention des joueurs encore en vie
+        alv_joueurs_id = self.get_joueur_en_vie()  # Liste des indices des joueurs encore en vie
 
-        # Boucle pour faire jouer tous les rôles
+        # Liste des rôles
         roles = self.get_roles()
-        while self.role_en_jeux < len(roles):
-            # Boucle afin de faire jouer les rôles en fonctiton de son rôle
-            while self.joueur_en_jeux < self.nombre_joueur:
-            #for self.joueur_en_jeux in range(0, self.nombre_joueur):
+        self.role_en_jeux = 0  # Assurez-vous que ce compteur commence à 0
+        self.joueur_en_jeux = 0  # Assurez-vous que ce compteur commence à 0
+
+        while self.role_en_jeux < len(roles):  # Boucle sur les rôles
+            role = roles[self.role_en_jeux]  # Récupérer le rôle actuel
+            print(f"\nTraitement des joueurs pour le rôle : {role}")
+
+            while self.joueur_en_jeux < self.nombre_joueur:  # Boucle sur les joueurs
                 joueur = self.joueurs[self.joueur_en_jeux]
                 self.afg.reinitialiser_screen()
                 self.afg.anonyme_screen()
-                print(f"Passé l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
+                print(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
 
-                if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
+                if input("Tapez [save] pour sauvegarder ou appuyez sur une autre touche pour continuer : ") == "save":
                     self.sauvegarder()
                     return 3
 
-
-                # excution des actions des joueurs en fonction du role
+                # Exécution des actions si le joueur a le rôle correspondant
                 role_joueur = joueur.get_role()
-                role = roles[self.role_en_jeux]
                 if role_joueur == role and self.joueur_en_jeux in alv_joueurs_id:
-                    if role == "Loup Garous":
-                        self.action.loup_garou(self.joueurs, joueur)
-                    elif role == "Voyante":
-                        self.action.voyante(self.joueurs)
-                    elif role == "Simple Villageois":
-                        self.action.villageois(self.joueurs, joueur)
-                    elif role == "Sorcière":
-                        self.action.sorciere(self.joueurs)
-                    elif role == "Petite Fille":
-                        self.action.petite_fille(self.joueurs)
-                    elif role == "Chasseur":
-                        self.action.chasseur(self.joueurs)
-                    elif role == "Cupidon":
-                        self.action.cupidon(self.joueurs)
-                    elif role == "Voleur" and self.premier_tour:
-                        self.action.voleur(self.joueurs, joueur)
-                    else:
-                        print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
-                        input("Pressez entrer :")
+                    self.executer_action(role, joueur)
                 else:
-                    print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
-                    input("Pressez entrer :")
-                self.joueur_en_jeux +=1
-            self.role_en_jeux += 1
-            self.joueur_en_jeux = 0
+                    print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nCe n'est pas à vous de jouer...")
+                    input("Appuyez sur Entrée pour continuer.")
 
+                self.joueur_en_jeux += 1  # Passer au joueur suivant
+
+            self.joueur_en_jeux = 0  # Réinitialiser l'index des joueurs pour le rôle suivant
+            self.role_en_jeux += 1  # Passer au rôle suivant
+
+        # Réinitialisation des variables pour le prochain tour
         self.etat_partie = 1
         self.role_en_jeux = 0
+        print("La nuit est terminée, le village se réveille...")
+
+    def executer_action(self, role, joueur):
+        """Exécute l'action en fonction du rôle."""
+        if role == "Loup Garous":
+            self.action.loup_garou(self.joueurs, joueur)
+        elif role == "Voyante":
+            self.action.voyante(self.joueurs)
+        elif role == "Simple Villageois":
+            self.action.villageois(self.joueurs, joueur)
+        elif role == "Sorcière":
+            self.action.sorciere(self.joueurs)
+        elif role == "Petite Fille":
+            self.action.petite_fille(self.joueurs)
+        elif role == "Chasseur":
+            self.action.chasseur(self.joueurs)
+        elif role == "Cupidon":
+            self.action.cupidon(self.joueurs)
+        elif role == "Voleur" and self.premier_tour:
+            self.action.voleur(self.joueurs, joueur)
+        else:
+            print("Aucune action spécifique pour ce rôle.")
+
 
     def tour_jour(self):
         """
@@ -293,7 +304,6 @@ class Partie:
         Entrée : Aucune
         Sortie : Aucune
         """
-
         # Élection du premier maire
         if self.premier_tour:
             self.action.capitaine(self.joueurs)
