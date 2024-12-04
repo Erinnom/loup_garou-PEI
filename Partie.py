@@ -15,6 +15,8 @@ class Partie:
         self.action = Role()
         self.premier_tour = True
         self.afg = Affichage()
+        self.joueur_en_jeux = 0
+        self.role_en_jeux = 0
 
     def get_roles(self):
         """
@@ -169,14 +171,14 @@ class Partie:
 
         # Boucle pour faire jouer tous les rôles
         roles = self.get_roles()
-        j = 0
-        while j < len(roles):
+        while self.role_en_jeux < len(roles):
             # Boucle afin de faire jouer les rôles en fonctiton de son rôle
-            for i in range(0, self.nombre_joueur):
-                joueur = self.joueurs[i]
+            while self.joueur_en_jeux < self.nombre_joueur:
+            #for self.joueur_en_jeux in range(0, self.nombre_joueur):
+                joueur = self.joueurs[self.joueur_en_jeux]
                 self.afg.reinitialiser_screen()
                 self.afg.anonyme_screen()
-                print(f"Passé l'appareil au Joueur {i + 1} : {joueur.get_prenom()}")
+                print(f"Passé l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
 
                 if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
                     self.sauvegarder()
@@ -185,8 +187,8 @@ class Partie:
 
                 # excution des actions des joueurs en fonction du role
                 role_joueur = joueur.get_role()
-                role = roles[j]
-                if role_joueur == role and i in alv_joueurs_id:
+                role = roles[self.role_en_jeux]
+                if role_joueur == role and self.joueur_en_jeux in alv_joueurs_id:
                     if role == "Loup Garous":
                         self.action.loup_garou(self.joueurs, joueur)
                     elif role == "Voyante":
@@ -204,12 +206,14 @@ class Partie:
                     elif role == "Voleur" and self.premier_tour:
                         self.action.voleur(self.joueurs, joueur)
                     else:
-                        print(f"Joueur {i + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
+                        print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                         input("Presser entré :")
-                    j += 1
+                    self.role_en_jeux += 1
                 else:
-                    print(f"Joueur {i + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
+                    print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                     input("Presser entré :")
+                self.joueur_en_jeux +=1
+            self.joueur_en_jeux = 0
 
         self.etat_partie = 1
 
@@ -231,9 +235,10 @@ class Partie:
 
         # Vote du village
         votes = [0] * self.nombre_joueur  # inialise la liste des votes
-        for i in range(0, self.nombre_joueur):
-            joueur = self.joueurs[i]
-            self.afg.afficher_texte(f"Passez l'appareil au Joueur {i + 1} : {joueur.get_prenom()}")
+        while self.joueur_en_jeux < self.nombre_joueur:
+        #for self.joueur_en_jeux in range(0, self.nombre_joueur):
+            joueur = self.joueurs[self.joueur_en_jeux]
+            self.afg.afficher_texte(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
 
             if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
                 self.sauvegarder()
@@ -269,7 +274,8 @@ class Partie:
             # reset vote
             for i in alv_joueurs_id:
                 self.joueurs[i].reset_vote()
-
+            self.joueur_en_jeux+=1
+        self.joueur_en_jeux = 0
         # Test des conditions pour une fin de partie
         if self.fin_de_partie() in [0, 1, 2]:
             return self.fin_de_partie()
