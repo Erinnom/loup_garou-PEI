@@ -293,7 +293,6 @@ class Partie:
         Entrée : Aucune
         Sortie : Aucune
         """
-
         # Élection du premier maire
         if self.premier_tour:
             self.action.capitaine(self.joueurs)
