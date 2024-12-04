@@ -569,21 +569,26 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
+        self.aff.liste_joueurs(prenoms, [])
 
         for i in range(0, len(liste)):
             self.aff.phrases("Avez vous déja voté oui/non ","WHITE")
             reponse = input()
+
             while reponse != "non":
-                self.aff.phrases("Ce n'est pas à vous de voter, passez la tablette à votre voisin","WHITE")
-                self.aff.phrases("Avez vous déja voté oui/non ","WHITE")
-                reponse = input()
+                if reponse != "oui":
+                    self.aff.phrases("Veuillez renseigner oui ou non ", "WHITE")
+                    reponse = input()
+                else :
+                    self.aff.phrases("Ce n'est pas à vous de voter, passez la tablette à votre voisin","WHITE")
+                    self.aff.phrases("Avez vous déja voté oui/non ","WHITE")
+                    reponse = input()
 
             self.aff.phrases("Pour qui voulez vous voter ?","WHITE")
-            reponse = input()
-            while reponse not in liste:
+
+            print(prenoms)
+            while reponse not in prenoms:
                 self.aff.phrases("Nom pas présent dans la liste, recommencer","WHITE")
-                reponse = input()
 
             for i in range(0, len(liste)):
                 if liste[i].get_prenom() == reponse:
@@ -592,7 +597,7 @@ class Role():
 
             self.aff.reinitialiser_screen()
             self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-            self.aff.liste_joueurs(prenoms, prenoms)
+            self.aff.liste_joueurs(prenoms, [])
 
         max = 0
         indice = 0
@@ -601,7 +606,7 @@ class Role():
                 max = liste[i].get_vote()
                 indice = i
 
-        liste[indice].set_maire(True)
+        joueurs[indice].set_maire(True)
 
         for i in range(0, len(liste)):
             liste[i].reset_vote()
