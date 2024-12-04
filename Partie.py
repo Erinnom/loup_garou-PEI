@@ -103,7 +103,9 @@ class Partie:
                 "nombre_joueur": self.nombre_joueur,
                 "etat_partie": self.etat_partie,
                 "joueurs": [x.get_data() for x in self.joueurs],
-                "action": self.action.get_data()
+                "action": self.action.get_data(),
+                "joueur_en_jeu" : self.joueur_en_jeux,
+                "role_en_jeux": self.role_en_jeux
                 }
 
         sauvegarde = json.dumps(data, indent=4)
@@ -126,6 +128,8 @@ class Partie:
                 self.id_partie = data["id_partie"]
                 self.nombre_joueur = data["nombre_joueur"]
                 self.etat_partie = data["etat_partie"]
+                self.joueur_en_jeux = data["joueur_en_jeux"]
+                self.role_en_jeux = data["role_en_jeux"]
                 self.action.load_data(data["action"])
 
                 #Génère des joueurs et leurs donnes les bons attributs.
