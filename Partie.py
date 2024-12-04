@@ -195,8 +195,13 @@ class Partie:
 
                 # Exécution des actions si le joueur a le rôle correspondant
                 role_joueur = joueur.get_role()
-                if role_joueur == role and self.joueur_en_jeux in alv_joueurs_id:
-                    self.executer_action(role, joueur)
+                if role_joueur == role:
+                    if self.joueur_en_jeux in alv_joueurs_id:
+                        self.executer_action(role, joueur)
+                    else:
+                        print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nCe n'est pas à vous de jouer...")
+                        input("Appuyez sur Entrée pour continuer.")
+                    self.role_en_jeux += 1  # Passer au rôle suivant
                 else:
                     print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nCe n'est pas à vous de jouer...")
                     input("Appuyez sur Entrée pour continuer.")
@@ -204,7 +209,6 @@ class Partie:
                 self.joueur_en_jeux += 1  # Passer au joueur suivant
 
             self.joueur_en_jeux = 0  # Réinitialiser l'index des joueurs pour le rôle suivant
-            self.role_en_jeux += 1  # Passer au rôle suivant
 
         # Réinitialisation des variables pour le prochain tour
         self.etat_partie = 1
