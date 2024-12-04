@@ -92,6 +92,7 @@ class Partie:
                 j = Joueur(tmp, rand_role)
                 self.joueurs.append(j)
                 i += 1
+        self.afg.reinitialiser_screen()
 
     def sauvegarder(self):
         """
