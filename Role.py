@@ -34,7 +34,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ","WHITE")
-        self.aff.liste_joueurs(prenoms,prenoms)
+        self.aff.liste_joueurs(prenoms,[])
 
         if self.potion_vie == True:
             self.aff.phrases("Voulez vous utiliser votre potion de vie, oui ou non","WHITE")
@@ -47,7 +47,7 @@ class Role():
             if reponse == "oui":
                 self.potion_vie = False
                 self.aff.phrases("Voici les morts du tour","WHITE")
-                self.aff.liste_joueurs(self.mort_tour,self.mort_tour)
+                self.aff.liste_joueurs(self.mort_tour,[])
 
                 self.aff.phrases("Qui voulez vous ressusciter ?","WHITE")
                 reponse = input().strip()
@@ -57,7 +57,7 @@ class Role():
 
                 for i in range(0, len(liste)):
                     if reponse == liste[i].get_prenom():
-                        liste[i].get_mort(False)
+                        joueurs[i].get_mort(False)
 
 
                 self.mort_tour.remove(reponse)
@@ -85,8 +85,8 @@ class Role():
                     reponse = input().strip()
 
                 for i in range(0, len(liste)):
-                    if reponse == liste[i].get_prenom():
-                        liste[i].get_mort(True)
+                    if reponse == joueurs[i].get_prenom():
+                        joueurs[i].get_mort(True)
                         self.mort.append(liste[i].get_prenom())
                         self.mort_tour.append(liste[i].get_prenom())
 
@@ -568,6 +568,7 @@ class Role():
         for joueur in liste:
             prenoms.append(joueur.get_prenom())
 
+        print(prenoms)
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
         self.aff.liste_joueurs(prenoms, [])
 
@@ -586,9 +587,10 @@ class Role():
 
             self.aff.phrases("Pour qui voulez vous voter ?","WHITE")
 
-            print(prenoms)
+            reponse = input()
             while reponse not in prenoms:
                 self.aff.phrases("Nom pas présent dans la liste, recommencer","WHITE")
+                reponse = input()
 
             for i in range(0, len(liste)):
                 if liste[i].get_prenom() == reponse:
