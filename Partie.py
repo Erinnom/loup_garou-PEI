@@ -212,14 +212,15 @@ class Partie:
                     else:
                         print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                         input("Presser entré :")
-                    self.role_en_jeux += 1
                 else:
                     print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
                     input("Presser entré :")
                 self.joueur_en_jeux +=1
+            self.role_en_jeux += 1
             self.joueur_en_jeux = 0
 
         self.etat_partie = 1
+        self.role_en_jeux = 0
 
     def tour_jour(self):
         """
@@ -248,7 +249,7 @@ class Partie:
                 self.sauvegarder()
                 return 3
 
-            if i not in alv_joueurs_id:
+            if self.joueur_en_jeux not in alv_joueurs_id:
                 self.afg.afficher_texte("Ohhh.. NON!! il semblerait que vous êtes mort...")
 
             else:
@@ -292,7 +293,6 @@ class Partie:
         Entrée : Aucune
         Sortie : Aucune
         """
-
         # Élection du premier maire
         if self.premier_tour:
             self.action.capitaine(self.joueurs)
