@@ -387,7 +387,6 @@ class Affichage:
                 if _ != t-1:
                     print(char[5], end = "")
             print(char[1])
-            Sortie
 
         def ligne_bas(t):
             """
@@ -404,7 +403,6 @@ class Affichage:
                 if _ != t - 1:
                     print(char[4], end="")
             print(char[3])
-            Sortie
 
         ligne_supp = 0
         if len(l) < 10:
