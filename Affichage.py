@@ -1,13 +1,12 @@
+import pyfiglet
+
 import Traitement_Image as TI
-import os as os
+import os
 from pyfiglet import *
 import random as r
 
 
 class Affichage:
-
-    def __init__(self):
-        pass
 
     """#####################################################################################################################################################
 
@@ -22,7 +21,6 @@ class Affichage:
         Return : None
         """
         TI.print_card("./illustration/jour.jpg", 70, 60)
-        pass
 
     def nuit(self):
         """
@@ -31,7 +29,6 @@ class Affichage:
         Return : None
         """
         TI.print_card("./illustration/nuit.jpg", 70, 60)
-        pass
 
     def loup_garou(self, temp: bool, nom: str):
         """
@@ -55,8 +52,6 @@ class Affichage:
             avant_joueur, apres_joueur = txt.split("JOUEUR")
             t = avant_joueur + nom + apres_joueur
             self.afficher_texte(t)
-
-        pass
 
     def sorciere(self, temp: bool, nom: str, choix=None, ):
         """
@@ -342,7 +337,6 @@ class Affichage:
         Return : None
         """
         TI.print_card("./illustration/bandeau.jpg", 50, 30)
-        pass
 
     def reinitialiser_screen(self):
         """
@@ -397,7 +391,6 @@ class Affichage:
                 if _ != t - 1:
                     print(char[5], end="")
             print(char[1])
-            return
 
         def ligne_bas(t):
             """
@@ -449,8 +442,6 @@ class Affichage:
 
             ligne_bas(t)
 
-        return
-
     def phrases(self, text: str, text_color: str, color="WHITE"):
         """
         Methode qui permettra d'afficher du etxte, avec de la couleur sur une partie si voulu
@@ -481,7 +472,6 @@ class Affichage:
             print(f"{COLORS[DEFAUT]}{apres}{RESET}")
         else:
             print(f"{COLORS[DEFAUT]}{text}{RESET}")
-        return
 
     def menu_principal(self):
         """
@@ -503,7 +493,6 @@ class Affichage:
             print("\t\t", o)
 
         print("\n\n")
-        return
 
     def selection_fichier(self):
         """
@@ -514,9 +503,8 @@ class Affichage:
 
         self.afficher_texte('Partie', 'big')
         self.afficher_texte('Entrez le nom de votre sauvegarde', 'smbraille')
-        return
 
-    def afficher_texte(self, texte: str, font_t='wideterm'):
+    def afficher_texte(self, texte: str, font_t='whimsy'):
         """
         Methode qui permettra d'afficher le texte voulu
         Parameters : texte, police du texte
@@ -525,50 +513,23 @@ class Affichage:
         print()
         f = Figlet(font=font_t)
         print(f.renderText(texte))
-        return
 
     def print_fonts(self):
-        """
+        """x
         Methode qui permettra d'afficher le texte voulu
         Parameters : texte, police du texte
         Return : None
         """
 
-        fonts = [
-            "banner",
-            "big",
-            "block",
-            "bubble",
-            "circle",
-            "digital",
-            "emboss",
-            "emboss2",
-            "future",
-            "ivrit",
-            "lean",
-            "letter",
-            "mini",
-            "mnemonic",
-            "pagga",
-            "script",
-            "shadow",
-            "slant",
-            "small",
-            "smblock",
-            "smbraille",
-            "smscript",
-            "smshadow",
-            "smslant",
-            "standard",
-            "term",
-            "wideterm"]
+        fonts = pyfiglet.FigletFont.getFonts()
+
         for elt in fonts:
             print(elt)
             f = Figlet(font=elt)
-            print(f.renderText('Roaer'))
-        return
+            print(f.renderText('Ceci est un test'))
 
 
 if __name__ == "__main__":
-    pass
-
+    test = Affichage()
+    test.print_fonts()
+    input()
