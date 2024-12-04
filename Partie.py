@@ -92,8 +92,11 @@ class Partie:
                 i += 1
 
     def sauvegarder(self):
-        """Méthode permettant de sauvegarder la partie en cours
-            dans un document Json"""
+        """
+        Objectif : Méthode permettant de sauvegarder la partie en cours dans un document Json
+        Entrée : Aucune
+        Sortie : un fichier Json de sauvegarde
+        """
         data = {"id_partie": self.id_partie,
                 "nombre_joueur": self.nombre_joueur,
                 "etat_partie": self.etat_partie,
@@ -107,9 +110,11 @@ class Partie:
             outfile.write(sauvegarde)
 
     def charger(self, id_partie: str):
-        """Méthode permettant de charger un fichier Json pour
-            reprendre la partie là où elle s'est arrêté"""
-
+        """
+        Objectif : Méthode permettant de charger un fichier Json pour reprendre la partie là où elle s'est arrêté
+        Entrée : id_partie : str
+        Sortie : Aucune
+        """
         while True:
             fichier = id_partie + ".json"
             if os.path.exists(fichier):
@@ -177,6 +182,8 @@ class Partie:
                     self.sauvegarder()
                     return 3
 
+
+                # excution des actions des joueurs en fonction du role
                 role_joueur = joueur.get_role()
                 role = roles[j]
                 if role_joueur == role and i in alv_joueurs_id:
@@ -270,7 +277,11 @@ class Partie:
         self.etat_partie = 0
 
     def tour(self):
-        """Méthode qui effectue tout un tour de jeu"""
+        """
+        Objectif : Méthode qui effectue tout un tour de jeu
+        Entrée : Aucune
+        Sortie : Aucune
+        """
 
         # Élection du premier maire
         if self.premier_tour:
@@ -293,7 +304,9 @@ class Partie:
 
     def fin_de_partie(self):
         """
-        Fonction qui permet de tester si la partie est finis ou non
+        Objectif : Méthode qui permet de tester si la partie est finis ou non
+        Entrée : Aucune
+        Sortie : 0 si les loups gagnent, 1 si les villageois gagnent, 2 si les mariées gagnent
         """
         nb_loup = sum(1 for i in self.joueurs if i.get_role() == "Loup Garous")
         nb_joueurs = len(self.joueurs)
@@ -311,17 +324,34 @@ class Partie:
             return 0
 
     def get_id(self):
+        """
+        Objectif : Obtenir l'id de la partie
+        Entrée : Aucune
+        Sortie : id de la partie
+        """
         return self.id_partie
 
     def get_nombre_joueur(self):
+        """
+        Objectif : Obtenir le nombre de joueur de la partie
+        Entrée : Aucune
+        Sortie : nombre de joueur
+        """
         return self.nombre_joueur
 
     def get_etat(self):
+        """
+        Objectif : Obtenir l'état de la partie
+        Entrée : Aucune
+        Sortie : état de la partie
+        """
         return self.etat_partie
 
     def __str__(self):
         """
-        Renvoie le statut de la partie formaté correctement
+        Objectif : Renvoie le statut de la partie formaté correctement
+        Entrée : Aucune
+        Sortie : string
         """
         res = ""
         res += "Id Partie : " + str(self.id_partie) + "\n"
