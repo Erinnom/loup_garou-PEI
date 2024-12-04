@@ -23,9 +23,9 @@ Programme principal qui fait se dérouler la partie correctement
 """
 
 screen_display.menu_principal()
-choix = int(input())
+choix = int(input("Votre choix : "))
 while choix not in [1, 2, 3]:
-    choix = int(input())
+    choix = int(input("Votre choix : "))
 
 #choix n°1 création d'une nouvelle partie
 if choix == 1:
