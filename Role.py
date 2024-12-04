@@ -163,7 +163,7 @@ class Role():
         self.aff.liste_joueurs(prenoms, prenoms)
 
         couple =""
-        if joueur_actuel.get_mairie() == True :
+        if joueur_actuel.get_marie() == True :
             for i in range (len(liste)):
                 if liste[i].get_marie()==True and liste[i]!=joueur_actuel.get_prenom() :
                     couple += liste[i].get_prenom()
@@ -209,8 +209,8 @@ class Role():
         self.aff.voyante(True,reponse)
 
         for i in liste :
-            if liste[i].get_prenom() == reponse:
-                resultat = liste[i].get_role()
+            if i.get_prenom() == reponse:
+                resultat = i.get_role()
                 self.aff.phrases("Le rôle de ce joueur est "+ resultat,"WHITE")
 
         self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
