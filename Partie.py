@@ -132,7 +132,7 @@ class Partie:
                 return
 
             else:
-                id_partie = input("Fichier inexistant ressaisissez le nom :")
+                id_partie = input("Fichier inexistant resaisissez le nom :")
 
     def get_joueur_en_vie(self):
         """
