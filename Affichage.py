@@ -16,25 +16,25 @@ class Affichage:
 
     def jour(self):
         """
-        Methode qui permettra un affichage d'un fond illustrant la journee et l'arrivee du vote
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage d'un fond illustrant la journee et l'arrivee du vote
+        Entrée : Aucune
+        Sortie : Aucune
         """
         TI.print_card("./illustration/jour.jpg", 70, 60)
 
     def nuit(self):
         """
-        Methode qui permettra un affichage d'un fond illustrant la nuit et l'arrivee des differents rôles
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage d'un fond illustrant la nuit et l'arrivee des differents rôles
+        Entrrée : Aucune
+        Sortie : Aucune
         """
         TI.print_card("./illustration/nuit.jpg", 70, 60)
 
     def loup_garou(self, temp: bool, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
         # Phrases pour les loups-garous
         phrases_loups = [
@@ -55,9 +55,9 @@ class Affichage:
 
     def sorciere(self, temp: bool, nom: str, choix=None, ):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise, choix qui donne la potion utilisee
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
         # Phrases pour la sorciere
         phrases_potion_vie = [
@@ -97,9 +97,9 @@ class Affichage:
 
     def chasseur(self, temp: bool, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
         phrases_chasseur = [
             "Vous avez tire sur JOUEUR, cela lui aura ete fatal. Le destin du village est desormais scelle.",
@@ -122,9 +122,9 @@ class Affichage:
 
     def petite_fille(self, temp: bool):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage
+        Sortie : Aucune
         """
         phrases_petite_fille = [
             "Le regard furtif, vous avez vu les loups rôder dans la nuit. Si vous aviez agi, qui serait encore en vie ?",
@@ -142,9 +142,9 @@ class Affichage:
 
     def voleur(self, temp: bool, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
 
         # Phrases pour le voleur
@@ -164,9 +164,9 @@ class Affichage:
 
     def cupidon(self, temp: bool, nom1: str, nom2: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom des joueurs vises
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom des joueurs vises
+        Sortie : Aucune
         """
         # Phrases pour Cupidon
         phrases_cupidon = [
@@ -188,9 +188,9 @@ class Affichage:
 
     def voyante(self, temp: bool, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
         # Phrases pour la voyante
         phrases_voyante = [
@@ -212,18 +212,18 @@ class Affichage:
 
     def villageois(self):
         """
-        Methode qui permettra un affichage de l'affichage de la carte
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte
+        Entrée : Aucune
+        Sortie : Aucune
         """
         TI.print_card("./illustration/Villageois.jpg", 50, 50)
         pass
 
     def capitaine(self, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte
+        Entrée : Aucune
+        Sortie : Aucune
         """
         # Phrases pour le Capitaine
         phrases_capitaine = [
@@ -242,9 +242,9 @@ class Affichage:
 
     def voter(self, nom: str):
         """
-        Methode qui permettra un affichage de la seance de vote
-        Parameters : None
-        Return :
+        Objectif : Méthode qui permettra un affichage de la seance de vote
+        Entrée : Aucune
+        Sortie : Aucune
         """
         phrases_votes = [
             "Vous avez vote pour JOUEUR, une voix de plus qui scelle son destin.",
@@ -267,9 +267,9 @@ class Affichage:
 
     def votes(self, nom: str):
         """
-        Methode qui permettra un affichage les votes pour chacun des joueurs
-        Parameters : la liste des objets de type joueur
-        Return : None
+        Objectif : Méthode qui permettra un affichage les votes pour chacun des joueurs
+        Entrée : la liste des objets de type joueur
+        Sortie : Aucune
         """
         # Phrases pour Mort au Vote
         phrases_mort_vote = [
@@ -288,9 +288,9 @@ class Affichage:
 
     def eliminer(self, nom: str):
         """
-        Methode qui permettra un affichage du joueur qui a ete elimine
-        Parameters : nom du joueur
-        Return : None
+        Objectif : Méthode qui permettra un affichage du joueur qui a été éliminé
+        Entrée : nom du joueur
+        Sortie : Aucune
         """
         phrases_mort_banale = [
             "La nuit a pris sa vie, et il ne reviendra pas. Le village pleure un autre de ses membres.",
@@ -310,8 +310,8 @@ class Affichage:
 
     def morts_amoureux(self, nom1: str, nom2: str):
         """
-        Methode qui permettra un affichage des amoureux qui sont morts
-        Parameters : nom du joueur1, nom du joueur2
+        Objectif Methode qui permettra un affichage des amoureux qui sont morts
+        Entrée : nom du joueur1, nom du joueur2
         Return : None
         """
         phrases_mort_amoureux = [
@@ -332,17 +332,17 @@ class Affichage:
 
     def anonyme_screen(self):
         """
-        Methode qui permettra un affichage de l'ecran d'attente, pour tous les joueurs a qui ce ne sera pas le tour de jouer
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'écran d'attente, pour tous les joueurs à qui ce ne sera pas le tour de jouer
+        Entrée : Aucune
+        Sortie : Aucune
         """
         TI.print_card("./illustration/bandeau.jpg", 50, 30)
 
     def reinitialiser_screen(self):
         """
-        Methode qui permettra d'effacer le terminal
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra d'effacer le terminal
+        Entrée : Aucune
+        Sortie : Aucune
         """
         os.system("cls")
 
@@ -352,17 +352,14 @@ class Affichage:
 
     #####################################################################################################################################################"""
 
-    def liste_joueurs(self, liste_joueurs: list, allies: list):
+    def liste_joueurs(self,  l : list, allies : list):
         """
-        Methode qui permettra d'afficher la liste des joueurs
-        Parameters : Liste des joueurs, lliste des allies
-        Return : None
+        Objectif : Méthode qui permettra d'afficher la liste des joueurs
+        Entrée : Liste des joueurs, lliste des alliés
+        Sortie : Aucune
         """
-        #copie de la liste des joueurs pour éviter de manipuler la liste original
-        l = liste_joueurs.copy()
-
-        #Caracteres pour construire le tableau
-        char = ["┌", "┐", "└", "┘", "┴", "┬", "─", "├", "┼", "┤", "│"]
+        #Caractères pour construire le tableau
+        char = ["┌", "┐", "└", "┘", "┴", "┬","─", "├", "┼", "┤", "│"]
 
         #Couleurs pour differencier allies et ennemis
         RED = "\033[31m"
@@ -380,23 +377,23 @@ class Affichage:
         def ligne_haut(t):
             """
             Fonction qui affiche le contours du tableau (ligne du haut)
-            Parameters : None
-            Return : None
+            Parameters : Aucune
+            Sortie : Aucune
             """
-
-            print(char[0], end="")
+            print(char[0], end = "")
             for _ in range(t):
-                for __ in range(max + 4):
-                    print(char[6], end="")
-                if _ != t - 1:
-                    print(char[5], end="")
+                for __ in range (max+4):
+                    print(char[6], end ="")
+                if _ != t-1:
+                    print(char[5], end = "")
             print(char[1])
+            Sortie
 
         def ligne_bas(t):
             """
-            Fonction qui affiche le contours du tableau (ligne du bas)
-            Parameters : None
-            Return : None
+            Objectif : Fonction qui affiche le contours du tableau (ligne du bas)
+            Entrée : Parameters : None
+            Sortie : None
             """
 
             print()
@@ -407,7 +404,7 @@ class Affichage:
                 if _ != t - 1:
                     print(char[4], end="")
             print(char[3])
-            return
+            Sortie
 
         ligne_supp = 0
         if len(l) < 10:
@@ -442,13 +439,14 @@ class Affichage:
 
             ligne_bas(t)
 
-    def phrases(self, text: str, text_color: str, color="WHITE"):
-        """
-        Methode qui permettra d'afficher du etxte, avec de la couleur sur une partie si voulu
-        Parameters : texte, texte a colorer, couleur
-        Return : None
-        """
 
+
+    def phrases(self, text : str, text_color : str,  color = "WHITE"):
+        """
+        Objectif : Méthode qui permettra d'afficher du etxte, avec de la couleur sur une partie si voulu
+        Parameters : texte, texte à colorer, couleur
+        Sortie : Aucune
+        """
         COLORS = {
             "BLACK": "\033[30m",
             "RED": "\033[31m",
@@ -473,13 +471,14 @@ class Affichage:
         else:
             print(f"{COLORS[DEFAUT]}{text}{RESET}")
 
+
+
     def menu_principal(self):
         """
-        Methode qui permettra d'afficher le menu d'acceuil du jeu
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra d'afficher le menu d'acceuil du jeu
+        Parameters : Aucune
+        Sortie : Aucune
         """
-
         self.afficher_texte('Loup - Garou', 'big')
         print("\n \t🄼 🄰 🄳 🄴  🄱 🅈  🄼 🄴 🄰 🄼  🅃 🄴 🄰 🄼\n")
         options = [
@@ -494,21 +493,14 @@ class Affichage:
 
         print("\n\n")
 
-    def selection_fichier(self):
-        """
-        Methode qui permettra d'afficher le menu de chargement d'une partie
-        Parameters : None
-        Return : None
-        """
-
         self.afficher_texte('Partie', 'big')
         self.afficher_texte('Entrez le nom de votre sauvegarde', 'smbraille')
 
     def afficher_texte(self, texte: str, font_t='whimsy'):
         """
-        Methode qui permettra d'afficher le texte voulu
-        Parameters : texte, police du texte
-        Return : None
+        Objectif : Methode qui permettra d'afficher le texte voulu
+        Entrée : texte, police du texte
+        Sortie : None
         """
         print()
         f = Figlet(font=font_t)
@@ -516,9 +508,9 @@ class Affichage:
 
     def print_fonts(self):
         """x
-        Methode qui permettra d'afficher le texte voulu
-        Parameters : texte, police du texte
-        Return : None
+        Objectif : Methode qui permettra d'afficher le texte voulu
+        Entrée : texte, police du texte
+        Sortie : None
         """
 
         fonts = pyfiglet.FigletFont.getFonts()
