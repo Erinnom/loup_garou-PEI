@@ -15,10 +15,14 @@ class Role():
         self.aff = Affichage.Affichage()
 
 
-    """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables
-    paramètre : moment
-    """
+
     def sorciere(self,joueurs):
+        """
+        Objectif : Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables
+        Entrée : joueurs
+        Sortie : Aucune
+        """
+
         self.aff.sorciere(True,"")
         liste = []
         for joueur in joueurs:
@@ -98,11 +102,13 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-    """Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour
-    paramètre : moment
-    """
-    def voleur(self,joueurs,joueur_actuel):
 
+    def voleur(self,joueurs,joueur_actuel):
+        """
+        Objectif : Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour
+        Entrée : joueurs, joueur_actuel
+        Sortie : Aucune
+        """
         self.aff.voleur(True,"")
 
         liste = []
@@ -145,11 +151,14 @@ class Role():
 
         self.aff.reinitialiser_screen()
 
-    """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour"""
 
     def villageois(self,joueurs,joueur_actuel):
+        """
+        Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour*
+        Entrée : joueurs
+        Sortie : Aucune
+        """
         self.aff.villageois()
-
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -163,7 +172,7 @@ class Role():
         self.aff.liste_joueurs(prenoms, prenoms)
 
         couple =""
-        if joueur_actuel.get_mairie() == True :
+        if joueur_actuel.get_marie() == True :
             for i in range (len(liste)):
                 if liste[i].get_marie()==True and liste[i]!=joueur_actuel.get_prenom() :
                     couple += liste[i].get_prenom()
@@ -181,10 +190,13 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-    """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour
-    """
-    def voyante(self,joueurs):
 
+    def voyante(self,joueurs):
+        """
+        Objectif : Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour
+        Entrée : joueurs
+        Sortie : Aucune
+        """
         self.aff.voyante(True,"")
 
         liste = []
@@ -209,8 +221,8 @@ class Role():
         self.aff.voyante(True,reponse)
 
         for i in liste :
-            if liste[i].get_prenom() == reponse:
-                resultat = liste[i].get_role()
+            if i.get_prenom() == reponse:
+                resultat = i.get_role()
                 self.aff.phrases("Le rôle de ce joueur est "+ resultat,"WHITE")
 
         self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
@@ -222,12 +234,12 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-
-    """Méthode permettant de créer le rôle loup_garou où il votent la nuit
-    paramètre : joueurs
-    """
     def loup_garou(self,joueurs,joueur_actuel):
-
+        """
+        Objectif : Méthode permettant de créer le rôle loup_garou où il votent la nuit
+        Entrée : joueurs
+        Sortie : Aucune
+        """
         self.aff.loup_garou(True,"")
 
 
@@ -307,6 +319,11 @@ class Role():
         self.aff.reinitialiser_screen()
 
     def demasquage_petite_fille(self,joueurs):
+        """
+        Objectif : Méthode permettant de créer le rôle petite_fille où elle obtient des lettres aléatoire des noms des loups-garous
+        Entrée : joueurs
+        Sortie : Aucune
+        """
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -346,12 +363,12 @@ class Role():
             self.lettre_petite_fille.append(lettre)
 
 
-    """
-    Méthode permettant de créer le rôle petite_fille où elle obtient des lettres aléatoire des noms des loups-garous
-    """
-
     def petite_fille(self,joueurs):
-
+        """
+        Objectif : Méthode permettant de créer le rôle petite_fille où elle obtient des lettres aléatoire des noms des loups-garous
+        Entrée : joueurs
+        Sortie : Aucune
+        """
         self.aff.petite_fille(True)
 
         liste = []
@@ -431,11 +448,13 @@ class Role():
 
         self.aff.reinitialiser_screen()
 
-    """Méthode permettant de créer le rôle chasseur où quand il meurt il tue une personne qu'il choisit
-    paramètre : moment
-    """
-    def chasseur(self,joueurs):
 
+    def chasseur(self,joueurs):
+        """
+        Objectif : Méthode permettant de créer le rôle chasseur où quand il meurt il tue une personne qu'il choisit
+        Entrée : joueurs
+        Sortie : Aucune
+        """
         self.aff.chasseur(True,"")
 
         liste = []
@@ -481,11 +500,13 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-    """Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts
-    paramètre : moment
-    """
-    def cupidon(self,joueurs):
 
+    def cupidon(self,joueurs):
+        """
+        Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts
+        Objectif : joueurs
+        Sortie : Aucune
+        """
         self.aff.cupidon(True,"","")
 
         liste = []
@@ -531,10 +552,13 @@ class Role():
 
         self.aff.reinitialiser_screen()
 
-    """Méthode permettant de créer le rôle capitaine où il a vote double
-    paramètre :
-    """
+
     def capitaine(self,joueurs):
+        """
+        Objectif : Méthode permettant de créer le rôle capitaine où il a vote double
+        Entrée : joueurs
+        Sortie : Aucune
+        """
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -584,12 +608,21 @@ class Role():
 
 
     def afficher_mort_tour(self,joueurs,joueur_actuel):
+        """
+        Objectif : Méthode permettant d'afficher les morts du tour
+        Entrée : joueurs,joueur_actuel
+        Sortie : Aucune
+        """
         self.aff.phrases("Les morts de ce tour sont : ","WHITE")
         self.aff.liste_joueurs(self.mort_tour, self.mort_tour)
         self.mort_tour = []
 
     def nouveau_maire(self,joueurs,joueur_actuel):
-
+        """
+        Objectif : Méthode permettant de choisir un nouveau maire
+        Entrée : joueurs,joueur_actuel
+        Sortie : Aucune
+        """
         self.aff.capitaine("")
 
         liste = []
@@ -626,6 +659,11 @@ class Role():
         self.aff.reinitialiser_screen()
 
     def get_data(self):
+        """
+        Objeciif : Méthode permettant de retourner les données du rôle en JSON
+        Entrée : Aucune
+        Sortie : res
+        """
         res = {
             "potion_vie" : self.potion_vie,
             "potion_mort" : self.potion_mort,
@@ -640,6 +678,11 @@ class Role():
         return res
 
     def load_data(self, data : dict):
+        """
+        Objectif : Méthode permettant de charger les données du rôle
+        Entrée : data
+        Sortie : Aucune
+        """
         self.potion_vie = data["potion_vie"]
         self.potion_mort = data["potion_mort"]
         self.lettre_loup_garou = data["lettre_loup_garou"]
