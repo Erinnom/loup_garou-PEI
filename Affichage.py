@@ -1,45 +1,40 @@
+import pyfiglet
+
 import Traitement_Image as TI
-import os as os
-from pyfiglet import Figlet
+import os
+from pyfiglet import *
 import random as r
 
 
-
-
 class Affichage:
-
-    def __init__(self):
-        pass
-
 
     """#####################################################################################################################################################
 
                                                                         AFFICHAGE IMAGES
 
     #####################################################################################################################################################"""
+
     def jour(self):
         """
-        Methode qui permettra un affichage d'un fond illustrant la journee et l'arrivee du vote
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage d'un fond illustrant la journee et l'arrivee du vote
+        Entrée : Aucune
+        Sortie : Aucune
         """
         TI.print_card("./illustration/jour.jpg", 70, 60)
-        pass
 
     def nuit(self):
         """
-        Methode qui permettra un affichage d'un fond illustrant la nuit et l'arrivee des differents rôles
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage d'un fond illustrant la nuit et l'arrivee des differents rôles
+        Entrrée : Aucune
+        Sortie : Aucune
         """
         TI.print_card("./illustration/nuit.jpg", 70, 60)
-        pass
 
-    def loup_garou(self, temp : bool, nom : str):
+    def loup_garou(self, temp: bool, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
         # Phrases pour les loups-garous
         phrases_loups = [
@@ -49,22 +44,20 @@ class Affichage:
             "Une traque habile... JOUEUR est tombe dans le piege que vous lui avez tendu.",
             "Vous avez encercle JOUEUR, vos yeux brillant dans l'obscurite. Il n'avait aucune chance."
         ]
-        if temp :
+        if temp:
             TI.print_card("./illustration/LG.jpg", 50, 50)
-        else :
+        else:
             TI.print_card("./illustration/griffes.jpg", 40, 40)
             txt = r.choice(phrases_loups)
             avant_joueur, apres_joueur = txt.split("JOUEUR")
             t = avant_joueur + nom + apres_joueur
             self.afficher_texte(t)
 
-        pass
-
-    def sorciere(self, temp : bool,nom : str, choix = None, ):
+    def sorciere(self, temp: bool, nom: str, choix=None, ):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise, choix qui donne la potion utilisee
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
         # Phrases pour la sorciere
         phrases_potion_vie = [
@@ -87,10 +80,9 @@ class Affichage:
             "Avec un geste decide, vous liberez la potion de mort sur JOUEUR. Un dernier tremblement, et tout est fini. Il a rejoint les ombres."
         ]
 
-
-        if temp :
+        if temp:
             TI.print_card("./illustration/Sorciere.jpg", 50, 50)
-        else :
+        else:
             TI.print_card("./illustration/potion.jpg", 40, 40)
             if choix == "vie":
                 txt = r.choice(phrases_potion_vie)
@@ -103,12 +95,11 @@ class Affichage:
                 t = avant_joueur + nom + apres_joueur
                 self.afficher_texte(t)
 
-
-    def chasseur(self, temp : bool, nom : str):
+    def chasseur(self, temp: bool, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
         phrases_chasseur = [
             "Vous avez tire sur JOUEUR, cela lui aura ete fatal. Le destin du village est desormais scelle.",
@@ -120,21 +111,20 @@ class Affichage:
             "Votre arme a fait son œuvre, et JOUEUR n'est plus. Le village devra vivre avec cette decision."
         ]
 
-
-        if temp :
+        if temp:
             TI.print_card("./illustration/Chasseur.jpg", 50, 50)
-        else :
+        else:
             TI.print_card("./illustration/cible.jpg", 40, 40)
             txt = r.choice(phrases_chasseur)
             avant_joueur, apres_joueur = txt.split("JOUEUR")
             t = avant_joueur + nom + apres_joueur
             self.afficher_texte(t)
 
-    def petite_fille(self, temp : bool):
+    def petite_fille(self, temp: bool):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage
+        Sortie : Aucune
         """
         phrases_petite_fille = [
             "Le regard furtif, vous avez vu les loups rôder dans la nuit. Si vous aviez agi, qui serait encore en vie ?",
@@ -143,18 +133,18 @@ class Affichage:
             "La nuit etait froide, et pourtant vous avez observe sans bouger, cachee dans l'ombre. Mais avez-vous fait le bon choix ?",
             "Une lueur dans vos yeux… Vous avez vu, vous savez. Mais la tentation de crier ne vous a pas traversee… ou l'avez-vous simplement ignoree ?"
         ]
-        if temp :
+        if temp:
             TI.print_card("./illustration/Petite-Fille.jpg", 50, 50)
-        else :
+        else:
             TI.print_card("./illustration/ours.jpg", 40, 40)
             t = r.choice(phrases_petite_fille)
             self.afficher_texte(t)
 
-    def voleur(self, temp : bool, nom : str):
+    def voleur(self, temp: bool, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
 
         # Phrases pour le voleur
@@ -165,19 +155,18 @@ class Affichage:
             "Vos doigts habiles ont choisi avec soin. Votre destin a pris une nouvelle direction.",
             "Une decision audacieuse : vous avez change de rôle, et personne ne le sait encore."
         ]
-        if temp :
+        if temp:
             TI.print_card("./illustration/Voleur.jpg", 50, 50)
-        else :
+        else:
             TI.print_card("./illustration/pas.jpg", 40, 40)
             t = r.choice(phrases_voleur)
             self.afficher_texte(t)
 
-
-    def cupidon(self, temp : bool, nom1 : str, nom2 : str):
+    def cupidon(self, temp: bool, nom1: str, nom2: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom des joueurs vises
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom des joueurs vises
+        Sortie : Aucune
         """
         # Phrases pour Cupidon
         phrases_cupidon = [
@@ -188,20 +177,20 @@ class Affichage:
             "Cupidon a fait son œuvre, JOUEUR. Le destin des deux amants repose desormais entre vos mains."
         ]
 
-        if temp :
+        if temp:
             TI.print_card("./illustration/Cupidon.jpg", 50, 50)
-        else :
+        else:
             TI.print_card("./illustration/coeur.jpg", 50, 40)
             txt = r.choice(phrases_cupidon)
-            avant_joueur,milieu_joueur, apres_joueur = txt.split("JOUEUR")
-            t = avant_joueur + nom1 + milieu_joueur+ nom2 + apres_joueur
+            avant_joueur, milieu_joueur, apres_joueur = txt.split("JOUEUR")
+            t = avant_joueur + nom1 + milieu_joueur + nom2 + apres_joueur
             self.afficher_texte(t)
 
-    def voyante(self, temp : bool, nom : str):
+    def voyante(self, temp: bool, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Parameters : booleen qui permet de choisir l'affichage, nom du joueur vise
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
+        Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
+        Sortie : Aucune
         """
         # Phrases pour la voyante
         phrases_voyante = [
@@ -212,9 +201,9 @@ class Affichage:
             "En plongeant dans les ombres, vous avez decouvert ce que JOUEUR cache au fond de lui."
         ]
 
-        if temp :
+        if temp:
             TI.print_card("./illustration/Voyante.jpg", 50, 50)
-        else :
+        else:
             TI.print_card("./illustration/boule.jpg", 40, 40)
             txt = r.choice(phrases_voyante)
             avant_joueur, apres_joueur = txt.split("JOUEUR")
@@ -223,18 +212,18 @@ class Affichage:
 
     def villageois(self):
         """
-        Methode qui permettra un affichage de l'affichage de la carte
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte
+        Entrée : Aucune
+        Sortie : Aucune
         """
         TI.print_card("./illustration/Villageois.jpg", 50, 50)
         pass
 
-    def capitaine(self, nom : str):
+    def capitaine(self, nom: str):
         """
-        Methode qui permettra un affichage de l'affichage de la carte
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'affichage de la carte
+        Entrée : Aucune
+        Sortie : Aucune
         """
         # Phrases pour le Capitaine
         phrases_capitaine = [
@@ -251,11 +240,11 @@ class Affichage:
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
 
-    def voter(self, nom : str):
+    def voter(self, nom: str):
         """
-        Methode qui permettra un affichage de la seance de vote
-        Parameters : None
-        Return :
+        Objectif : Méthode qui permettra un affichage de la seance de vote
+        Entrée : Aucune
+        Sortie : Aucune
         """
         phrases_votes = [
             "Vous avez vote pour JOUEUR, une voix de plus qui scelle son destin.",
@@ -270,19 +259,17 @@ class Affichage:
             "Votre choix a ete fait, vous avez vote pour JOUEUR, une voix supplementaire qui pourrait decider de son sort."
         ]
 
-
         TI.print_card("./illustration/lettre.jpg", 40, 40)
         txt = r.choice(phrases_votes)
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
 
-
-    def votes(self, nom : str):
+    def votes(self, nom: str):
         """
-        Methode qui permettra un affichage les votes pour chacun des joueurs
-        Parameters : la liste des objets de type joueur
-        Return : None
+        Objectif : Méthode qui permettra un affichage les votes pour chacun des joueurs
+        Entrée : la liste des objets de type joueur
+        Sortie : Aucune
         """
         # Phrases pour Mort au Vote
         phrases_mort_vote = [
@@ -299,11 +286,11 @@ class Affichage:
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
 
-    def eliminer(self, nom : str):
+    def eliminer(self, nom: str):
         """
-        Methode qui permettra un affichage du joueur qui a ete elimine
-        Parameters : nom du joueur
-        Return : None
+        Objectif : Méthode qui permettra un affichage du joueur qui a été éliminé
+        Entrée : nom du joueur
+        Sortie : Aucune
         """
         phrases_mort_banale = [
             "La nuit a pris sa vie, et il ne reviendra pas. Le village pleure un autre de ses membres.",
@@ -315,17 +302,16 @@ class Affichage:
             "La vie de JOUEUR a pris fin dans l'obscurite. Le village devra se remettre de cette perte."
         ]
 
-
         TI.print_card("./illustration/faucheuse.jpg", 40, 40)
         txt = r.choice(phrases_mort_banale)
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
 
-    def morts_amoureux(self, nom1 : str, nom2 : str):
+    def morts_amoureux(self, nom1: str, nom2: str):
         """
-        Methode qui permettra un affichage des amoureux qui sont morts
-        Parameters : nom du joueur1, nom du joueur2
+        Objectif Methode qui permettra un affichage des amoureux qui sont morts
+        Entrée : nom du joueur1, nom du joueur2
         Return : None
         """
         phrases_mort_amoureux = [
@@ -340,27 +326,25 @@ class Affichage:
 
         TI.print_card("./illustration/faucheuse.jpg", 40, 40)
         txt = r.choice(phrases_mort_amoureux)
-        avant_joueur,milieu_joueur, apres_joueur = txt.split("JOUEUR")
-        t = avant_joueur + nom1 + milieu_joueur+ nom2 + apres_joueur
+        avant_joueur, milieu_joueur, apres_joueur = txt.split("JOUEUR")
+        t = avant_joueur + nom1 + milieu_joueur + nom2 + apres_joueur
         self.afficher_texte(t)
 
     def anonyme_screen(self):
         """
-        Methode qui permettra un affichage de l'ecran d'attente, pour tous les joueurs a qui ce ne sera pas le tour de jouer
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra un affichage de l'écran d'attente, pour tous les joueurs à qui ce ne sera pas le tour de jouer
+        Entrée : Aucune
+        Sortie : Aucune
         """
         TI.print_card("./illustration/bandeau.jpg", 50, 30)
-        pass
 
     def reinitialiser_screen(self):
         """
-        Methode qui permettra d'effacer le terminal
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra d'effacer le terminal
+        Entrée : Aucune
+        Sortie : Aucune
         """
-        os.system("clear")
-        pass
+        os.system("cls")
 
     """#####################################################################################################################################################
 
@@ -368,16 +352,13 @@ class Affichage:
 
     #####################################################################################################################################################"""
 
-
-
     def liste_joueurs(self,  l : list, allies : list):
         """
-        Methode qui permettra d'afficher la liste des joueurs
-        Parameters : Liste des joueurs, lliste des allies
-        Return : None
+        Objectif : Méthode qui permettra d'afficher la liste des joueurs
+        Entrée : Liste des joueurs, lliste des alliés
+        Sortie : Aucune
         """
-
-        #Caracteres pour construire le tableau
+        #Caractères pour construire le tableau
         char = ["┌", "┐", "└", "┘", "┴", "┬","─", "├", "┼", "┤", "│"]
 
         #Couleurs pour differencier allies et ennemis
@@ -393,14 +374,12 @@ class Affichage:
             if len(j) > max:
                 max = len(j)
 
-
         def ligne_haut(t):
             """
             Fonction qui affiche le contours du tableau (ligne du haut)
-            Parameters : None
-            Return : None
+            Parameters : Aucune
+            Sortie : Aucune
             """
-
             print(char[0], end = "")
             for _ in range(t):
                 for __ in range (max+4):
@@ -408,70 +387,64 @@ class Affichage:
                 if _ != t-1:
                     print(char[5], end = "")
             print(char[1])
-            return
-
 
         def ligne_bas(t):
             """
-            Fonction qui affiche le contours du tableau (ligne du bas)
-            Parameters : None
-            Return : None
+            Objectif : Fonction qui affiche le contours du tableau (ligne du bas)
+            Entrée : Parameters : None
+            Sortie : None
             """
 
             print()
             print(char[2], end="")
             for _ in range(t):
-                for __ in range (max+4):
-                    print(char[6], end ="")
-                if _ != t-1:
-                    print(char[4], end = "")
+                for __ in range(max + 4):
+                    print(char[6], end="")
+                if _ != t - 1:
+                    print(char[4], end="")
             print(char[3])
-            return
 
         ligne_supp = 0
         if len(l) < 10:
             t = len(l)
-        else :
+        else:
             t = 10
-        if length%10 != 0:
-            ligne_supp +=1
+        if length % 10 != 0:
+            ligne_supp += 1
 
         #Affichage des prenoms dans le tableau
 
-        for joueur in range (length//10 + ligne_supp):
+        for joueur in range(length // 10 + ligne_supp):
             ligne_haut(t)
-            print(char[-1], end = "")
+            print(char[-1], end="")
             for _ in range(10):
-                if l == [] :
-                    for __ in range (max+4):
-                        print(" ", end ="")
-                else :
+                if l == []:
+                    for __ in range(max + 4):
+                        print(" ", end="")
+                else:
                     nom = l.pop(0)
-                    ecart = max-len(nom)
-                    for __ in range (ecart//2+2):
-                        print(" ", end = "")
+                    ecart = max - len(nom)
+                    for __ in range(ecart // 2 + 2):
+                        print(" ", end="")
                     if nom in allies:
                         print(f"{RED}{nom}{RESET}", end="")
 
-                    else :
+                    else:
                         print(f"{GREEN}{nom}{RESET}", end="")
-                    for __ in range (ecart//2 + ecart%2 +2):
-                        print(" ", end = "")
-                    print(char[-1], end ="")
+                    for __ in range(ecart // 2 + ecart % 2 + 2):
+                        print(" ", end="")
+                    print(char[-1], end="")
 
             ligne_bas(t)
-
-        return
 
 
 
     def phrases(self, text : str, text_color : str,  color = "WHITE"):
         """
-        Methode qui permettra d'afficher du etxte, avec de la couleur sur une partie si voulu
-        Parameters : texte, texte a colorer, couleur
-        Return : None
+        Objectif : Méthode qui permettra d'afficher du etxte, avec de la couleur sur une partie si voulu
+        Parameters : texte, texte à colorer, couleur
+        Sortie : Aucune
         """
-
         COLORS = {
             "BLACK": "\033[30m",
             "RED": "\033[31m",
@@ -488,23 +461,22 @@ class Affichage:
         color = color.upper()
         if color not in COLORS:
             color = "WHITE"
-        if text_color != "" :
+        if text_color != "":
             avant, milieu, apres = text.partition(text_color)
-            print(f"{COLORS[DEFAUT]}{avant}{RESET}", end ="")
-            print(f"{COLORS[color]}{milieu}{RESET}", end ="")
+            print(f"{COLORS[DEFAUT]}{avant}{RESET}", end="")
+            print(f"{COLORS[color]}{milieu}{RESET}", end="")
             print(f"{COLORS[DEFAUT]}{apres}{RESET}")
-        else :
+        else:
             print(f"{COLORS[DEFAUT]}{text}{RESET}")
-        return
+
 
 
     def menu_principal(self):
         """
-        Methode qui permettra d'afficher le menu d'acceuil du jeu
-        Parameters : None
-        Return : None
+        Objectif : Méthode qui permettra d'afficher le menu d'acceuil du jeu
+        Parameters : Aucune
+        Sortie : Aucune
         """
-
         self.afficher_texte('Loup - Garou', 'big')
         print("\n \t🄼 🄰 🄳 🄴  🄱 🅈  🄼 🄴 🄰 🄼  🅃 🄴 🄰 🄼\n")
         options = [
@@ -518,79 +490,33 @@ class Affichage:
             print("\t\t", o)
 
         print("\n\n")
-        return
 
-
-    def selection_fichier(self):
+    def afficher_texte(self, texte: str, font_t='whimsy'):
         """
-        Methode qui permettra d'afficher le menu de chargement d'une partie
-        Parameters : None
-        Return : None
-        """
-
-        self.afficher_texte('Partie', 'big')
-        self.afficher_texte('Entrez le nom de votre sauvegarde', 'smbraille')
-        return
-
-
-    def afficher_texte(self, texte : str, font_t  = 'wideterm' ):
-        """
-        Methode qui permettra d'afficher le texte voulu
-        Parameters : texte, police du texte
-        Return : None
+        Objectif : Methode qui permettra d'afficher le texte voulu
+        Entrée : texte, police du texte
+        Sortie : None
         """
         print()
         f = Figlet(font=font_t)
         print(f.renderText(texte))
-        return
-
-
 
     def print_fonts(self):
-        """
-        Methode qui permettra d'afficher le texte voulu
-        Parameters : texte, police du texte
-        Return : None
+        """x
+        Objectif : Methode qui permettra d'afficher le texte voulu
+        Entrée : texte, police du texte
+        Sortie : None
         """
 
-        fonts = [
-                "banner",
-                "big",
-                "block",
-                "bubble",
-                "circle",
-                "digital",
-                "emboss",
-                "emboss2",
-                "future",
-                "ivrit",
-                "lean",
-                "letter",
-                "mini",
-                "mnemonic",
-                "pagga",
-                "script",
-                "shadow",
-                "slant",
-                "small",
-                "smblock",
-                "smbraille",
-                "smscript",
-                "smshadow",
-                "smslant",
-                "standard",
-                "term",
-                "wideterm"]
-        for elt in fonts :
+        fonts = pyfiglet.FigletFont.getFonts()
+
+        for elt in fonts:
             print(elt)
             f = Figlet(font=elt)
-            print(f.renderText('Roaer'))
-        return
+            print(f.renderText('Ceci est un test'))
 
 
 if __name__ == "__main__":
-    objet = Affichage()
-    objet.menu_principal()
-    objet.selection_fichier()
-    objet.capitaine('nathan')
-    #objet.print_fonts()
+    test = Affichage()
+    test.print_fonts()
+    input()
