@@ -87,18 +87,34 @@ class Joueur:
         return self.prenom
 
     def vote(self):
+        """
+        Objectif : Incrémenter le nombres voies, contre ou pour, du joueur
+        Entrée : Aucune
+        Sortie : Aucune
+        """
         self.votes = self.votes+1
 
     def get_vote(self):
+        """
+        Objectif : Renvoyer le nombre de voies du joueur
+        Entrée : Aucune
+        Sortie : Nombre de voies
+        """
         return self.votes
 
     def reset_vote(self):
+        """
+        Objectif : Remettre le nombre de voies du joueur à 0
+        Entrée : Aucune
+        Sortie : Aucune
+        """
         self.votes = 0
 
     def get_data(self):
         """
-        Méthode qui renvoie les données du joueur
-        formaté dans un dictionnaire pour la sauvegarde json
+        Objectif : Renvoyer les données du joueur formaté dans un dictionnaire pour la sauvegarde json
+        Entrée : Aucune
+        Sortie : Dictionnaire
         """
         res = {
             "prenom" : self.prenom,
@@ -112,6 +128,8 @@ class Joueur:
 
     def __str__(self):
         """
-        Affiche correctement les joueurs
+        Objectif : Affiche correctement les joueurs
+        Entrée : Aucune
+        Sortie : Chaine de caractère
         """
         return (str(self.get_data()) + "\n")
