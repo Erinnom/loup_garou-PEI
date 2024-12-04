@@ -14,7 +14,8 @@ class Role():
         self.vote_loup = []
         self.aff = Affichage.Affichage()
 
-    """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables 
+
+    """Méthode permettant de créer le rôle sorcière avec ses deux potions utilisables
     paramètre : moment
     """
     def sorciere(self,joueurs):
@@ -97,7 +98,7 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-    """Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour 
+    """Méthode permettant de créer le rôle voleur avec sa capacité à voler un role au premier tour
     paramètre : moment
     """
     def voleur(self,joueurs,joueur_actuel):
@@ -144,12 +145,8 @@ class Role():
 
         self.aff.reinitialiser_screen()
 
+    """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour"""
 
-
-
-    """Méthode permettant de créer le rôle villageois 
-    paramètre : moment
-    """
     def villageois(self,joueurs,joueur_actuel):
         self.aff.villageois()
 
@@ -166,7 +163,7 @@ class Role():
         self.aff.liste_joueurs(prenoms, prenoms)
 
         couple =""
-        if joueur_actuel.get_mairie() == True :
+        if joueur_actuel.get_marie() == True :
             for i in range (len(liste)):
                 if liste[i].get_marie()==True and liste[i]!=joueur_actuel.get_prenom() :
                     couple += liste[i].get_prenom()
@@ -184,8 +181,7 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-    """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour 
-    paramètre : moment
+    """Méthode permettant de créer le rôle voyante avec sa capacité à voir un role d'une personne chaque tour
     """
     def voyante(self,joueurs):
 
@@ -213,8 +209,8 @@ class Role():
         self.aff.voyante(True,reponse)
 
         for i in liste :
-            if liste[i].get_prenom() == reponse:
-                resultat = liste[i].get_role()
+            if i.get_prenom() == reponse:
+                resultat = i.get_role()
                 self.aff.phrases("Le rôle de ce joueur est "+ resultat,"WHITE")
 
         self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
@@ -245,7 +241,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         couple = ""
-        if joueur_actuel.get_mairie() == True:
+        if joueur_actuel.get_marie() == True:
             for i in range(len(liste)):
                 if liste[i].get_marie() == True and liste[i] != joueur_actuel.get_prenom():
                     couple += liste[i].get_prenom()
@@ -254,20 +250,19 @@ class Role():
         if joueur_actuel.get_maire() == True:
             self.aff.phrases("Vous êtes maire", "WHITE")
 
-        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
-
         self.loup = [joueurs.get_prenom() for joueurs in liste if joueurs.get_role() == "Loup Garou"]
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, self.loup)
 
         self.aff.phrases("Vote des autres loups :", "WHITE")
-        self.aff.liste_joueurs(self.vote_loup, self.vote_loup)
+        self.aff.liste_joueurs(self.vote_loup, self.loup)
 
         nombre_loup = len(self.loup)
         self.aff.phrases("Pour qui veux tu voter","WHITE")
-        reponse = input().strip()
+        reponse = input(":")#.strip()
         while reponse not in prenoms:
             self.aff.phrases("Nom pas présent dans la liste, recommencez","WHITE")
-            reponse = input().strip()
+            reponse = input(":")#.strip()
 
         if nombre_loup > 1:
             self.vote_loup.append(reponse)
@@ -486,7 +481,7 @@ class Role():
         self.aff.reinitialiser_screen()
 
 
-    """Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts 
+    """Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts
     paramètre : moment
     """
     def cupidon(self,joueurs):
@@ -536,8 +531,8 @@ class Role():
 
         self.aff.reinitialiser_screen()
 
-    """Méthode permettant de créer le rôle capitaine où il a vote double 
-    paramètre : 
+    """Méthode permettant de créer le rôle capitaine où il a vote double
+    paramètre :
     """
     def capitaine(self,joueurs):
         liste = []
