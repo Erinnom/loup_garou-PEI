@@ -177,7 +177,7 @@ class Partie:
         # Liste des rôles
         roles = self.get_roles()
         while self.role_en_jeux < len(roles):  # Boucle sur les rôles
-            while self.joueur_en_jeux < self.nombre_joueur:  # Boucle sur les joueurs
+            while self.joueur_en_jeux < self.nombre_joueur and self.role_en_jeux < len(roles):  # Boucle sur les joueurs
                 joueur = self.joueurs[self.joueur_en_jeux]
                 self.afg.reinitialiser_screen()
                 self.afg.anonyme_screen()
