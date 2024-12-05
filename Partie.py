@@ -91,6 +91,7 @@ class Partie:
         self.nombre_joueur = int(nb)
         i = 0
         roles = self.get_roles()
+        print()
         while i < self.nombre_joueur:
             tmp = input(f"Nom du joueur [{i + 1}] :")
             if tmp != "":
@@ -135,7 +136,7 @@ class Partie:
                 self.id_partie = data["id_partie"]
                 self.nombre_joueur = data["nombre_joueur"]
                 self.etat_partie = data["etat_partie"]
-                self.joueur_en_jeux = data["joueur_en_jeux"]
+                self.joueur_en_jeux = data["joueur_en_jeu"]
                 self.role_en_jeux = data["role_en_jeux"]
                 self.action.load_data(data["action"])
 
@@ -187,8 +188,11 @@ class Partie:
                 joueur = self.joueurs[self.joueur_en_jeux]
                 self.afg.reinitialiser_screen()
                 self.afg.anonyme_screen()
+                print()
+                print()
                 print(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
-
+                print()
+                print()
                 if input("Tapez [save] pour sauvegarder ou appuyez sur une autre touche pour continuer : ") == "save":
                     self.sauvegarder()
                     return 3
@@ -197,6 +201,7 @@ class Partie:
                 role_joueur = joueur.get_role()
                 role = roles[self.role_en_jeux]  # Récupérer le rôle actuel
                 if role_joueur == role and self.joueur_en_jeux in alv_joueurs_id:
+                        self.afg.reinitialiser_screen()
                         self.executer_action(role, joueur)
                         self.role_en_jeux += 1
                 else:
