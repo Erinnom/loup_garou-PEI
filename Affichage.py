@@ -495,14 +495,13 @@ class Affichage:
 
         print("\n\n")
 
-    def afficher_texte(self, texte: str, font_t='whimsy'):
+    def afficher_texte(self, texte: str, font_t='dos_rebel'):
         """
         Objectif : Methode qui permettra d'afficher le texte voulu
         Entrée : texte, police du texte
         Sortie : None
         """
-        print()
-        f = Figlet(font=font_t)
+        f = Figlet(font=font_t, width=200)
         print(f.renderText(texte))
 
     def print_fonts(self):
