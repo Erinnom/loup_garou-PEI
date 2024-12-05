@@ -356,6 +356,12 @@ class Partie:
 
 
     def revelation_role(self):
+        """
+        Objectif : Reveal le rôle de chaque joueur au début du jeu
+        Entrée : Aucune
+        Sortie : Aucune
+        """
+
         for i in self.joueurs:
             role = i.get_role()
             input("Appuyez sur entrer pour réveler votre role")
@@ -376,8 +382,8 @@ class Partie:
             elif role == "Voleur":
                 self.afg.print_cards("./illustration/Voleur.jpg")
 
-        input("Appuyer sur entrer puis passez l'appareil au joueur suivant ")
-        self.afg.reinitialiser_screen()
+            input("Appuyer sur entrer puis passez l'appareil au joueur suivant ")
+            self.afg.reinitialiser_screen()
 
     def get_id(self):
         """
