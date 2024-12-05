@@ -201,9 +201,9 @@ class Partie:
                 role_joueur = joueur.get_role()
                 role = roles[self.role_en_jeux]  # Récupérer le rôle actuel
                 if role_joueur == role and self.joueur_en_jeux in alv_joueurs_id:
-                        self.afg.reinitialiser_screen()
-                        self.executer_action(role, joueur)
-                        self.role_en_jeux += 1
+                    self.afg.reinitialiser_screen()
+                    self.executer_action(role, joueur)
+                    self.role_en_jeux += 1
                 else:
                     self.afg.reinitialiser_screen()
                     self.afg.afficher_texte(joueur.get_prenom(), "blocky")
@@ -218,8 +218,13 @@ class Partie:
         print("La nuit est terminée, le village se réveille...")
 
     def executer_action(self, role, joueur):
-        """Exécute l'action en fonction du rôle."""
-        if role == "Loup Garous":
+        """
+        Exécute l'action en fonction du rôle.
+        """
+
+        if role == "Cupidon" and self.premier_tour:
+            self.action.cupidon(self.joueurs)
+        elif role == "Loup Garous":
             self.action.loup_garou(self.joueurs, joueur)
         elif role == "Voyante":
             self.action.voyante(self.joueurs)
@@ -231,13 +236,11 @@ class Partie:
             self.action.petite_fille(self.joueurs)
         elif role == "Chasseur":
             self.action.chasseur(self.joueurs)
-        elif role == "Cupidon":
-            self.action.cupidon(self.joueurs)
         elif role == "Voleur" and self.premier_tour:
             self.action.voleur(self.joueurs, joueur)
         else:
             print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
-            input("Presser entré :")
+            input("Pressez entrer :")
 
 
     def tour_jour(self):
@@ -259,7 +262,7 @@ class Partie:
         # Vote du village
         votes = [0] * self.nombre_joueur  # inialise la liste des votes
         while self.joueur_en_jeux < self.nombre_joueur:
-        #for self.joueur_en_jeux in range(0, self.nombre_joueur):
+            #for self.joueur_en_jeux in range(0, self.nombre_joueur):
             joueur = self.joueurs[self.joueur_en_jeux]
             print(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
 
@@ -311,15 +314,16 @@ class Partie:
         Entrée : Aucune
         Sortie : Aucune
         """
+        # Premier tour
+        if self.premier_tour and self.etat_partie == 1:
+            self.action.capitaine(self.joueurs)
 
         if self.etat_partie == 0:
             # Tour de nuit
             result_nuit = self.tour_nuit()
             if result_nuit in [0, 1, 2, 3]:
                 return result_nuit  # Fin de partie détectée pendant la nuit
-        # Élection du premier maire
-        if self.premier_tour:
-            self.action.capitaine(self.joueurs)
+
         elif self.etat_partie == 1:
             # Tour de jour
             result_jour = self.tour_jour()
@@ -349,6 +353,31 @@ class Partie:
         #Victoire des loups
         elif nb_loup >= nb_joueurs - nb_loup:
             return 0
+
+
+    def revelation_role(self):
+        for i in self.joueurs:
+            role = i.get_role()
+            input("Appuyez sur entrer pour réveler votre role")
+            if role == "Cupidon":
+                self.afg.print_cards("./illustration/Cupidon.jpg")
+            elif role == "Loup Garous":
+                self.afg.print_cards("./illustration/LG.jpg")
+            elif role == "Voyante":
+                self.afg.print_cards("./illustration/Voyante.jpg")
+            elif role == "Simple Villageois":
+                self.afg.print_cards("./illustration/Villageois.jpg")
+            elif role == "Sorcière":
+                self.afg.print_cards("./illustration/Sorciere.jpg")
+            elif role == "Petite Fille":
+                self.afg.print_cards("./illustration/Petite-Fille.jpg")
+            elif role == "Chasseur":
+                self.afg.print_cards("./illustration/Chasseur.jpg")
+            elif role == "Voleur":
+                self.afg.print_cards("./illustration/Voleur.jpg")
+
+        input("Appuyer sur entrer puis passez l'appareil au joueur suivant ")
+        self.afg.reinitialiser_screen()
 
     def get_id(self):
         """
