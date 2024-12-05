@@ -34,7 +34,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ","WHITE")
-        self.aff.liste_joueurs(prenoms,prenoms)
+        self.aff.liste_joueurs(prenoms,[])
 
         if self.potion_vie == True:
             self.aff.phrases("Voulez vous utiliser votre potion de vie, oui ou non","WHITE")
@@ -121,7 +121,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
+        self.aff.liste_joueurs(prenoms, [])
 
         self.aff.phrases("Entrée le nom du joueur dont vous voulez voler le rôle ","WHITE")
         indice = input().strip()
@@ -169,7 +169,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
+        self.aff.liste_joueurs(prenoms, [])
 
         couple =""
         if joueur_actuel.get_marie() == True :
@@ -209,7 +209,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
+        self.aff.liste_joueurs(prenoms, [])
 
         self.aff.phrases("Entrée le nom du joueur dont vous voulez voir le rôle ","WHITE")
         reponse = input().strip()
@@ -242,7 +242,6 @@ class Role():
         """
         self.aff.loup_garou(True,"")
 
-
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -251,6 +250,7 @@ class Role():
         prenoms = []
         for joueur in liste:
             prenoms.append(joueur.get_prenom())
+        print(prenoms)
 
         couple = ""
         if joueur_actuel.get_marie() == True:
@@ -262,28 +262,29 @@ class Role():
         if joueur_actuel.get_maire() == True:
             self.aff.phrases("Vous êtes maire", "WHITE")
 
-        self.loup = [joueurs.get_prenom() for joueurs in liste if joueurs.get_role() == "Loup Garou"]
+        self.loup = [joueurs.get_prenom() for joueurs in liste if joueurs.get_role() == "Loup Garous"]
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
         self.aff.liste_joueurs(prenoms, self.loup)
-
         self.aff.phrases("Vote des autres loups :", "WHITE")
         self.aff.liste_joueurs(self.vote_loup, self.loup)
 
+
         nombre_loup = len(self.loup)
+        nombre_vote = len(self.vote_loup)
+
         self.aff.phrases("Pour qui veux tu voter","WHITE")
-        reponse = input(":")#.strip()
+        reponse = input().strip()
         while reponse not in prenoms:
             self.aff.phrases("Nom pas présent dans la liste, recommencez","WHITE")
-            reponse = input(":")#.strip()
+            reponse = input().strip()
 
-        if nombre_loup > 1:
+        if nombre_vote < nombre_loup :
             self.vote_loup.append(reponse)
-            self.loup.remove(joueur_actuel.get_prenom())
             for i in range (0, len(liste)):
                 if liste[i].get_prenom() == reponse :
                     liste[i].vote()
 
-        if nombre_loup == 1:
+        elif nombre_vote == nombre_loup - 1:
             for i in range (0, len(liste)):
                 if liste[i].get_prenom() == reponse :
                     liste[i].vote()
@@ -381,7 +382,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
+        self.aff.liste_joueurs(prenoms, [])
 
         # Créer une liste des noms des Loups
         loups = []
@@ -467,7 +468,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
+        self.aff.liste_joueurs(prenoms, [])
 
         self.aff.phrases("Qui voulez vous tuer","WHITE")
         reponse = input().strip()
@@ -519,7 +520,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
+        self.aff.liste_joueurs(prenoms, [])
 
         self.aff.phrases("Quel est la première personne du couple ?","WHITE")
         couple1 = input()
@@ -569,7 +570,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
+        self.aff.liste_joueurs(prenoms, [])
 
         for i in range(0, len(liste)):
             self.aff.phrases("Avez vous déja voté oui/non ","WHITE")
@@ -635,7 +636,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, prenoms)
+        self.aff.liste_joueurs(prenoms, [])
 
         self.aff.phrases("Qui voulez vous choisir comme nouveau maire", "WHITE")
         reponse = input().strip()

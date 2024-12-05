@@ -176,12 +176,8 @@ class Partie:
 
         # Liste des rôles
         roles = self.get_roles()
-        self.role_en_jeux = 0  # Assurez-vous que ce compteur commence à 0
-        self.joueur_en_jeux = 0  # Assurez-vous que ce compteur commence à 0
-
         while self.role_en_jeux < len(roles):  # Boucle sur les rôles
-
-            while self.joueur_en_jeux < self.nombre_joueur:  # Boucle sur les joueurs
+            while self.joueur_en_jeux < self.nombre_joueur and self.role_en_jeux < len(roles):  # Boucle sur les joueurs
                 joueur = self.joueurs[self.joueur_en_jeux]
                 self.afg.reinitialiser_screen()
                 self.afg.anonyme_screen()
@@ -200,9 +196,8 @@ class Partie:
                 else:
                     print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nCe n'est pas à vous de jouer...")
                     input("Appuyez sur Entrée pour continuer.")
-
-            self.joueur_en_jeux +=1 # Passer au joueur suivant
-
+                self.joueur_en_jeux +=1 # Passer au joueur suivant
+            self.joueur_en_jeux = 0  # Réinitialisation des variables pour le prochain tour
         # Réinitialisation des variables pour le prochain tour
         self.etat_partie = 1
         self.role_en_jeux = 0
@@ -303,16 +298,15 @@ class Partie:
         Entrée : Aucune
         Sortie : Aucune
         """
-        # Élection du premier maire
-        if self.premier_tour:
-            self.action.capitaine(self.joueurs)
 
         if self.etat_partie == 0:
             # Tour de nuit
             result_nuit = self.tour_nuit()
             if result_nuit in [0, 1, 2, 3]:
                 return result_nuit  # Fin de partie détectée pendant la nuit
-
+        # Élection du premier maire
+        if self.premier_tour:
+            self.action.capitaine(self.joueurs)
         elif self.etat_partie == 1:
             # Tour de jour
             result_jour = self.tour_jour()
