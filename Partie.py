@@ -205,8 +205,10 @@ class Partie:
                         self.executer_action(role, joueur)
                         self.role_en_jeux += 1
                 else:
-                    print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nCe n'est pas à vous de jouer...")
-                    input("Appuyez sur Entrée pour continuer.")
+                    self.afg.reinitialiser_screen()
+                    self.afg.afficher_texte(joueur.get_prenom(), "blocky")
+                    print("\n\nCe n'est pas à vous de jouer...")
+                    input("Appuyez sur entrer pour continuer.")
                 self.joueur_en_jeux +=1 # Passer au joueur suivant
             self.joueur_en_jeux = 0  # Réinitialisation des variables pour le prochain tour
         # Réinitialisation des variables pour le prochain tour
