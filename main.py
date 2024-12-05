@@ -49,6 +49,7 @@ while True:
 #choix n°1 création d'une nouvelle partie
 if choix == 1:
     partie_actuelle.creer()
+    partie_actuelle.revelation_role()
 
 #choix n°2 charge une partie grâce à son nom de fichier (extension non nécessaire)
 if choix == 2:
