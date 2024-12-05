@@ -332,7 +332,7 @@ class Role():
                 joueurs[i].reset_vote()
 
 
-        self.aff.phrases("Vous avez voté : "+ reponse, "WHITE")
+        self.aff.loup_garou(False, reponse)
 
 
         self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
@@ -623,7 +623,7 @@ class Role():
                     self.aff.phrases("Avez vous déja voté oui/non ","WHITE")
                     reponse = input()
 
-            self.aff.phrases("Pour qui voulez vous voter ?","WHITE")
+            self.aff.phrases("\nPour qui voulez vous voter ?\n","WHITE")
 
             reponse = input()
             while reponse not in prenoms:

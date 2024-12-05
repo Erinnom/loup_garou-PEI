@@ -2,6 +2,7 @@ import pyfiglet
 
 import Traitement_Image as TI
 import os
+import time
 from pyfiglet import *
 import random as r
 
@@ -47,7 +48,10 @@ class Affichage:
         if temp:
             TI.print_card("./illustration/LG.jpg", 50, 50)
         else:
+            self.reinitialiser_screen()
             TI.print_card("./illustration/griffes.jpg", 40, 40)
+            time.sleep(3)
+            self.reinitialiser_screen()
             txt = r.choice(phrases_loups)
             avant_joueur, apres_joueur = txt.split("JOUEUR")
             t = avant_joueur + nom + apres_joueur
@@ -83,7 +87,10 @@ class Affichage:
         if temp:
             TI.print_card("./illustration/Sorciere.jpg", 50, 50)
         else:
+            self.reinitialiser_screen()
             TI.print_card("./illustration/potion.jpg", 40, 40)
+            time.sleep(3)
+            self.reinitialiser_screen()
             if choix == "vie":
                 txt = r.choice(phrases_potion_vie)
                 avant_joueur, apres_joueur = txt.split("JOUEUR")
@@ -114,7 +121,10 @@ class Affichage:
         if temp:
             TI.print_card("./illustration/Chasseur.jpg", 50, 50)
         else:
+            self.reinitialiser_screen()
             TI.print_card("./illustration/cible.jpg", 40, 40)
+            time.sleep(3)
+            self.reinitialiser_screen()
             txt = r.choice(phrases_chasseur)
             avant_joueur, apres_joueur = txt.split("JOUEUR")
             t = avant_joueur + nom + apres_joueur
@@ -136,7 +146,10 @@ class Affichage:
         if temp:
             TI.print_card("./illustration/Petite-Fille.jpg", 50, 50)
         else:
+            self.reinitialiser_screen()
             TI.print_card("./illustration/ours.jpg", 40, 40)
+            time.sleep(3)
+            self.reinitialiser_screen()
             t = r.choice(phrases_petite_fille)
             self.afficher_texte(t)
 
@@ -158,7 +171,10 @@ class Affichage:
         if temp:
             TI.print_card("./illustration/Voleur.jpg", 50, 50)
         else:
+            self.reinitialiser_screen()
             TI.print_card("./illustration/pas.jpg", 40, 40)
+            time.sleep(3)
+            self.reinitialiser_screen()
             t = r.choice(phrases_voleur)
             self.afficher_texte(t)
 
@@ -180,7 +196,10 @@ class Affichage:
         if temp:
             TI.print_card("./illustration/Cupidon.jpg", 50, 50)
         else:
+            self.reinitialiser_screen()
             TI.print_card("./illustration/coeur.jpg", 50, 40)
+            time.sleep(3)
+            self.reinitialiser_screen()
             txt = r.choice(phrases_cupidon)
             avant_joueur, milieu_joueur, apres_joueur = txt.split("JOUEUR")
             t = avant_joueur + nom1 + milieu_joueur + nom2 + apres_joueur
@@ -204,7 +223,10 @@ class Affichage:
         if temp:
             TI.print_card("./illustration/Voyante.jpg", 50, 50)
         else:
+            self.reinitialiser_screen()
             TI.print_card("./illustration/boule.jpg", 40, 40)
+            time.sleep(3)
+            self.reinitialiser_screen()
             txt = r.choice(phrases_voyante)
             avant_joueur, apres_joueur = txt.split("JOUEUR")
             t = avant_joueur + nom + apres_joueur
@@ -216,8 +238,10 @@ class Affichage:
         Entrée : Aucune
         Sortie : Aucune
         """
+        self.reinitialiser_screen()
         TI.print_card("./illustration/Villageois.jpg", 50, 50)
-        pass
+        time.sleep(3)
+        self.reinitialiser_screen()
 
     def capitaine(self, nom: str):
         """
@@ -234,7 +258,10 @@ class Affichage:
             "Dans l'ombre de la nuit, vous, JOUEUR, etes la cle de la survie des innocents."
         ]
 
+        self.reinitialiser_screen()
         TI.print_card("./illustration/Capitaine.jpg", 50, 50)
+        time.sleep(3)
+        self.reinitialiser_screen()
         txt = r.choice(phrases_capitaine)
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
@@ -259,7 +286,10 @@ class Affichage:
             "Votre choix a ete fait, vous avez vote pour JOUEUR, une voix supplementaire qui pourrait decider de son sort."
         ]
 
+        self.reinitialiser_screen()
         TI.print_card("./illustration/lettre.jpg", 40, 40)
+        time.sleep(3)
+        self.reinitialiser_screen()
         txt = r.choice(phrases_votes)
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
@@ -280,7 +310,10 @@ class Affichage:
             "Les villageois ont tranche, JOUEUR. Vous avez ete condamne(e) au bûcher par le vote."
         ]
 
+        self.reinitialiser_screen()
         TI.print_card("./illustration/lettre-ouverte.jpg", 40, 40)
+        time.sleep(3)
+        self.reinitialiser_screen()
         txt = r.choice(phrases_mort_vote)
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
@@ -302,7 +335,10 @@ class Affichage:
             "La vie de JOUEUR a pris fin dans l'obscurite. Le village devra se remettre de cette perte."
         ]
 
+        self.reinitialiser_screen()
         TI.print_card("./illustration/faucheuse.jpg", 40, 40)
+        time.sleep(3)
+        self.reinitialiser_screen()
         txt = r.choice(phrases_mort_banale)
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
@@ -324,7 +360,10 @@ class Affichage:
             "La fin de JOUEUR a emporte avec elle les reves d'un amour qui n'aura jamais de lendemain. Les cœurs brises pleurent cette perte."
         ]
 
+        self.reinitialiser_screen()
         TI.print_card("./illustration/faucheuse.jpg", 40, 40)
+        time.sleep(3)
+        self.reinitialiser_screen()
         txt = r.choice(phrases_mort_amoureux)
         avant_joueur, milieu_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom1 + milieu_joueur + nom2 + apres_joueur

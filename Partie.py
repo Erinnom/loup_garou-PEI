@@ -6,6 +6,7 @@ import json
 import os
 
 
+
 class Partie:
     def __init__(self):
         self.id_partie = ""
