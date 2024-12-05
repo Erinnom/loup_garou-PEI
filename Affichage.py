@@ -519,6 +519,9 @@ class Affichage:
             f = Figlet(font=elt)
             print(f.renderText('Ceci est un test'))
 
+    def print_cards(self, chemin):
+        TI.print_card(chemin, 50, 50)
+
 
 if __name__ == "__main__":
     test = Affichage()
