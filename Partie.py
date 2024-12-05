@@ -175,8 +175,9 @@ class Partie:
         self.afg.reinitialiser_screen()
 
         self.action.demasquage_petite_fille(self.joueurs)
-        print("La nuit tombe sur le village de tierce lieux... Le Village s'endort...\n"
-              "Les villageois dorment tous sur leurs deux oreilles... enfin presque...")
+        self.afg.afficher_texte("La nuit tombe sur le village de tierce lieux... Le Village s'endort...")
+        print("\n\n\n\n\n")
+        input("Appuyez sur entrer pour continuer")
 
         # Obtention des joueurs encore en vie
         alv_joueurs_id = self.get_joueur_en_vie()  # Liste des indices des joueurs encore en vie
@@ -215,7 +216,7 @@ class Partie:
         self.etat_partie = 1
         self.role_en_jeux = 0
         self.joueur_en_jeux = 0
-        print("La nuit est terminée, le village se réveille...")
+        self.afg.afficher_texte("La nuit est terminée, le village se réveille...")
 
     def executer_action(self, role, joueur):
         """
@@ -365,6 +366,7 @@ class Partie:
         for i in self.joueurs:
             role = i.get_role()
             input("Appuyez sur entrer pour réveler votre role")
+            self.afg.reinitialiser_screen()
             if role == "Cupidon":
                 self.afg.print_cards("./illustration/Cupidon.jpg")
             elif role == "Loup Garous":
@@ -382,6 +384,7 @@ class Partie:
             elif role == "Voleur":
                 self.afg.print_cards("./illustration/Voleur.jpg")
 
+            print()
             input("Appuyer sur entrer puis passez l'appareil au joueur suivant ")
             self.afg.reinitialiser_screen()
 
