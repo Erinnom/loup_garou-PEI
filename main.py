@@ -9,23 +9,42 @@ Auteurs :
 - Monnier Maxime (@Erinnom)
 - Ramos Axel     (@Ulyclash)
 """
+
+
 #Import
+
 from Partie import *
 from Affichage import Affichage
+import pyautogui
+import time
 
-# Déclaration de Variables
+
+#Mise en plein écran du programme
+
+time.sleep(1)
+pyautogui.hotkey('alt', 'enter')
+
+
+#Déclaration de Variables
+
 partie_actuelle = Partie()
 screen_display = Affichage()
 
-# Programme Principal
-"""
-Programme principal qui fait se dérouler la partie correctement
-"""
 
+#Programme Principal
+
+screen_display.reinitialiser_screen()
 screen_display.menu_principal()
-choix = int(input("Votre choix : "))
-while choix not in [1, 2, 3]:
-    choix = int(input("Votre choix : "))
+
+while True:
+    try:
+        choix = int(input("Votre choix : "))
+        if choix in [1, 2, 3]:
+            break
+        else:
+            print("Valeur non valide")
+    except ValueError:
+        print("Saisie non valide, veuillez entrer un nombre.")
 
 #choix n°1 création d'une nouvelle partie
 if choix == 1:
