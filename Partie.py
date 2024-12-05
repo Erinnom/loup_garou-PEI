@@ -78,9 +78,15 @@ class Partie:
             nom = input("Nom de la partie : ")
         self.id_partie = nom
 
-        nb = input("Nombre de joueurs [6-18] : ")
-        while int(nb) < 6 or int(nb) > 18:
-            nb = input("Nombre de joueurs [6-18] : ")
+        while True:
+            try:
+                nb = int(input("Nombre de joueurs [6-18] : "))
+                if 6 <= nb <= 18:
+                    break
+                else:
+                    print("Valeur non valide, entrez un nombre entre 6 et 18.")
+            except ValueError:
+                print("Saisie non valide, veuillez entrer un nombre.")
 
         self.nombre_joueur = int(nb)
         i = 0
