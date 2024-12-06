@@ -60,6 +60,14 @@ class Partie:
 
         return role_partie[self.nombre_joueur - 6]
 
+    def get_indice_joueur(self,prenom:str)->int:
+        i = 0
+        while i < self.nombre_joueur and self.joueurs[i].get_prenom() != prenom:
+            i+=1
+        if i < self.nombre_joueur and self.joueurs[i].get_prenom() == prenom :
+            return i
+        return -1
+
     def get_joueurs(self):
         """
         Objectif : Obtenir la liste des joueurs de la partie
@@ -202,9 +210,11 @@ class Partie:
                 # Exécution des actions si le joueur a le rôle correspondant
                 role_joueur = joueur.get_role()
                 role = roles[self.role_en_jeux]  # Récupérer le rôle actuel
-                if role_joueur == role and self.joueur_en_jeux in alv_joueurs_id:
+                if role_joueur == role:
                     self.afg.reinitialiser_screen()
-                    self.executer_action(role, joueur)
+                    if  self.joueur_en_jeux in alv_joueurs_id:
+                        self.afg.afficher_texte(joueur.get_prenom(), "blocky")
+                        self.executer_action(role, joueur)
                     self.role_en_jeux += 1
                 else:
                     self.afg.reinitialiser_screen()
@@ -260,10 +270,10 @@ class Partie:
 
         # Actualisation des joueur encore en vie
         alv_joueurs_id = self.get_joueur_en_vie()  # liste des indices des joueurs encore en vie
-
+        prenoms = [self.joueurs[i].get_prenom() for i in alv_joueurs_id]
         # Vote du village
-        votes = [0] * self.nombre_joueur  # inialise la liste des votes
         while self.joueur_en_jeux < self.nombre_joueur:
+            self.afg.reinitialiser_screen()
             #for self.joueur_en_jeux in range(0, self.nombre_joueur):
             joueur = self.joueurs[self.joueur_en_jeux]
             print(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
@@ -271,44 +281,61 @@ class Partie:
             if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
                 self.sauvegarder()
                 return 3
-
+            self.afg.afficher_texte(joueur.get_prenom(), "blocky")
             if self.joueur_en_jeux not in alv_joueurs_id:
-                print("Ohhh.. NON!! il semblerait que vous êtes mort...")
+                print("Ohhh.. NON!! il semblerait que vous soyez mort...")
 
             else:
-                print("Pour qui souhaitez vous voter :")
-                print([str(i) + " : " + self.joueurs[i].get_prenom() for i in alv_joueurs_id], [])
-                vote = int(input("Indice du joueur [1-" + str(self.nombre_joueur) + "] : "))
-                while vote not in alv_joueurs_id:
-                    vote = int(input("Indice du joueur [1-" + str(self.nombre_joueur) + "] : "))
-                self.joueurs[vote].vote()
-                votes[vote] += 1
+                self.afg.liste_joueurs(prenoms, [])
+                vote = input("Nom du joueur que vous voulez éliminer : ")
+                while vote not in prenoms:
+                    vote = input("Nom du joueur que vous voulez éliminer : ")
+                indice_joueur = self.get_indice_joueur(vote)
+                self.joueurs[indice_joueur].vote()
+                #votes[indice_joueur] += 1
                 if joueur.get_maire():
-                    self.joueurs[vote].vote()
-                    votes[vote] += 1
-            mort_indice = votes.index(max(votes))
-            mort = self.joueurs[mort_indice]
-            mort.set_mort(True)
+                    self.joueurs[indice_joueur].vote()
+                    #votes[indice_joueur] += 1
+            self.joueur_en_jeux += 1
 
-            self.afg.afficher_texte(
+        mort_indice = self.get_indice_mort()
+        mort = self.joueurs[mort_indice]
+        mort.set_mort(True)
+
+        self.afg.afficher_texte(
                 f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} a ete pendu par le village... Il etait ... {mort.get_role()}")
-
-            if (mort.get_role() == "Chasseur"):
+        if (mort.get_role() == "Chasseur"):
                 self.action.chasseur(self.joueurs)
-            if (mort.est_maire()):
-                self.action.nouveau_maire(self.joueurs, joueur)
-                self.premier_tour = False
+        if (mort.get_maire() == 1):
+            self.action.nouveau_maire(self.joueurs,mort)
+            self.premier_tour = False
 
-            # reset vote
-            for i in alv_joueurs_id:
-                self.joueurs[i].reset_vote()
-            self.joueur_en_jeux+=1
+        # reset vote
+        for i in self.joueurs:
+            i.reset_vote()
+        self.joueur_en_jeux+=1
         self.joueur_en_jeux = 0
         # Test des conditions pour une fin de partie
         if self.fin_de_partie() in [0, 1, 2]:
             return self.fin_de_partie()
 
         self.etat_partie = 0
+        if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
+            self.sauvegarder()
+            return 3
+
+    def get_indice_mort(self):
+        votes = [0] * self.nombre_joueur  # inialise la liste des votes
+        for i in range (self.nombre_joueur):
+            votes[i] = self.joueurs[i].get_vote()
+
+        max_vote = max(votes)
+        indice_joueur_max_vote = []
+        for i in range (self.nombre_joueur):
+            if votes[i] ==  max_vote:
+                indice_joueur_max_vote.append(i)
+
+        return indice_joueur_max_vote[randint(0,len(indice_joueur_max_vote)-1)]
 
     def tour(self):
         """
