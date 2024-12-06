@@ -111,11 +111,8 @@ class Role():
                 self.aff.phrases("Vous avez tué " + reponse,"WHITE")
                 # self.aff.sorciere(False, reponse, "mort")
 
-        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
-        effacer = input().strip()
-        while effacer != "oui":
-            self.aff.phrases("Veuillez écrire oui", "WHITE")
-            effacer = input().strip()
+        self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
+        input()
 
         self.aff.reinitialiser_screen()
 
@@ -161,11 +158,8 @@ class Role():
         joueur_actuel.set_role(nouveau_role)
         self.aff.phrases("Votre nouveau rôle est "+joueur_actuel.get_role(),"WHITE")
 
-        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
-        effacer = input().strip()
-        while effacer != "oui":
-            self.aff.phrases("Veuillez écrire oui", "WHITE")
-            effacer = input().strip()
+        self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
+        input()
 
         self.aff.reinitialiser_screen()
 
@@ -221,11 +215,8 @@ class Role():
                 elif resultat == "Voleur":
                     self.aff.print_cards("./illustration/Voleur.jpg")
 
-        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
-        effacer = input().strip()
-        while effacer != "oui":
-            self.aff.phrases("Veuillez écrire oui", "WHITE")
-            effacer = input().strip()
+        self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
+        input()
 
         self.aff.reinitialiser_screen()
 
@@ -236,8 +227,6 @@ class Role():
         Entrée : joueurs
         Sortie : Aucune
         """
-
-        self.aff.loup_garou(True,"")
 
         liste = []
         for joueur in joueurs:
@@ -313,12 +302,8 @@ class Role():
 
         self.aff.loup_garou(False, reponse)
 
-
-        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
-        effacer = input().strip()
-        while effacer != "oui":
-            self.aff.phrases("Veuillez écrire oui", "WHITE")
-            effacer = input().strip()
+        self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
+        input()
 
         self.aff.reinitialiser_screen()
 
@@ -446,11 +431,8 @@ class Role():
                 self.aff.phrases("Aucune lettre retournée pour le loup-garou '[i]'","WHITE")
             i += 1
 
-        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
-        effacer = input().strip()
-        while effacer != "oui":
-            self.aff.phrases("Veuillez écrire oui", "WHITE")
-            effacer = input().strip()
+        self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
+        input()
 
         self.aff.reinitialiser_screen()
 
@@ -495,26 +477,21 @@ class Role():
 
 
         # self.aff.chasseur(False,reponse)
-        self.aff.phrases("Vous avez tué : " + reponse, "WHITE")
+        self.aff.chasseur(False,reponse)
 
-        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
-        effacer = input().strip()
-        while effacer != "oui":
-            self.aff.phrases("Veuillez écrire oui", "WHITE")
-            effacer = input().strip()
+        self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
+        input()
 
         self.aff.reinitialiser_screen()
 
 
 
-    def cupidon(self,joueurs,joueur_actuel):
+    def cupidon(self,joueurs):
         """
         Méthode permettant de créer le rôle cupidon où il lie deux personnes et si une des deux meurts alors les deux meurts
         Objectif : joueurs
         Sortie : Aucune
         """
-        # self.aff.cupidon(True,"","")
-
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -529,21 +506,14 @@ class Role():
 
         self.aff.phrases("Quel est la première personne du couple ?","WHITE")
         couple1 = input()
-        while couple1 not in prenoms or couple1 == joueur_actuel.get_prenom():
-            if couple1 == joueur_actuel.get_prenom():
-                self.aff.phrases("Vous ne pouvez pas vous mettre en couple", "WHITE")
-                couple1 = input()
-            else :
-                self.aff.phrases("Nom pas présent dans la liste, recommencer","WHITE")
-                couple1 = input()
+        while couple1 not in prenoms :
+            self.aff.phrases("Nom pas présent dans la liste, recommencer","WHITE")
+            couple1 = input()
 
         self.aff.phrases("Quel est la deuxième personne du couple ?","WHITE")
         couple2 = input()
-        while couple2 not in prenoms or couple1 == couple2 or couple2 == joueur_actuel.get_prenom():
-            if couple2 == joueur_actuel.get_prenom():
-                self.aff.phrases("Vous ne pouvez pas vous mettre en couple", "WHITE")
-                couple2 = input()
-            elif couple1 == couple2:
+        while couple2 not in prenoms or couple1 == couple2:
+            if couple1 == couple2:
                 self.aff.phrases("Veuillez donner un nom différent du premier", "WHITE")
                 couple2 = input()
             else :
@@ -558,14 +528,10 @@ class Role():
             if joueurs[i].get_prenom() == couple2 :
                 joueurs[i].set_marie(True)
 
-        # self.aff.cupidon(False,couple1,couple2)
-        self.aff.phrases("Le couple est "+couple1+" et "+couple2, "WHITE")
+        self.aff.cupidon(False, couple1, couple2)
 
-        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
-        effacer = input().strip()
-        while effacer != "oui":
-            self.aff.phrases("Veuillez écrire oui", "WHITE")
-            effacer = input().strip()
+        self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
+        input()
 
         self.aff.reinitialiser_screen()
 
@@ -679,11 +645,8 @@ class Role():
             if joueurs[i].get_prenom() == reponse :
                 joueurs[i].set_maire(True)
 
-        self.aff.phrases("Vous avez fini votre tour, écrirez oui pour finir votre tour", "WHITE")
-        effacer = input().strip()
-        while effacer != "oui":
-            self.aff.phrases("Veuillez écrire oui", "WHITE")
-            effacer = input().strip()
+        self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
+        input()
 
         joueur_actuel.set_maire(False)
 

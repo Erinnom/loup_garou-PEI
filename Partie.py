@@ -254,7 +254,7 @@ class Partie:
         elif role == "Voleur" and self.premier_tour:
             self.action.voleur(self.joueurs, joueur)
         else:
-            print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
+            print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nCe n'est pas a vous de jouer...")
             self.demander_recopie()
 
 

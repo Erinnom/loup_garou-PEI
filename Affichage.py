@@ -39,7 +39,7 @@ class Affichage:
         TI.print_card("./illustration/nuit.jpg", 50, 50)
         time.sleep(2)
         self.reinitialiser_screen()
-        self.afficher_texte("La nuit tombe sur le village de tierce lieux... Le Village s'endort...")
+        self.afficher_texte("La nuit tombe sur le village de Thiercelieux... Le Village s'endort...")
         time.sleep(5)
         self.reinitialiser_screen()
 
@@ -66,8 +66,8 @@ class Affichage:
             self.reinitialiser_screen()
             txt = r.choice(phrases_loups)
             avant_joueur, apres_joueur = txt.split("JOUEUR")
-            t = avant_joueur + nom + apres_joueur
-            self.afficher_texte(t)
+            texte_final = avant_joueur + nom + apres_joueur
+            self.afficher_texte(texte_final)
 
     def sorciere(self, temp: bool, nom: str, choix=None, ):
         """
@@ -192,17 +192,17 @@ class Affichage:
 
     def cupidon(self, temp: bool, nom1: str, nom2: str):
         """
-        Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
-        Entrée : booleen qui permet de choisir l'affichage, nom des joueurs vises
-        Sortie : Aucune
+        Objectif : Méthode qui permettra un affichage de la carte ou de l'affichage résultant de l'action.
+        Entrée : booléen qui permet de choisir l'affichage, noms des joueurs visés.
+        Sortie : Aucune.
         """
         # Phrases pour Cupidon
         phrases_cupidon = [
-            "Vous avez unifie les âmes, JOUEUR. Deux cœurs battent desormais a l'unisson, mais cela peut etre une benediction ou une malediction.",
-            "JOUEUR, en tant que Cupidon, vous avez lie deux âmes pour la nuit. Leurs destins sont desormais lies.",
-            "JOUEUR, vous avez choisi vos cibles avec soin. L'amour peut etre un puissant allie… ou une arme a double tranchant.",
-            "L'amour frappe fort, JOUEUR. Vous avez uni deux joueurs, mais qui seront vos allies et qui seront vos ennemis ?",
-            "Cupidon a fait son œuvre, JOUEUR. Le destin des deux amants repose desormais entre vos mains."
+            "JOUEUR1 et JOUEUR2 sont maintenant unis par le destin.",
+            "JOUEUR1 et JOUEUR2, leurs vies sont liees pour le meilleur ou pour le pire.",
+            "L'amour frappe JOUEUR1 et JOUEUR2. Seront-ils allies ou ennemis ?",
+            "JOUEUR1 et JOUEUR2, deux coeurs battent a l'unisson.",
+            "Cupidon a choisi JOUEUR1 et JOUEUR2. Leur destin est scelle."
         ]
 
         if temp:
@@ -212,10 +212,12 @@ class Affichage:
             TI.print_card("./illustration/coeur.jpg", 50, 40)
             time.sleep(3)
             self.reinitialiser_screen()
+
+            # Choisir une phrase aléatoire et remplacer JOUEUR1 et JOUEUR2
             txt = r.choice(phrases_cupidon)
-            avant_joueur, milieu_joueur, apres_joueur = txt.split("JOUEUR")
-            t = avant_joueur + nom1 + milieu_joueur + nom2 + apres_joueur
-            self.afficher_texte(t)
+            texte_final = txt.replace("JOUEUR1", nom1).replace("JOUEUR2", nom2)
+
+            self.afficher_texte(texte_final)
 
     def voyante(self, temp: bool, nom: str):
         """
