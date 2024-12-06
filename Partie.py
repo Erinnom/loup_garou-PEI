@@ -225,7 +225,7 @@ class Partie:
         """
 
         if role == "Cupidon" and self.premier_tour:
-            self.action.cupidon(self.joueurs)
+            self.action.cupidon(self.joueurs,joueur)
         elif role == "Loup Garous":
             self.action.loup_garou(self.joueurs, joueur)
         elif role == "Voyante":
