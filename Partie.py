@@ -234,7 +234,9 @@ class Partie:
 
     def executer_action(self, role, joueur):
         """
-        Exécute l'action en fonction du rôle.
+        Objecif : Exécute l'action en fonction du rôle.
+        Entrée : role et joueur
+        Sortie : Aucune
         """
 
         if role == "Cupidon" and self.premier_tour:
@@ -277,6 +279,8 @@ class Partie:
             self.afg.reinitialiser_screen()
             #for self.joueur_en_jeux in range(0, self.nombre_joueur):
             joueur = self.joueurs[self.joueur_en_jeux]
+            self.afg.afficher_texte("Vote du village")
+            print("\n")
             print(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
 
             if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
