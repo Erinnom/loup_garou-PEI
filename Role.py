@@ -237,8 +237,6 @@ class Role():
         Sortie : Aucune
         """
 
-        self.aff.loup_garou(True,"")
-
         liste = []
         for joueur in joueurs:
             if not joueur.get_mort():
@@ -586,7 +584,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.reinitialiser_screen()
-        self.aff.phrases("Il est dorénavant temps d'élire le maire !")
+        self.aff.afficher_texte("Il est dorenavant temps d'élire le maire !")
         time.sleep(3)
         self.aff.reinitialiser_screen()
 
@@ -594,7 +592,7 @@ class Role():
         self.aff.liste_joueurs(prenoms, [])
 
         for i in range(0, len(liste)):
-            self.aff.phrases(joueurs[i].get_prenom())
+            self.aff.afficher_texte(joueurs[i].get_prenom())
             self.aff.phrases("Avez vous déja voté oui/non ","WHITE")
             reponse = input()
 
@@ -662,6 +660,8 @@ class Role():
         prenoms = []
         for joueur in liste:
             prenoms.append(joueur.get_prenom())
+
+        self.aff.reinitialiser_screen()
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
         self.aff.liste_joueurs(prenoms, [])

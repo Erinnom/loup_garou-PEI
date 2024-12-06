@@ -25,7 +25,7 @@ class Affichage:
         TI.print_card("./illustration/jour.jpg", 50, 50)
         time.sleep(2)
         self.reinitialiser_screen()
-        self.afficher_texte("La nuit est terminée, le village se réveille...")
+        self.afficher_texte("La nuit est terminée, le village se reveille...")
         time.sleep(5)
         self.reinitialiser_screen()
 
