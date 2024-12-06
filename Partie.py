@@ -1,9 +1,12 @@
-from random import randint
+import time
+from random import *
+import random
 from Affichage import Affichage
 from Joueur import Joueur
 from Role import Role
 import json
 import os
+import string
 
 
 
@@ -184,9 +187,7 @@ class Partie:
         self.afg.reinitialiser_screen()
 
         self.action.demasquage_petite_fille(self.joueurs)
-        self.afg.afficher_texte("La nuit tombe sur le village de tierce lieux... Le Village s'endort...")
-        print("\n\n\n\n\n")
-        input("Appuyez sur entrer pour continuer")
+        self.afg.nuit()
 
         # Obtention des joueurs encore en vie
         alv_joueurs_id = self.get_joueur_en_vie()  # Liste des indices des joueurs encore en vie
@@ -220,14 +221,16 @@ class Partie:
                     self.afg.reinitialiser_screen()
                     self.afg.afficher_texte(joueur.get_prenom(), "blocky")
                     print("\n\nCe n'est pas à vous de jouer...")
-                    input("Appuyez sur entrer pour continuer.")
+                    self.demander_recopie()
                 self.joueur_en_jeux +=1 # Passer au joueur suivant
             self.joueur_en_jeux = 0  # Réinitialisation des variables pour le prochain tour
         # Réinitialisation des variables pour le prochain tour
         self.etat_partie = 1
         self.role_en_jeux = 0
         self.joueur_en_jeux = 0
-        self.afg.afficher_texte("La nuit est terminée, le village se réveille...")
+
+        self.afg.jour()
+
 
     def executer_action(self, role, joueur):
         """
@@ -235,13 +238,11 @@ class Partie:
         """
 
         if role == "Cupidon" and self.premier_tour:
-            self.action.cupidon(self.joueurs,joueur)
+            self.action.cupidon(self.joueurs)
         elif role == "Loup Garous":
             self.action.loup_garou(self.joueurs, joueur)
         elif role == "Voyante":
             self.action.voyante(self.joueurs)
-        elif role == "Simple Villageois":
-            self.action.villageois(self.joueurs, joueur)
         elif role == "Sorcière":
             self.action.sorciere(self.joueurs)
         elif role == "Petite Fille":
@@ -252,7 +253,7 @@ class Partie:
             self.action.voleur(self.joueurs, joueur)
         else:
             print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \n ne n'est pas a vous de jouer...")
-            input("Pressez entrer :")
+            self.demander_recopie()
 
 
     def tour_jour(self):
@@ -393,6 +394,7 @@ class Partie:
 
         for i in self.joueurs:
             role = i.get_role()
+            self.afg.afficher_texte(i.get_prenom())
             input("Appuyez sur entrer pour réveler votre role")
             self.afg.reinitialiser_screen()
             if role == "Cupidon":
@@ -415,6 +417,22 @@ class Partie:
             print()
             input("Appuyer sur entrer puis passez l'appareil au joueur suivant ")
             self.afg.reinitialiser_screen()
+
+    def generer_chaine_aleatoire(self,longueur):
+        """Génère une chaîne aléatoire composée de lettres et chiffres."""
+        caracteres = string.ascii_letters + string.digits
+        return ''.join(random.choices(caracteres, k=longueur))
+
+    def demander_recopie(self):
+        """Demande à l'utilisateur de recopier une chaîne générée aléatoirement."""
+        chaine_a_recopier = self.generer_chaine_aleatoire(10)  # Par défaut, 10 caractères
+        while True:
+            print(f"Recopiez exactement cette chaîne : '{chaine_a_recopier}'")
+            saisie = input("> ")
+            if saisie == chaine_a_recopier:
+                return
+            else:
+                print("Erreur : Vous n'avez pas recopié la chaîne correctement. Essayez encore.")
 
     def get_id(self):
         """
