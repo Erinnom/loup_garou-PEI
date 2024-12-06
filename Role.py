@@ -1,7 +1,7 @@
-import time
 from operator import xor
 from random import *
 import Affichage
+import time
 
 
 class Role():
@@ -236,6 +236,8 @@ class Role():
         Entrée : joueurs
         Sortie : Aucune
         """
+
+        self.aff.loup_garou(True,"")
 
         liste = []
         for joueur in joueurs:
@@ -584,7 +586,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.reinitialiser_screen()
-        self.aff.afficher_texte("Il est dorenavant temps d'élire le maire !")
+        self.aff.phrases("Il est dorénavant temps d'élire le maire !")
         time.sleep(3)
         self.aff.reinitialiser_screen()
 
@@ -592,7 +594,7 @@ class Role():
         self.aff.liste_joueurs(prenoms, [])
 
         for i in range(0, len(liste)):
-            self.aff.afficher_texte(joueurs[i].get_prenom())
+            self.aff.phrases(joueurs[i].get_prenom())
             self.aff.phrases("Avez vous déja voté oui/non ","WHITE")
             reponse = input()
 
