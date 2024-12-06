@@ -21,7 +21,13 @@ class Affichage:
         Entrée : Aucune
         Sortie : Aucune
         """
-        TI.print_card("./illustration/jour.jpg", 70, 60)
+        self.reinitialiser_screen()
+        TI.print_card("./illustration/jour.jpg", 50, 50)
+        time.sleep(2)
+        self.reinitialiser_screen()
+        self.afficher_texte("La nuit est terminée, le village se réveille...")
+        time.sleep(5)
+        self.reinitialiser_screen()
 
     def nuit(self):
         """
@@ -29,7 +35,13 @@ class Affichage:
         Entrrée : Aucune
         Sortie : Aucune
         """
-        TI.print_card("./illustration/nuit.jpg", 70, 60)
+        self.reinitialiser_screen()
+        TI.print_card("./illustration/nuit.jpg", 50, 50)
+        time.sleep(2)
+        self.reinitialiser_screen()
+        self.afficher_texte("La nuit tombe sur le village de tierce lieux... Le Village s'endort...")
+        time.sleep(5)
+        self.reinitialiser_screen()
 
     def loup_garou(self, temp: bool, nom: str):
         """
@@ -39,7 +51,7 @@ class Affichage:
         """
         # Phrases pour les loups-garous
         phrases_loups = [
-            "Vous avez pose vos griffes sur le cœur de JOUEUR, laissant votre marque indelebile.",
+            "Vous avez pose vos griffes sur le coeur de JOUEUR, laissant votre marque indelebile.",
             "Vos crocs se sont refermes sur JOUEUR, et un hurlement silencieux a empli la nuit.",
             "Dans l'ombre, vos instincts predateurs vous ont menes a JOUEUR. Il ne s’y attendait pas.",
             "Une traque habile... JOUEUR est tombe dans le piege que vous lui avez tendu.",
