@@ -25,38 +25,37 @@ class Role():
         Entrée : joueurs
         Sortie : Aucune
         """
-
-        # self.aff.sorciere(True,"")
-
         liste = []
-        for i in range(0,len(joueurs)):
-            if not xor(joueurs[i].get_prenom() != self.mort_tour[0], joueurs[i].get_mort != True):
-                liste.append(joueurs[i])
+        for joueur in joueurs:
+            if not joueur.get_mort():
+                liste.append(joueur)
 
         prenoms = []
         for joueur in liste:
             prenoms.append(joueur.get_prenom())
 
-        self.aff.phrases("Liste des joueurs dans la partie : ","WHITE")
-        self.aff.liste_joueurs(prenoms,[])
+        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+        self.aff.liste_joueurs(prenoms, [])
+
+        self.aff.phrases("Voici les morts du tour", "WHITE")
+        mort = []
+        mort.append(self.mort_tour[0])
+        self.aff.liste_joueurs(mort, [])
 
         if self.potion_vie == True:
-            self.aff.phrases("Voulez vous utiliser votre potion de vie, oui ou non","WHITE")
+            self.aff.phrases("Voulez vous utiliser votre potion de vie, oui ou non", "WHITE")
             reponse = input().strip().lower()
 
             while reponse not in ["oui", "non"]:
-                self.aff.phrases("Réponse non accepté, veuillez mettre oui ou non","WHITE")
+                self.aff.phrases("Réponse non accepté, veuillez mettre oui ou non", "WHITE")
                 reponse = input().strip().lower()
 
             if reponse == "oui":
                 self.potion_vie = False
-                self.aff.phrases("Voici les morts du tour","WHITE")
-                self.aff.liste_joueurs(self.mort_tour,[])
-
-                self.aff.phrases("Qui voulez vous ressusciter ?","WHITE")
+                self.aff.phrases("Qui voulez vous ressusciter ?", "WHITE")
                 reponse = input().strip()
-                while reponse not in self.mort_tour :
-                    self.aff.phrases("Ce joueur n'existe pas , veuillez renseigner un autre nom","WHITE")
+                while reponse not in self.mort_tour:
+                    self.aff.phrases("Ce joueur n'existe pas , veuillez renseigner un autre nom", "WHITE")
                     reponse = input().strip()
 
                 for i in range(0, len(joueurs)):
@@ -174,8 +173,8 @@ class Role():
         # self.aff.voyante(True,"")
 
         liste = []
-        for i in range(0,len(joueurs)):
-            if not xor(joueurs[i].get_prenom() != self.mort_tour[0], joueurs[i].get_mort != True):
+        for i in range(0, len(joueurs)):
+            if not joueurs[i].get_prenom() == self.mort_tour or joueurs[i].get_mort != True:
                 liste.append(joueurs[i])
 
         prenoms = []
@@ -358,12 +357,10 @@ class Role():
         Entrée : joueurs
         Sortie : Aucune
         """
-        # self.aff.petite_fille(True)
-
         liste = []
-        for joueur in joueurs:
-            if not joueur.get_mort():
-                liste.append(joueur)
+        for i in range(0, len(joueurs)):
+            if not joueurs[i].get_prenom() == self.mort_tour or joueurs[i].get_mort != True:
+                liste.append(joueurs[i])
 
         prenoms = []
         for joueur in liste:
@@ -422,13 +419,12 @@ class Role():
 
 
         # Affichage des lettres
-        # self.aff.petite_fille(False)
-        i = 0
+        i = 1
         for lettres in self.lettre_loup_garou:
             if lettres:
-                self.aff.phrases(f"Lettres pour le loup-garou '[i]': {', '.join(lettres)}","WHITE")
+                self.aff.phrases(f"Lettres pour le loup-garou {i}: {', '.join(lettres)}","WHITE")
             else:
-                self.aff.phrases("Aucune lettre retournée pour le loup-garou '[i]'","WHITE")
+                self.aff.phrases(f"Aucune lettre retournée pour le loup-garou {i}","WHITE")
             i += 1
 
         self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
@@ -552,7 +548,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.reinitialiser_screen()
-        self.aff.phrases("Il est dorénavant temps d'élire le maire !")
+        self.aff.afficher_texte("Il est dorénavant temps d'elire le maire !")
         time.sleep(3)
         self.aff.reinitialiser_screen()
 
@@ -560,22 +556,10 @@ class Role():
         self.aff.liste_joueurs(prenoms, [])
 
         for i in range(0, len(liste)):
-            self.aff.phrases(joueurs[i].get_prenom())
-            self.aff.phrases("Avez vous déja voté oui/non ","WHITE")
-            reponse = input()
-
-            while reponse != "non":
-                if reponse != "oui":
-                    self.aff.phrases("Veuillez renseigner oui ou non ", "WHITE")
-                    reponse = input()
-                else :
-                    self.aff.phrases("Ce n'est pas à vous de voter, passez la tablette à votre voisin","WHITE")
-                    self.aff.phrases("Avez vous déja voté oui/non ","WHITE")
-                    reponse = input()
-
+            self.aff.afficher_texte(joueurs[i].get_prenom())
             self.aff.phrases("\nPour qui voulez vous voter ?\n","WHITE")
-
             reponse = input()
+
             while reponse not in prenoms:
                 self.aff.phrases("Nom pas présent dans la liste, recommencer","WHITE")
                 reponse = input()
@@ -611,6 +595,10 @@ class Role():
         for i in self.mort_tour:
             self.aff.eliminer(i)
         self.mort_tour = []
+
+
+    def get_mort_tour(self):
+        return self.mort_tour
 
     def nouveau_maire(self,joueurs,joueur_actuel):
         """

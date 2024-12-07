@@ -239,7 +239,9 @@ class Partie:
         Sortie : Aucune
         """
 
-        if role == "Cupidon" and self.premier_tour:
+        if role == "Voleur" and self.premier_tour:
+            self.action.voleur(self.joueurs, joueur)
+        elif role == "Cupidon" and self.premier_tour:
             self.action.cupidon(self.joueurs)
         elif role == "Loup Garous":
             self.action.loup_garou(self.joueurs, joueur)
@@ -249,10 +251,6 @@ class Partie:
             self.action.sorciere(self.joueurs)
         elif role == "Petite Fille":
             self.action.petite_fille(self.joueurs)
-        elif role == "Chasseur":
-            self.action.chasseur(self.joueurs)
-        elif role == "Voleur" and self.premier_tour:
-            self.action.voleur(self.joueurs, joueur)
         else:
             print(f"Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nCe n'est pas a vous de jouer...")
             self.demander_recopie()
@@ -266,6 +264,9 @@ class Partie:
         """
         self.etat_partie = 1
         self.afg.reinitialiser_screen()
+
+        self.retirer_joueur_mort(self.action.get_mort_tour())
+        self.action.afficher_mort_tour()
 
         #Test des conditions pour une fin de partie
         if self.fin_de_partie() in [0, 1, 2]:
@@ -350,6 +351,8 @@ class Partie:
         """
         # Premier tour
         if self.premier_tour and self.etat_partie == 1:
+            self.retirer_joueur_mort(self.action.get_mort_tour())
+            self.action.afficher_mort_tour()
             self.action.capitaine(self.joueurs)
 
         if self.etat_partie == 0:
@@ -437,6 +440,17 @@ class Partie:
                 return
             else:
                 print("Erreur : Vous n'avez pas recopié la chaîne correctement. Essayez encore.")
+
+
+    def retirer_joueur_mort(self, liste_mort):
+        """
+        Fonction qui permet de retirer les joueurs morts de la liste des joueurs actifs
+        """
+        i = 0
+        for elt in self.joueurs:
+            if elt.get_prenom() in liste_mort:
+                self.joueurs.pop(i)
+            i += 1
 
     def get_id(self):
         """
