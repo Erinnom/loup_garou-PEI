@@ -37,7 +37,7 @@ class Role():
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
         self.aff.liste_joueurs(prenoms, [])
 
-        self.aff.phrases("Voici les morts du tour", "WHITE")
+        self.aff.phrases("Voici le mort du tour", "WHITE")
         mort = []
         mort.append(self.mort_tour[0])
         self.aff.liste_joueurs(mort, [])
@@ -283,6 +283,10 @@ class Role():
                 if max < joueurs[i].get_vote():
                     max = joueurs[i].get_vote()
                     indice = i
+                elif max == joueurs[i].get_vote():
+                    a = randint(0, 1)
+                    if a == 0:
+                        max = joueurs[i].get_vote()
 
             joueurs[indice].set_mort(True)
             self.mort_tour.append(joueurs[indice].get_prenom())
@@ -337,7 +341,7 @@ class Role():
                 fille_filtre += lettre
 
         if not self.lettre_petite_fille:
-            self.lettre_petite_fille = [[] for i in fille]
+            self.lettre_petite_fille = []
 
         lettres_dispo = []
         for lettre in fille_filtre:

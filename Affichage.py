@@ -357,6 +357,7 @@ class Affichage:
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
+        time.sleep(3)
 
     def morts_amoureux(self, nom1: str, nom2: str):
         """

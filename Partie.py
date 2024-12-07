@@ -85,9 +85,13 @@ class Partie:
         Entrée : Aucune
         Sortie : Aucune
         """
-        nom = input("Nom de la partie : ")
-        while nom == "":
-            nom = input("Nom de la partie : ")
+        nom = input("Nom de la partie : ").strip()
+        while nom == "" or " " in nom:
+            if nom == "":
+                print("Le nom ne peut pas être vide. Veuillez réessayer.")
+            elif " " in nom:
+                print("Le nom ne doit pas contenir d'espace. Veuillez réessayer.")
+            nom = input("Nom de la partie : ").strip()
         self.id_partie = nom
 
         while True:
@@ -105,12 +109,18 @@ class Partie:
         roles = self.get_roles()
         print()
         while i < self.nombre_joueur:
-            tmp = input(f"Nom du joueur [{i + 1}] :")
+            tmp = input(f"Nom du joueur [{i + 1}] : ")
             if tmp != "":
-                rand_role = roles.pop(randint(0, len(roles) - 1))
-                j = Joueur(tmp, rand_role)
-                self.joueurs.append(j)
-                i += 1
+                # Vérifie si le nom est déjà utilisé
+                if tmp not in [joueur.get_prenom() for joueur in self.joueurs]:
+                    rand_role = roles.pop(randint(0, len(roles) - 1))
+                    j = Joueur(tmp, rand_role)
+                    self.joueurs.append(j)
+                    i += 1
+                else:
+                    print("Ce nom est déjà pris, veuillez en choisir un autre.")
+            else:
+                print("Le nom ne peut pas être vide, veuillez réessayer.")
         self.afg.reinitialiser_screen()
 
     def sauvegarder(self):
@@ -158,7 +168,7 @@ class Partie:
                     self.joueurs[i].est_maire = data["joueurs"][i]["maire"]
                     self.joueurs[i].votes = data["joueurs"][i]["votes"]
                     self.joueurs[i].est_mort = data["joueurs"][i]["mort"]
-                    self.joueurs[i].marie = data["joueurs"][i]["marie"]
+                    self.joueurs[i].est_marie = data["joueurs"][i]["marie"]
 
                 return
 

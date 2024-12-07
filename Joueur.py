@@ -121,8 +121,8 @@ class Joueur:
             "role" : self.role,
             "maire" : self.est_maire,
             "votes" : self.votes,
-            "marie" : self.est_marie,
-            "mort" : self.est_mort
+            "mort": self.est_mort,
+            "marie" : self.est_marie
         }
         return res
 
