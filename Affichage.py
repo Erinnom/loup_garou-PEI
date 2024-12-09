@@ -280,6 +280,7 @@ class Affichage:
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
+        time.sleep(6)
 
     def voter(self, nom: str):
         """
@@ -309,7 +310,7 @@ class Affichage:
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
 
-    def votes(self, nom: str):
+    def votes(self, nom: str, role:str):
         """
         Objectif : Méthode qui permettra un affichage les votes pour chacun des joueurs
         Entrée : la liste des objets de type joueur
@@ -332,20 +333,22 @@ class Affichage:
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
+        self.afficher_texte("Vous étiez : "+ role)
+        time.sleep(6)
 
     def eliminer(self, nom: str):
         """
-        Objectif : Méthode qui permettra un affichage du joueur qui a été éliminé
+        Objectif : Méthode qui permettra un affichage du joueur qui a été éliminé.
         Entrée : nom du joueur
         Sortie : Aucune
         """
         phrases_mort_banale = [
-            "La nuit a pris sa vie, et il ne reviendra pas. Le village pleure un autre de ses membres.",
+            "La nuit a pris le vie de JOUEUR, et il ne reviendra pas. Le village pleure un autre de ses membres.",
             "Une nouvelle victime du destin cruel. Le village est encore une fois en deuil.",
             "Le silence s'est installe. JOUEUR n'est plus. La quete de survie du village continue.",
             "Les tenebres ont englouti JOUEUR, laissant derriere lui un vide difficile a combler.",
             "Un autre de vos compagnons s'en est alle. Le village est plus faible sans lui.",
-            "La mort a frappe a la porte de JOUEUR. Un autre depart qui laisse une trace dans l'âme du village.",
+            "La mort a frappe a la porte de JOUEUR. Un autre depart qui laisse une trace dans l'ame du village.",
             "La vie de JOUEUR a pris fin dans l'obscurite. Le village devra se remettre de cette perte."
         ]
 
@@ -353,11 +356,12 @@ class Affichage:
         TI.print_card("./illustration/faucheuse.jpg", 40, 40)
         time.sleep(3)
         self.reinitialiser_screen()
+
+        # Choisir une phrase et remplacer JOUEUR par le nom
         txt = r.choice(phrases_mort_banale)
-        avant_joueur, apres_joueur = txt.split("JOUEUR")
-        t = avant_joueur + nom + apres_joueur
+        t = txt.replace("JOUEUR", nom)
         self.afficher_texte(t)
-        time.sleep(3)
+        time.sleep(6)
 
     def morts_amoureux(self, nom1: str, nom2: str):
         """

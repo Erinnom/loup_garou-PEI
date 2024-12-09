@@ -560,6 +560,7 @@ class Role():
         self.aff.liste_joueurs(prenoms, [])
 
         for i in range(0, len(liste)):
+            print("\n\n")
             self.aff.afficher_texte(joueurs[i].get_prenom())
             self.aff.phrases("\nPour qui voulez vous voter ?\n","WHITE")
             reponse = input()
@@ -586,8 +587,12 @@ class Role():
 
         joueurs[indice].set_maire(True)
 
+        self.aff.capitaine(joueurs[indice].get_prenom())
+
         for i in range(0, len(joueurs)):
             joueurs[i].reset_vote()
+
+
 
 
     def afficher_mort_tour(self):
@@ -610,7 +615,6 @@ class Role():
         Entrée : joueurs,joueur_actuel
         Sortie : Aucune
         """
-        # self.aff.capitaine("")
 
         liste = []
         for joueur in joueurs:
@@ -625,6 +629,8 @@ class Role():
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
         self.aff.liste_joueurs(prenoms, [])
+
+        self.aff.afficher_texte(joueur.get_prenom())
 
         self.aff.phrases("Qui voulez vous choisir comme nouveau maire", "WHITE")
         reponse = input().strip()
@@ -662,6 +668,12 @@ class Role():
         }
 
         return res
+
+    def clear_vote_loup(self):
+        """
+
+        """
+        self.vote_loup = []
 
     def load_data(self, data : dict):
         """

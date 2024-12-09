@@ -9,9 +9,11 @@ import os
 import string
 
 
-
 class Partie:
     def __init__(self):
+        """
+        Initialise une nouvelle instance de la classe Partie avec les attributs nécessaires.
+        """
         self.id_partie = ""
         self.nombre_joueur = 0
         self.joueurs = []
@@ -24,11 +26,12 @@ class Partie:
 
     def get_roles(self):
         """
-        Objectif : Obtenir la liste des de la partie en fonction du nombre de joueur
+        Objectif : Obtenir la liste des rôles de la partie en fonction du nombre de joueurs.
         Entrée : Aucune
-        Sortie : liste des roles
+        Sortie : liste des rôles
         """
         role_partie = [
+            # Différentes configurations de rôles selon le nombre de joueurs
             ['Loup Garous', 'Loup Garous', 'Voyante', 'Simple Villageois', 'Simple Villageois', 'Simple Villageois'],
             ['Loup Garous', 'Loup Garous', 'Voyante', 'Simple Villageois', 'Simple Villageois', 'Simple Villageois',
              'Simple Villageois'],
@@ -63,25 +66,30 @@ class Partie:
 
         return role_partie[self.nombre_joueur - 6]
 
-    def get_indice_joueur(self,prenom:str)->int:
+    def get_indice_joueur(self, prenom: str) -> int:
+        """
+        Objectif : Trouver l'indice d'un joueur dans la liste des joueurs en fonction de son prénom.
+        Entrée : prenom (str) - Le prénom du joueur
+        Sortie : int - L'indice du joueur, ou -1 s'il n'est pas trouvé.
+        """
         i = 0
         while i < self.nombre_joueur and self.joueurs[i].get_prenom() != prenom:
-            i+=1
-        if i < self.nombre_joueur and self.joueurs[i].get_prenom() == prenom :
+            i += 1
+        if i < self.nombre_joueur and self.joueurs[i].get_prenom() == prenom:
             return i
         return -1
 
     def get_joueurs(self):
         """
-        Objectif : Obtenir la liste des joueurs de la partie
+        Objectif : Obtenir la liste des joueurs de la partie.
         Entrée : Aucune
-        Sortie : liste des joueurs
+        Sortie : Liste des joueurs
         """
         return self.joueurs
 
     def creer(self):
         """
-        Objectif : Creer une nouvelle partie
+        Objectif : Créer une nouvelle partie en demandant les informations à l'utilisateur.
         Entrée : Aucune
         Sortie : Aucune
         """
@@ -224,12 +232,12 @@ class Partie:
                 if role_joueur == role:
                     self.afg.reinitialiser_screen()
                     if  self.joueur_en_jeux in alv_joueurs_id:
-                        self.afg.afficher_texte(joueur.get_prenom(), "blocky")
+                        self.afg.afficher_texte(joueur.get_prenom())
                         self.executer_action(role, joueur)
                     self.role_en_jeux += 1
                 else:
                     self.afg.reinitialiser_screen()
-                    self.afg.afficher_texte(joueur.get_prenom(), "blocky")
+                    self.afg.afficher_texte(joueur.get_prenom())
                     print("\n\nCe n'est pas à vous de jouer...")
                     self.demander_recopie()
                 self.joueur_en_jeux +=1 # Passer au joueur suivant
@@ -238,6 +246,7 @@ class Partie:
         self.etat_partie = 1
         self.role_en_jeux = 0
         self.joueur_en_jeux = 0
+        self.action.clear_vote_loup()
 
         self.afg.jour()
 
@@ -297,7 +306,9 @@ class Partie:
             if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
                 self.sauvegarder()
                 return 3
-            self.afg.afficher_texte(joueur.get_prenom(), "blocky")
+
+            print("\n\n")
+            self.afg.afficher_texte(joueur.get_prenom())
             if self.joueur_en_jeux not in alv_joueurs_id:
                 print("Ohhh.. NON!! il semblerait que vous soyez mort...")
 
@@ -312,19 +323,20 @@ class Partie:
                 if joueur.get_maire():
                     self.joueurs[indice_joueur].vote()
                     #votes[indice_joueur] += 1
+
             self.joueur_en_jeux += 1
 
         mort_indice = self.get_indice_mort()
         mort = self.joueurs[mort_indice]
         mort.set_mort(True)
 
-        self.afg.afficher_texte(
-                f"Le Joueur {mort_indice} plus connu sous le nom de {mort.get_prenom()} a ete pendu par le village... Il etait ... {mort.get_role()}")
+        self.afg.votes(mort.get_prenom(), mort.get_role())
+
         if (mort.get_role() == "Chasseur"):
                 self.action.chasseur(self.joueurs)
         if (mort.get_maire() == 1):
             self.action.nouveau_maire(self.joueurs,mort)
-            self.premier_tour = False
+
 
         # reset vote
         for i in self.joueurs:
@@ -364,6 +376,7 @@ class Partie:
             self.retirer_joueur_mort(self.action.get_mort_tour())
             self.action.afficher_mort_tour()
             self.action.capitaine(self.joueurs)
+            self.premier_tour = False
 
         if self.etat_partie == 0:
             # Tour de nuit
@@ -460,6 +473,7 @@ class Partie:
         for elt in self.joueurs:
             if elt.get_prenom() in liste_mort:
                 self.joueurs.pop(i)
+                self.nombre_joueur -=1
             i += 1
 
     def get_id(self):
