@@ -207,31 +207,26 @@ class Partie:
         self.action.demasquage_petite_fille(self.joueurs)
         self.afg.nuit()
 
-        # Obtention des joueurs encore en vie
-        alv_joueurs_id = self.get_joueur_en_vie()  # Liste des indices des joueurs encore en vie
-
-        # Liste des rôles
+        alv_joueurs_id = self.get_joueur_en_vie()
         roles = self.get_roles()
-        while self.role_en_jeux < len(roles):  # Boucle sur les rôles
-            while self.joueur_en_jeux < self.nombre_joueur and self.role_en_jeux < len(roles):  # Boucle sur les joueurs
+
+        while self.role_en_jeux < len(roles):
+            while self.joueur_en_jeux < self.nombre_joueur and self.role_en_jeux < len(roles):
                 joueur = self.joueurs[self.joueur_en_jeux]
                 self.afg.reinitialiser_screen()
                 self.afg.anonyme_screen()
-                print()
-                print()
-                print(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
-                print()
-                print()
+
+                print(f"\n\nPassez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}\n\n")
                 if input("Tapez [save] pour sauvegarder ou appuyez sur une autre touche pour continuer : ") == "save":
                     self.sauvegarder()
                     return 3
 
-                # Exécution des actions si le joueur a le rôle correspondant
                 role_joueur = joueur.get_role()
-                role = roles[self.role_en_jeux]  # Récupérer le rôle actuel
+                role = roles[self.role_en_jeux]
+
                 if role_joueur == role:
                     self.afg.reinitialiser_screen()
-                    if  self.joueur_en_jeux in alv_joueurs_id:
+                    if self.joueur_en_jeux in alv_joueurs_id:
                         self.afg.afficher_texte(joueur.get_prenom())
                         self.executer_action(role, joueur)
                     self.role_en_jeux += 1
@@ -240,14 +235,14 @@ class Partie:
                     self.afg.afficher_texte(joueur.get_prenom())
                     print("\n\nCe n'est pas à vous de jouer...")
                     self.demander_recopie()
-                self.joueur_en_jeux +=1 # Passer au joueur suivant
-            self.joueur_en_jeux = 0  # Réinitialisation des variables pour le prochain tour
-        # Réinitialisation des variables pour le prochain tour
+
+                self.joueur_en_jeux += 1
+
+            self.joueur_en_jeux = 0
+
         self.etat_partie = 1
         self.role_en_jeux = 0
         self.joueur_en_jeux = 0
-        self.action.clear_vote_loup()
-
         self.afg.jour()
 
 
@@ -287,42 +282,36 @@ class Partie:
         self.retirer_joueur_mort(self.action.get_mort_tour())
         self.action.afficher_mort_tour()
 
-        #Test des conditions pour une fin de partie
         if self.fin_de_partie() in [0, 1, 2]:
             return self.fin_de_partie()
 
-        # Actualisation des joueur encore en vie
-        alv_joueurs_id = self.get_joueur_en_vie()  # liste des indices des joueurs encore en vie
+        alv_joueurs_id = self.get_joueur_en_vie()
         prenoms = [self.joueurs[i].get_prenom() for i in alv_joueurs_id]
-        # Vote du village
+
         while self.joueur_en_jeux < self.nombre_joueur:
             self.afg.reinitialiser_screen()
-            #for self.joueur_en_jeux in range(0, self.nombre_joueur):
             joueur = self.joueurs[self.joueur_en_jeux]
             self.afg.afficher_texte("Vote du village")
-            print("\n")
-            print(f"Passez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
 
-            if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
+            print(f"\nPassez l'appareil au Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()}")
+
+            if input("Tapez [save] pour sauvegarder ou appuyez sur n'importe quelle touche pour continuer : ") == "save":
                 self.sauvegarder()
                 return 3
 
-            print("\n\n")
             self.afg.afficher_texte(joueur.get_prenom())
             if self.joueur_en_jeux not in alv_joueurs_id:
                 print("Ohhh.. NON!! il semblerait que vous soyez mort...")
-
             else:
                 self.afg.liste_joueurs(prenoms, [])
                 vote = input("Nom du joueur que vous voulez éliminer : ")
                 while vote not in prenoms:
                     vote = input("Nom du joueur que vous voulez éliminer : ")
+
                 indice_joueur = self.get_indice_joueur(vote)
                 self.joueurs[indice_joueur].vote()
-                #votes[indice_joueur] += 1
                 if joueur.get_maire():
                     self.joueurs[indice_joueur].vote()
-                    #votes[indice_joueur] += 1
 
             self.joueur_en_jeux += 1
 
@@ -330,25 +319,23 @@ class Partie:
         mort = self.joueurs[mort_indice]
         mort.set_mort(True)
 
-        self.afg.votes(mort.get_prenom(), mort.get_role())
+        self.afg.votes(mort.get_prenom(),mort.get_role())
 
-        if (mort.get_role() == "Chasseur"):
-                self.action.chasseur(self.joueurs)
-        if (mort.get_maire() == 1):
-            self.action.nouveau_maire(self.joueurs,mort)
+        if mort.get_role() == "Chasseur":
+            self.action.chasseur(self.joueurs)
+        if mort.get_maire():
+            self.action.nouveau_maire(self.joueurs, mort)
 
+        for joueur in self.joueurs:
+            joueur.reset_vote()
 
-        # reset vote
-        for i in self.joueurs:
-            i.reset_vote()
-        self.joueur_en_jeux+=1
         self.joueur_en_jeux = 0
-        # Test des conditions pour une fin de partie
+
         if self.fin_de_partie() in [0, 1, 2]:
             return self.fin_de_partie()
 
         self.etat_partie = 0
-        if input("Tapez [save] pour sauvegarder ou appuyer sur n'importe quel touche pour continuer : ") == "save":
+        if input("Tapez [save] pour sauvegarder ou appuyez sur n'importe quelle touche pour continuer : ") == "save":
             self.sauvegarder()
             return 3
 

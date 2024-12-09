@@ -333,8 +333,10 @@ class Affichage:
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
-        self.afficher_texte("Vous étiez : "+ role)
         time.sleep(6)
+        self.reinitialiser_screen()
+        self.afficher_texte("Vous étiez : "+ role)
+        time.sleep(4)
 
     def eliminer(self, nom: str):
         """
@@ -343,13 +345,13 @@ class Affichage:
         Sortie : Aucune
         """
         phrases_mort_banale = [
-            "La nuit a pris le vie de JOUEUR, et il ne reviendra pas. Le village pleure un autre de ses membres.",
-            "Une nouvelle victime du destin cruel. Le village est encore une fois en deuil.",
-            "Le silence s'est installe. JOUEUR n'est plus. La quete de survie du village continue.",
-            "Les tenebres ont englouti JOUEUR, laissant derriere lui un vide difficile a combler.",
-            "Un autre de vos compagnons s'en est alle. Le village est plus faible sans lui.",
-            "La mort a frappe a la porte de JOUEUR. Un autre depart qui laisse une trace dans l'ame du village.",
-            "La vie de JOUEUR a pris fin dans l'obscurite. Le village devra se remettre de cette perte."
+            "La nuit a pris la vie de JOUEUR, et il ne reviendra pas. Le village pleure un autre de ses membres.",
+            "Une nouvelle victime du destin cruel. JOUEUR rejoint les rangs des disparus, et le village est encore une fois en deuil.",
+            "Le silence s'est installé. JOUEUR n'est plus. La quête de survie du village continue sans lui.",
+            "Les ténèbres ont englouti JOUEUR, laissant derrière lui un vide difficile à combler pour le village.",
+            "Un autre de vos compagnons s'en est allé, et JOUEUR n'est plus parmi nous. Le village est plus faible sans lui.",
+            "La mort a frappé à la porte de JOUEUR. Un autre départ qui laisse une trace dans l'âme du village.",
+            "La vie de JOUEUR a pris fin dans l'obscurité. Le village devra se remettre de cette perte immense."
         ]
 
         self.reinitialiser_screen()

@@ -289,9 +289,8 @@ class Role():
                         max = joueurs[i].get_vote()
 
             joueurs[indice].set_mort(True)
+            self.vote_loup = []
             self.mort_tour.append(joueurs[indice].get_prenom())
-
-            # self.aff.loup_garou(False, liste[indice].get_prenom())
 
             if joueurs[indice].get_marie() == True:
                 for i in range(0, len(joueurs)):
@@ -371,7 +370,7 @@ class Role():
             prenoms.append(joueur.get_prenom())
 
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        autre = prenoms
+        autre = prenoms [:]
         shuffle(autre)
         self.aff.liste_joueurs(autre, [])
 
@@ -396,7 +395,7 @@ class Role():
             for lettre in loup:
                 if lettre_freq[lettre] > 1:
                     loup_filtre += lettre
-                    loups_filtre.append(loup_filtre)
+            loups_filtre.append(loup_filtre)
 
         # Initialiser self.lettre_loup_garou
         if not self.lettre_loup_garou:
@@ -669,11 +668,6 @@ class Role():
 
         return res
 
-    def clear_vote_loup(self):
-        """
-
-        """
-        self.vote_loup = []
 
     def load_data(self, data : dict):
         """
