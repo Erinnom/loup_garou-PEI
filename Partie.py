@@ -114,7 +114,7 @@ class Partie:
 
         self.nombre_joueur = int(nb)
         i = 0
-        roles = self.get_roles()
+        roles = self.get_roles().copy()
         print()
         while i < self.nombre_joueur:
             tmp = input(f"Nom du joueur [{i + 1}] : ")
@@ -210,9 +210,12 @@ class Partie:
         alv_joueurs_id = self.get_joueur_en_vie()
         roles = self.get_roles()
 
+        # se balader dans la liste des roles
         while self.role_en_jeux < len(roles):
+
+            # se balader dans la liste des joueurs tant que les roles ne sont pas fini
             while self.joueur_en_jeux < self.nombre_joueur and self.role_en_jeux < len(roles):
-                joueur = self.joueurs[self.joueur_en_jeux]
+                joueur = self.joueurs[self.joueur_en_jeux] # joueur en cours
                 self.afg.reinitialiser_screen()
                 self.afg.anonyme_screen()
 
@@ -221,16 +224,19 @@ class Partie:
                     self.sauvegarder()
                     return 3
 
-                role_joueur = joueur.get_role()
-                role = roles[self.role_en_jeux]
-
-                if role_joueur == role:
+                role_joueur = joueur.get_role() # role du joueur en cours
+                role = roles[self.role_en_jeux] # role en cours
+                #print(self.get_roles())
+                #print(f"nb jouer : {self.nombre_joueur}")
+                #print(f"{self.role_en_jeux} {self.joueur_en_jeux} | Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nRole : {role_joueur} =? {role} ")
+                #input("Appuyez sur entrer")
+                if role_joueur == role: # si le role du joueur est le role en cours
                     self.afg.reinitialiser_screen()
-                    if self.joueur_en_jeux in alv_joueurs_id:
+                    if self.joueur_en_jeux in alv_joueurs_id: # si le joueur est encore en vie
                         self.afg.afficher_texte(joueur.get_prenom())
-                        self.executer_action(role, joueur)
-                    self.role_en_jeux += 1
-                else:
+                        self.executer_action(role, joueur) # execute l'action du role
+                    self.role_en_jeux += 1 # passe au role suivant
+                elif self.joueur_en_jeux in alv_joueurs_id:
                     self.afg.reinitialiser_screen()
                     self.afg.afficher_texte(joueur.get_prenom())
                     print("\n\nCe n'est pas à vous de jouer...")
@@ -329,6 +335,7 @@ class Partie:
         for joueur in self.joueurs:
             joueur.reset_vote()
 
+        self.role_en_jeux = 0
         self.joueur_en_jeux = 0
 
         if self.fin_de_partie() in [0, 1, 2]:
@@ -453,15 +460,16 @@ class Partie:
 
 
     def retirer_joueur_mort(self, liste_mort):
-        """
-        Fonction qui permet de retirer les joueurs morts de la liste des joueurs actifs
-        """
-        i = 0
-        for elt in self.joueurs:
-            if elt.get_prenom() in liste_mort:
-                self.joueurs.pop(i)
-                self.nombre_joueur -=1
-            i += 1
+        pass
+    #    """
+    #    Fonction qui permet de retirer les joueurs morts de la liste des joueurs actifs
+    #    """
+    #    i = 0
+    #    for elt in self.joueurs:
+    #        if elt.get_prenom() in liste_mort:
+    #            self.joueurs.pop(i)
+    #            self.nombre_joueur -=1
+    #        i += 1
 
     def get_id(self):
         """
