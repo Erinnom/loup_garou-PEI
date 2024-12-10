@@ -393,11 +393,16 @@ class Partie:
         Entrée : Aucune
         Sortie : 0 si les loups gagnent, 1 si les villageois gagnent, 2 si les mariées gagnent
         """
-        nb_loup = sum(1 for i in self.joueurs if i.get_role() == "Loup Garous")
-        nb_joueurs = len(self.joueurs)
+
+        # Obtention des jouerus encore en vie
+        alv_joueurs_id = self.get_joueur_en_vie()
+
+        # Obtention du nombre de loups dans les joueurs encore en vie
+        nb_loup = sum(1 for i in alv_joueurs_id if self.joueurs[i].get_role() == "Loup Garous")
+        nb_joueurs = len(alv_joueurs_id)
 
         #Victoire des mariées
-        if nb_joueurs == 2 and self.joueurs[0].get_marie and self.joueurs[1].get_marie:
+        if nb_joueurs == 2 and self.joueurs[alv_joueurs_id[0]].get_marie and self.joueurs[alv_joueurs_id[1]].get_marie:
             return 2
 
         #Victoire des Villageois
@@ -405,7 +410,7 @@ class Partie:
             return 1
 
         #Victoire des loups
-        elif nb_loup >= nb_joueurs - nb_loup:
+        elif nb_loup > nb_joueurs - nb_loup:
             return 0
 
 
