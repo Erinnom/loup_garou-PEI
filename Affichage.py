@@ -178,7 +178,7 @@ class Affichage:
             "Un sourire satisfait eclaire votre visage tandis que vous glissez la carte choisie dans votre poche.",
             "Devant vous, plusieurs possibilites. Vous avez fait un choix... mais est-il le bon ?",
             "Vos doigts habiles ont choisi avec soin. Votre destin a pris une nouvelle direction.",
-            "Une decision audacieuse : vous avez change de rôle, et personne ne le sait encore."
+            "Une decision audacieuse : vous avez change de role, et personne ne le sait encore."
         ]
         if temp:
             TI.print_card("./illustration/Voleur.jpg", 50, 50)
@@ -189,6 +189,8 @@ class Affichage:
             self.reinitialiser_screen()
             t = r.choice(phrases_voleur)
             self.afficher_texte(t)
+            time.sleep(4)
+            self.reinitialiser_screen()
 
     def cupidon(self, temp: bool, nom1: str, nom2: str):
         """

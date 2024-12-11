@@ -26,8 +26,8 @@ class Role():
         Sortie : Aucune
         """
         liste = []
-        for i in range(0,len(joueurs)):
-            if not xor(joueurs[i].get_prenom() != self.mort_tour[0], joueurs[i].get_mort != True):
+        for i in range(0, len(joueurs)):
+            if not joueurs[i].get_prenom() == self.mort_tour or joueurs[i].get_mort != True:
                 liste.append(joueurs[i])
 
         prenoms = []
@@ -155,7 +155,7 @@ class Role():
         joueur_actuel.set_role(nouveau_role)
 
         self.aff.voleur(False)
-        self.aff.phrases("Votre nouveau rôle est "+joueur_actuel.get_role(),"WHITE")
+        self.aff.afficher_texte("Votre nouveau role est "+joueur_actuel.get_role())
 
         self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
         input()
@@ -226,11 +226,14 @@ class Role():
         Entrée : joueurs
         Sortie : Aucune
         """
+        if len(joueurs) > 9:
+            self.aff.phrases("Liste pour démasquer la petite fille : ", "WHITE")
+            self.aff.liste_joueurs(self.lettre_petite_fille, [])
 
         liste = []
-        for joueur in joueurs:
-            if not joueur.get_mort():
-                liste.append(joueur)
+        for i in range(0, len(joueurs)):
+            if not joueurs[i].get_prenom() == self.mort_tour or joueurs[i].get_mort != True:
+                liste.append(joueurs[i])
 
         prenoms = []
         for joueur in liste:
@@ -350,6 +353,9 @@ class Role():
         Entrée : joueurs
         Sortie : Aucune
         """
+
+        self.aff.petite_fille(False)
+
         liste = []
         for i in range(0, len(joueurs)):
             if not joueurs[i].get_prenom() == self.mort_tour or joueurs[i].get_mort != True:
@@ -419,8 +425,6 @@ class Role():
             else:
                 self.aff.phrases(f"Aucune lettre retournée pour le loup-garou {i}","WHITE")
             i += 1
-
-        self.aff.petite_fille(False)
 
         self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
         input()
