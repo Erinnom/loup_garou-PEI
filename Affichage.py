@@ -165,7 +165,7 @@ class Affichage:
             t = r.choice(phrases_petite_fille)
             self.afficher_texte(t)
 
-    def voleur(self, temp: bool, nom: str):
+    def voleur(self, temp: bool):
         """
         Objectif : Méthode qui permettra un affichage de l'affichage de la carte ou de l'affichage resultant de l'action
         Entrée : booleen qui permet de choisir l'affichage, nom du joueur vise
@@ -246,16 +246,6 @@ class Affichage:
             t = avant_joueur + nom + apres_joueur
             self.afficher_texte(t)
 
-    def villageois(self):
-        """
-        Objectif : Méthode qui permettra un affichage de l'affichage de la carte
-        Entrée : Aucune
-        Sortie : Aucune
-        """
-        self.reinitialiser_screen()
-        TI.print_card("./illustration/Villageois.jpg", 50, 50)
-        time.sleep(3)
-        self.reinitialiser_screen()
 
     def capitaine(self, nom: str):
         """
@@ -372,7 +362,7 @@ class Affichage:
         Return : None
         """
         phrases_mort_amoureux = [
-            "La fin tragique de JOUEUR laisse un vide immense, surtout pour celui qu'il aimait. Le cœur du village est brise.",
+            "La fin tragique de JOUEUR laisse un vide immense, surtout pour celui qu'il aimait. Le coeur du village est brise.",
             "L'amour ne suffit pas a echapper a la mort. JOUEUR et JOUEUR sont maintenant separes a jamais.",
             "Les etoiles s'eteignent pour JOUEUR, et le monde semble plus sombre pour celui qui partageait son amour.",
             "La mort a pris JOUEUR, emportant avec lui un amour aussi profond que la nuit. Leur histoire reste gravee dans les memoires.",
@@ -565,7 +555,7 @@ class Affichage:
         print(f.renderText(texte))
 
     def print_fonts(self):
-        """x
+        """
         Objectif : Methode qui permettra d'afficher le texte voulu
         Entrée : texte, police du texte
         Sortie : None

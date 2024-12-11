@@ -325,6 +325,8 @@ class Partie:
                 while vote not in prenoms:
                     vote = input("Nom du joueur que vous voulez éliminer : ")
 
+                self.afg.voter(vote)
+
                 indice_joueur = self.get_indice_joueur(vote)
                 self.joueurs[indice_joueur].vote()
                 if joueur.get_maire():
