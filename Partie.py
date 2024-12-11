@@ -225,14 +225,24 @@ class Partie:
                     return 3
 
                 role_joueur = joueur.get_role() # role du joueur en cours
+
+                if  roles[self.role_en_jeux] in ["Voleur","Cupidon"] and not self.premier_tour:
+                    self.role_en_jeux+=1
+
+                if  roles[self.role_en_jeux] == "Chasseur":
+                    self.role_en_jeux+=1
+
                 role = roles[self.role_en_jeux] # role en cours
-                #print(self.get_roles())
-                #print(f"nb jouer : {self.nombre_joueur}")
-                #print(f"{self.role_en_jeux} {self.joueur_en_jeux} | Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nRole : {role_joueur} =? {role} ")
-                #input("Appuyez sur entrer")
+
+                print(self.get_roles())
+                print(f"nb jouer : {self.nombre_joueur}")
+                print(f"{self.role_en_jeux} {self.joueur_en_jeux} | Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nRole : {role_joueur} =? {role} ")
+                input("Appuyez sur entrer")
+
+
                 if role_joueur == role: # si le role du joueur est le role en cours
                     self.afg.reinitialiser_screen()
-                    if self.joueur_en_jeux in alv_joueurs_id: # si le joueur est encore en vie
+                    if self.joueur_en_jeux in alv_joueurs_id  and role != "Simple Villageois": # si le joueur est encore en vie
                         self.afg.afficher_texte(joueur.get_prenom())
                         self.executer_action(role, joueur) # execute l'action du role
                     self.role_en_jeux += 1 # passe au role suivant
@@ -240,7 +250,8 @@ class Partie:
                     self.afg.reinitialiser_screen()
                     self.afg.afficher_texte(joueur.get_prenom())
                     print("\n\nCe n'est pas à vous de jouer...")
-                    self.demander_recopie()
+                    #self.demander_recopie()
+                    input("Appuyez sur entrer pour continuer")
 
                 self.joueur_en_jeux += 1
 
@@ -402,7 +413,7 @@ class Partie:
         nb_joueurs = len(alv_joueurs_id)
 
         #Victoire des mariées
-        if nb_joueurs == 2 and self.joueurs[alv_joueurs_id[0]].get_marie and self.joueurs[alv_joueurs_id[1]].get_marie:
+        if nb_joueurs == 2 and (self.joueurs[alv_joueurs_id[0]].get_marie() and self.joueurs[alv_joueurs_id[1]].get_marie()):
             return 2
 
         #Victoire des Villageois
@@ -410,7 +421,7 @@ class Partie:
             return 1
 
         #Victoire des loups
-        elif nb_loup > nb_joueurs - nb_loup:
+        elif nb_loup >= nb_joueurs - nb_loup:
             return 0
 
 
