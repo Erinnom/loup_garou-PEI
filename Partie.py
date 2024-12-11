@@ -234,10 +234,10 @@ class Partie:
 
                 role = roles[self.role_en_jeux] # role en cours
 
-                print(self.get_roles())
-                print(f"nb jouer : {self.nombre_joueur}")
-                print(f"{self.role_en_jeux} {self.joueur_en_jeux} | Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nRole : {role_joueur} =? {role} ")
-                input("Appuyez sur entrer")
+                #print(self.get_roles())
+                #print(f"nb jouer : {self.nombre_joueur}")
+                #print(f"{self.role_en_jeux} {self.joueur_en_jeux} | Joueur {self.joueur_en_jeux + 1} : {joueur.get_prenom()} \nRole : {role_joueur} =? {role} ")
+                #input("Appuyez sur entrer")
 
 
                 if role_joueur == role: # si le role du joueur est le role en cours
@@ -250,8 +250,8 @@ class Partie:
                     self.afg.reinitialiser_screen()
                     self.afg.afficher_texte(joueur.get_prenom())
                     print("\n\nCe n'est pas à vous de jouer...")
-                    #self.demander_recopie()
-                    input("Appuyez sur entrer pour continuer")
+                    self.demander_recopie()
+                    #input("Appuyez sur entrer pour continuer")
 
                 self.joueur_en_jeux += 1
 
