@@ -175,7 +175,7 @@ class Role():
         self.aff.voleur(False)
 
         # Affichage du nouveau rôle attribué au voleur
-        self.aff.afficher_texte("Votre nouveau rôle est " + joueur_actuel.get_role())
+        self.aff.afficher_texte("Votre nouveau role est " + joueur_actuel.get_role())
 
         # Fin du tour du voleur
         self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
@@ -210,13 +210,12 @@ class Role():
         self.aff.phrases("Entrée le nom du joueur dont vous voulez voir le rôle ", "WHITE")
         reponse = input().strip()
 
-        # Mise à jour graphique pour indiquer que l'action de la voyante est terminée
-        self.aff.voyante(True, reponse)
-
         # Validation de l'entrée : s'assurer que le prénom existe dans la liste
         while reponse not in prenoms:
             self.aff.phrases("Ce joueur n'existe pas , veuillez renseigner un autre nom", "WHITE")
             reponse = input().strip()
+
+        self.aff.voyante(True, reponse)
 
         # Recherche du joueur choisi et affichage de son rôle
         for joueur in joueurs:
@@ -621,7 +620,7 @@ class Role():
 
         # Réinitialiser l'écran et afficher un message pour lancer l'élection du maire
         self.aff.reinitialiser_screen()
-        self.aff.afficher_texte("Il est dorénavant temps d'élire le maire !")
+        self.aff.afficher_texte("Il est dorenavant temps d'elire le maire !")
         time.sleep(3)
         self.aff.reinitialiser_screen()
 
@@ -670,7 +669,7 @@ class Role():
         for i in range(0, len(joueurs)):
             joueurs[i].reset_vote()
 
-    def afficher_mort_tour(self):
+    def afficher_mort_tour(self, liste_joueurs):
         """
         Objectif : Méthode permettant d'afficher les morts du tour.
         Entrée : Aucune (utilise l'attribut self.mort_tour).
@@ -679,7 +678,10 @@ class Role():
         # Parcourir les joueurs morts ce tour et afficher leur élimination et leur rôle
         for i in self.mort_tour:
             self.aff.eliminer(i)
-            self.aff.afficher_texte("Son rôle était : " + i.get_role())
+            for x in liste_joueurs:
+                if x.get_prenom() == i:
+                    self.aff.afficher_texte("Son role etait : " + x.get_role())
+                    time.sleep(2)
         # Réinitialiser la liste des morts pour le tour suivant
         self.mort_tour = []
 

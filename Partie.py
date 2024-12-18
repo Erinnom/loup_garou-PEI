@@ -297,7 +297,7 @@ class Partie:
         self.afg.reinitialiser_screen()
 
         self.retirer_joueur_mort(self.action.get_mort_tour())
-        self.action.afficher_mort_tour()
+        self.action.afficher_mort_tour(self.joueurs)
 
         if self.fin_de_partie() in [0, 1, 2]:
             return self.fin_de_partie()
@@ -381,7 +381,7 @@ class Partie:
         # Premier tour
         if self.premier_tour and self.etat_partie == 1:
             self.retirer_joueur_mort(self.action.get_mort_tour())
-            self.action.afficher_mort_tour()
+            self.action.afficher_mort_tour(self.joueurs)
             self.action.capitaine(self.joueurs)
             self.premier_tour = False
 
@@ -460,22 +460,23 @@ class Partie:
             input("Appuyer sur entrer puis passez l'appareil au joueur suivant ")
             self.afg.reinitialiser_screen()
 
-    def generer_chaine_aleatoire(self,longueur):
-        """Génère une chaîne aléatoire composée de lettres et chiffres."""
-        caracteres = string.ascii_letters + string.digits
+    def generer_chaine_aleatoire(self, longueur):
+        """Génère une chaîne aléatoire composée uniquement de chiffres."""
+        caracteres = string.digits  # Uniquement des chiffres
         return ''.join(random.choices(caracteres, k=longueur))
 
     def demander_recopie(self):
         """Demande à l'utilisateur de recopier une chaîne générée aléatoirement."""
         chaine_a_recopier = self.generer_chaine_aleatoire(8)  # Par défaut, 8 caractères
         while True:
-            print(f"Recopiez exactement cette chaîne : '{chaine_a_recopier}'")
+            print(f"Recopiez exactement cette chaîne de chiffres : '{chaine_a_recopier}'")
             saisie = input("> ")
-            if saisie == chaine_a_recopier:
+            if not saisie.isdigit():
+                print("Erreur : Vous devez saisir uniquement des nombres. Essayez encore.")
+            elif saisie == chaine_a_recopier:
                 return
             else:
                 print("Erreur : Vous n'avez pas recopié la chaîne correctement. Essayez encore.")
-
 
     def retirer_joueur_mort(self, liste_mort):
         pass

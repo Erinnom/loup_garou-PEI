@@ -237,11 +237,10 @@ class Affichage:
         ]
 
         if temp:
-            TI.print_card("./illustration/Voyante.jpg", 50, 50)
-        else:
             self.reinitialiser_screen()
             TI.print_card("./illustration/boule.jpg", 40, 40)
             time.sleep(3)
+        else:
             self.reinitialiser_screen()
             txt = r.choice(phrases_voyante)
             avant_joueur, apres_joueur = txt.split("JOUEUR")
@@ -295,12 +294,13 @@ class Affichage:
 
         self.reinitialiser_screen()
         TI.print_card("./illustration/lettre.jpg", 40, 40)
-        time.sleep(3)
+        time.sleep(1)
         self.reinitialiser_screen()
         txt = r.choice(phrases_votes)
         avant_joueur, apres_joueur = txt.split("JOUEUR")
         t = avant_joueur + nom + apres_joueur
         self.afficher_texte(t)
+        time.sleep(3)
 
     def votes(self, nom: str, role:str):
         """
@@ -327,7 +327,7 @@ class Affichage:
         self.afficher_texte(t)
         time.sleep(6)
         self.reinitialiser_screen()
-        self.afficher_texte("Vous étiez : "+ role)
+        self.afficher_texte("Vous etiez : "+ role)
         time.sleep(4)
 
     def eliminer(self, nom: str):
