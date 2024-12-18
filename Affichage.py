@@ -150,7 +150,7 @@ class Affichage:
         """
         phrases_petite_fille = [
             "Le regard furtif, vous avez vu les loups rôder dans la nuit. Si vous aviez agi, qui serait encore en vie ?",
-            "Un frisson vous traverse en observant les ombres. Vous avez vu, mais n'avez pas ose crier… À quel prix ?",
+            "Un frisson vous traverse en observant les ombres. Vous avez vu, mais n'avez pas ose crier... A quel prix ?",
             "Vos yeux se sont poses sur eux dans la penombre, mais la peur vous a paralysee. Qui etes-vous vraiment, petite fille ?",
             "La nuit etait froide, et pourtant vous avez observe sans bouger, cachee dans l'ombre. Mais avez-vous fait le bon choix ?",
             "Une lueur dans vos yeux… Vous avez vu, vous savez. Mais la tentation de crier ne vous a pas traversee… ou l'avez-vous simplement ignoree ?"
