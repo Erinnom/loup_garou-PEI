@@ -620,16 +620,15 @@ class Role():
 
         # Réinitialiser l'écran et afficher un message pour lancer l'élection du maire
         self.aff.reinitialiser_screen()
-        self.aff.afficher_texte("Il est dorenavant temps d'elire le maire !")
+        self.aff.afficher_texte("Il est dorénavant temps d'élire le maire !")
         time.sleep(3)
         self.aff.reinitialiser_screen()
 
-        # Afficher la liste des joueurs encore en vie
-        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, [])
 
         # Chaque joueur effectue son vote
         for i in range(0, len(liste)):
+            self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+            self.aff.liste_joueurs(prenoms, [])
             print("\n\n")
             self.aff.afficher_texte(joueurs[i].get_prenom())
             self.aff.phrases("\nPour qui voulez-vous voter ?\n", "WHITE")
@@ -648,8 +647,6 @@ class Role():
 
             # Réinitialiser l'écran après chaque vote
             self.aff.reinitialiser_screen()
-            self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-            self.aff.liste_joueurs(prenoms, [])
 
         # Trouver le joueur ayant reçu le maximum de votes
         max = 0
