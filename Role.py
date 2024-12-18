@@ -28,12 +28,12 @@ class Role():
             if not joueurs[i].get_prenom() == self.mort_tour or joueurs[i].get_mort != True:
                 liste.append(joueurs[i])
 
-        # Création d'une liste contenant uniquement les prénoms des joueurs valides
+        # Création d'une liste contenant uniquement les prénoms des joueurs
         prenoms = []
         for joueur in liste:
             prenoms.append(joueur.get_prenom())
 
-        # Affichage des joueurs encore en vie
+        # Affichage des prénoms des joueurs encore en vie
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
         self.aff.liste_joueurs(prenoms, [])
 
@@ -48,7 +48,7 @@ class Role():
             self.aff.phrases("Voulez vous utiliser votre potion de vie, oui ou non", "WHITE")
             reponse = input().strip().lower()
 
-            # Validation de la réponse utilisateur
+            # Validation de la réponse de l'utilisateur
             while reponse not in ["oui", "non"]:
                 self.aff.phrases("Réponse non accepté, veuillez mettre oui ou non", "WHITE")
                 reponse = input().strip().lower()
@@ -83,15 +83,13 @@ class Role():
                 self.mort_tour.pop(0)  # Le mort du tour est enlevé
 
                 self.aff.phrases("Vous avez ressuscité " + reponse, "WHITE")
-                # Ligne commentée : mise à jour graphique potentielle
-                # self.aff.sorciere(False, reponse, "vie")
 
         # Si la potion de mort est disponible
         if self.potion_mort == True:
             self.aff.phrases("Voulez vous utiliser votre potion de mort, oui ou non", "WHITE")
             reponse = input().strip().lower()
 
-            # Validation de la réponse utilisateur
+            # Validation de la réponse de l'utilisateur
             while reponse not in ["oui", "non"]:
                 self.aff.phrases("Réponse non accepté, veuillez mettre oui ou non", "WHITE")
                 reponse = input().strip().lower()
@@ -164,8 +162,7 @@ class Role():
         nouveau_role = ""
         for i in range(len(joueurs)):
             if joueurs[i].get_prenom() == reponse:
-                # Récupération du prénom et du rôle du joueur sélectionné
-                nom = joueurs[i].get_prenom()
+                # Récupération du rôle du joueur sélectionné
                 nouveau_role = joueurs[i].get_role()
 
                 # Modification du rôle du joueur sélectionné en "Simple Villageois"
@@ -205,11 +202,11 @@ class Role():
         for joueur in liste:
             prenoms.append(joueur.get_prenom())
 
-        # Affichage de la liste des joueurs disponibles pour la voyante
+        # Affichage de la liste des joueurs
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
         self.aff.liste_joueurs(prenoms, [])
 
-        # Demande au joueur (voyante) de choisir un joueur pour voir son rôle
+        # Demande a la voyante de choisir un joueur pour voir son rôle
         self.aff.phrases("Entrée le nom du joueur dont vous voulez voir le rôle ", "WHITE")
         reponse = input().strip()
 
@@ -222,7 +219,7 @@ class Role():
         for joueur in joueurs:
             if joueur.get_prenom() == reponse:
                 resultat = joueur.get_role()  # Obtient le rôle du joueur sélectionné
-                self.aff.reinitialiser_screen()  # Réinitialise l'écran pour afficher uniquement le résultat
+                self.aff.reinitialiser_screen()
 
                 # Affichage de la carte correspondante au rôle révélé
                 if resultat == "Cupidon":
@@ -242,7 +239,7 @@ class Role():
                 elif resultat == "Voleur":
                     self.aff.print_cards("./illustration/Voleur.jpg")
 
-        # Mise à jour graphique pour indiquer que l'action de la voyante est terminée
+
         self.aff.voyante(False, reponse)
 
         # Indication de fin de tour de la voyante
@@ -278,7 +275,7 @@ class Role():
         # Création d'une liste des noms des loups-garous
         self.loup = [joueurs.get_prenom() for joueurs in liste if joueurs.get_role() == "Loup Garous"]
 
-        # Affichage de la liste des joueurs encore en jeu
+        # Affichage de la liste des prénoms des joueurs
         self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
         self.aff.liste_joueurs(prenoms, self.loup)
 
@@ -302,7 +299,7 @@ class Role():
         # Cas où tous les loups n'ont pas encore voté
         if nombre_loup - 1 > nombre_vote:
             self.vote_loup.append(reponse)  # Ajout du vote à la liste
-            self.loup.remove(joueur_actuel.get_prenom())  # Retirer le joueur actuel de la liste des loups ayant voté
+            self.loup.remove(joueur_actuel.get_prenom())  # Retirer le joueur actuel de la liste des loups
             for i in range(0, len(joueurs)):
                 if joueurs[i].get_prenom() == reponse:
                     joueurs[i].vote()  # Ajout d'un vote au joueur sélectionné
@@ -340,7 +337,7 @@ class Role():
             for i in range(0, len(joueurs)):
                 joueurs[i].reset_vote()
 
-        # Mise à jour graphique pour indiquer la fin du tour des loups-garous
+
         self.aff.loup_garou(False, reponse)
 
         # Fin du tour des loups-garous
@@ -372,7 +369,7 @@ class Role():
         # Création d'une fréquence des lettres présentes dans les noms des joueurs
         lettre_freq = {}
         for joueur in joueurs:
-            nom_joueur = joueur.get_prenom().lower()  # Conversion en minuscules pour cohérence
+            nom_joueur = joueur.get_prenom().lower()  # Conversion en minuscules
             for lettre in nom_joueur:  # Parcourt chaque lettre du prénom
                 lettre_freq[lettre] = lettre_freq.get(lettre, 0) + 1  # Comptabilise la fréquence de chaque lettre
 
@@ -392,7 +389,6 @@ class Role():
             if lettre not in self.lettre_petite_fille:  # Filtre les lettres déjà connues
                 lettres_dispo.append(lettre)
 
-        # Calcul du nombre maximum de lettres que la "Petite Fille" peut obtenir
         max_lettres = len(fille) // 2  # Le maximum est la moitié du prénom de la "Petite Fille"
 
         # Ajout d'une lettre aléatoire à la liste des lettres découvertes si les conditions sont remplies
@@ -409,10 +405,9 @@ class Role():
         Sortie : Aucune
         """
 
-        # Appelle une méthode pour désactiver une vue ou une fonction associée à la petite fille.
         self.aff.petite_fille(False)
 
-        # Liste des joueurs encore en jeu (excluant les morts ou ceux marqués comme non vivants).
+        # Liste des joueurs encore en jeu
         liste = []
         for i in range(0, len(joueurs)):
             if not joueurs[i].get_prenom() == self.mort_tour or joueurs[i].get_mort != True:
@@ -536,10 +531,9 @@ class Role():
                             joueurs[i].set_mort(True)  # Marque le partenaire comme mort.
                             self.mort.append(joueurs[i].get_prenom())  # Ajoute son prénom à la liste des morts.
 
-        # Désactive l'état "chasseur" et enregistre la cible choisie.
         self.aff.chasseur(False, reponse)
 
-        # Invite le joueur à continuer après avoir choisi sa cible.
+        # Fin de son tour
         self.aff.phrases("Vous avez fini votre tour, appuyer sur entrer pour continuer", "WHITE")
         input()
 
@@ -596,7 +590,6 @@ class Role():
             if joueurs[i].get_prenom() == couple2:
                 joueurs[i].set_marie(True)
 
-        # Afficher un message confirmant le rôle Cupidon et les joueurs sélectionnés
         self.aff.cupidon(False, couple1, couple2)
 
         # Informer que le tour est terminé et attendre une entrée utilisateur
