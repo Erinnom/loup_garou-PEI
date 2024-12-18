@@ -7,7 +7,7 @@ from Role import Role
 import json
 import os
 import string
-
+import re
 
 class Partie:
     def __init__(self):
@@ -94,11 +94,13 @@ class Partie:
         Sortie : Aucune
         """
         nom = input("Nom de la partie : ").strip()
-        while nom == "" or " " in nom:
+        while nom == "" or " " in nom or not re.match("^[a-zA-Z]+$", nom):
             if nom == "":
                 print("Le nom ne peut pas être vide. Veuillez réessayer.")
             elif " " in nom:
                 print("Le nom ne doit pas contenir d'espace. Veuillez réessayer.")
+            elif not re.match("^[a-zA-Z]+$", nom):
+                print("Le nom ne doit pas contenir de caractères spéciaux ou de chiffres. Veuillez réessayer.")
             nom = input("Nom de la partie : ").strip()
         self.id_partie = nom
 
@@ -117,10 +119,13 @@ class Partie:
         roles = self.get_roles().copy()
         print()
         while i < self.nombre_joueur:
-            tmp = input(f"Nom du joueur [{i + 1}] : ")
-            if tmp != "":
+            tmp = input(f"Nom du joueur [{i + 1}] : ").strip()
+
+            # Vérification du nom
+            if tmp != "" and re.match("^[a-zA-Z]+$", tmp):
                 # Vérifie si le nom est déjà utilisé
                 if tmp not in [joueur.get_prenom() for joueur in self.joueurs]:
+                    # Assigne un rôle aléatoire au joueur
                     rand_role = roles.pop(randint(0, len(roles) - 1))
                     j = Joueur(tmp, rand_role)
                     self.joueurs.append(j)
@@ -128,7 +133,8 @@ class Partie:
                 else:
                     print("Ce nom est déjà pris, veuillez en choisir un autre.")
             else:
-                print("Le nom ne peut pas être vide, veuillez réessayer.")
+                print("Le nom ne peut pas être vide et ne doit contenir que des lettres. Veuillez réessayer.")
+
         self.afg.reinitialiser_screen()
 
     def sauvegarder(self):
@@ -246,6 +252,7 @@ class Partie:
                         self.afg.afficher_texte(joueur.get_prenom())
                         self.executer_action(role, joueur) # execute l'action du role
                     self.role_en_jeux += 1 # passe au role suivant
+
                 elif self.joueur_en_jeux in alv_joueurs_id:
                     self.afg.reinitialiser_screen()
                     self.afg.afficher_texte(joueur.get_prenom())

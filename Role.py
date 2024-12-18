@@ -97,7 +97,7 @@ class Role():
             # Si l'utilisateur décide d'utiliser la potion de mort
             if reponse == "oui":
                 self.potion_mort = False  # La potion de mort est désormais utilisée
-                self.aff.phrases("Qui voulez vous tuez ?", "WHITE")
+                self.aff.phrases("Qui voulez vous tuer ?", "WHITE")
                 reponse = input().strip()
 
                 # Validation du nom du joueur à tuer
@@ -210,7 +210,6 @@ class Role():
         self.aff.phrases("Entrée le nom du joueur dont vous voulez voir le rôle ", "WHITE")
         reponse = input().strip()
 
-        # Mise à jour graphique pour indiquer que l'action de la voyante est terminée
         self.aff.voyante(True, reponse)
 
         # Validation de l'entrée : s'assurer que le prénom existe dans la liste
@@ -625,12 +624,11 @@ class Role():
         time.sleep(3)
         self.aff.reinitialiser_screen()
 
-        # Afficher la liste des joueurs encore en vie
-        self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-        self.aff.liste_joueurs(prenoms, [])
 
         # Chaque joueur effectue son vote
         for i in range(0, len(liste)):
+            self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
+            self.aff.liste_joueurs(prenoms, [])
             print("\n\n")
             self.aff.afficher_texte(joueurs[i].get_prenom())
             self.aff.phrases("\nPour qui voulez-vous voter ?\n", "WHITE")
@@ -649,8 +647,6 @@ class Role():
 
             # Réinitialiser l'écran après chaque vote
             self.aff.reinitialiser_screen()
-            self.aff.phrases("Liste des joueurs dans la partie : ", "WHITE")
-            self.aff.liste_joueurs(prenoms, [])
 
         # Trouver le joueur ayant reçu le maximum de votes
         max = 0
