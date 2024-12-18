@@ -153,7 +153,7 @@ class Affichage:
             "Un frisson vous traverse en observant les ombres. Vous avez vu, mais n'avez pas ose crier... A quel prix ?",
             "Vos yeux se sont poses sur eux dans la penombre, mais la peur vous a paralysee. Qui etes-vous vraiment, petite fille ?",
             "La nuit etait froide, et pourtant vous avez observe sans bouger, cachee dans l'ombre. Mais avez-vous fait le bon choix ?",
-            "Une lueur dans vos yeux… Vous avez vu, vous savez. Mais la tentation de crier ne vous a pas traversee… ou l'avez-vous simplement ignoree ?"
+            "Une lueur dans vos yeux... Vous avez vu, vous savez. Mais la tentation de crier ne vous a pas traversee... ou l'avez-vous simplement ignoree ?"
         ]
         if temp:
             TI.print_card("./illustration/Petite-Fille.jpg", 50, 50)
@@ -284,7 +284,7 @@ class Affichage:
             "Vous avez vote pour JOUEUR, une voix de plus qui scelle son destin.",
             "Votre voix s'est elevee pour JOUEUR, rapprochant encore la fin de ce villageois.",
             "En votant pour JOUEUR, vous avez contribue a faire pencher la balance contre lui.",
-            "Le village connaît votre choix : vous avez vote pour JOUEUR. Une voix de plus vers la fin.",
+            "Le village connait votre choix : vous avez vote pour JOUEUR. Une voix de plus vers la fin.",
             "Votre decision a ete claire : vous avez vote pour JOUEUR, une voix qui rapproche la fin de ce villageois.",
             "Avec ce vote pour JOUEUR, vous avez ajoute une voix au jugement du village.",
             "Vous avez pose votre vote sur JOUEUR, une voix supplementaire vers la mort de ce villageois.",
@@ -314,7 +314,7 @@ class Affichage:
             "Vous avez perdu le soutien de vos allies, JOUEUR. Le tribunal a decide.",
             "Les voix du village se sont levees contre vous, JOUEUR. Le verdict est sans appel.",
             "JOUEUR, la decision du village est prise. Vous serez elimine(e) par le vote populaire.",
-            "Les villageois ont tranche, JOUEUR. Vous avez ete condamne(e) au bûcher par le vote."
+            "Les villageois ont tranche, JOUEUR. Vous avez ete condamne(e) au bucher par le vote."
         ]
 
         self.reinitialiser_screen()
@@ -339,11 +339,11 @@ class Affichage:
         phrases_mort_banale = [
             "La nuit a pris la vie de JOUEUR, et il ne reviendra pas. Le village pleure un autre de ses membres.",
             "Une nouvelle victime du destin cruel. JOUEUR rejoint les rangs des disparus, et le village est encore une fois en deuil.",
-            "Le silence s'est installé. JOUEUR n'est plus. La quête de survie du village continue sans lui.",
-            "Les ténèbres ont englouti JOUEUR, laissant derrière lui un vide difficile à combler pour le village.",
-            "Un autre de vos compagnons s'en est allé, et JOUEUR n'est plus parmi nous. Le village est plus faible sans lui.",
-            "La mort a frappé à la porte de JOUEUR. Un autre départ qui laisse une trace dans l'âme du village.",
-            "La vie de JOUEUR a pris fin dans l'obscurité. Le village devra se remettre de cette perte immense."
+            "Le silence s'est installe. JOUEUR n'est plus. La quete de survie du village continue sans lui.",
+            "Les tenebres ont englouti JOUEUR, laissant derriere lui un vide difficile a combler pour le village.",
+            "Un autre de vos compagnons s'en est alle, et JOUEUR n'est plus parmi nous. Le village est plus faible sans lui.",
+            "La mort a frappe a la porte de JOUEUR. Un autre depart qui laisse une trace dans l'ame du village.",
+            "La vie de JOUEUR a pris fin dans l'obscurite. Le village devra se remettre de cette perte immense."
         ]
 
         self.reinitialiser_screen()
@@ -370,7 +370,7 @@ class Affichage:
             "La mort a pris JOUEUR, emportant avec lui un amour aussi profond que la nuit. Leur histoire reste gravee dans les memoires.",
             "C'etait un amour pur, mais meme l'amour ne peut defier la mort. JOUEUR a perdu son bien-aime, et le village perd une lumiere.",
             "Dans la nuit noire, JOUEUR s'en va, laissant son amour devaste. La douleur de cette separation est infinie.",
-            "La fin de JOUEUR a emporte avec elle les reves d'un amour qui n'aura jamais de lendemain. Les cœurs brises pleurent cette perte."
+            "La fin de JOUEUR a emporte avec elle les reves d'un amour qui n'aura jamais de lendemain. Les coeurs brises pleurent cette perte."
         ]
 
         self.reinitialiser_screen()

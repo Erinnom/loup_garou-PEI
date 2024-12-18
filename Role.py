@@ -213,6 +213,9 @@ class Role():
         self.aff.phrases("Entrée le nom du joueur dont vous voulez voir le rôle ", "WHITE")
         reponse = input().strip()
 
+        # Mise à jour graphique pour indiquer que l'action de la voyante est terminée
+        self.aff.voyante(True, reponse)
+
         # Validation de l'entrée : s'assurer que le prénom existe dans la liste
         while reponse not in prenoms:
             self.aff.phrases("Ce joueur n'existe pas , veuillez renseigner un autre nom", "WHITE")
@@ -242,7 +245,7 @@ class Role():
                 elif resultat == "Voleur":
                     self.aff.print_cards("./illustration/Voleur.jpg")
 
-        # Mise à jour graphique pour indiquer que l'action de la voyante est terminée
+        time.sleep(3)
         self.aff.voyante(False, reponse)
 
         # Indication de fin de tour de la voyante
