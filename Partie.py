@@ -467,7 +467,7 @@ class Partie:
 
     def demander_recopie(self):
         """Demande à l'utilisateur de recopier une chaîne générée aléatoirement."""
-        chaine_a_recopier = self.generer_chaine_aleatoire(10)  # Par défaut, 10 caractères
+        chaine_a_recopier = self.generer_chaine_aleatoire(8)  # Par défaut, 8 caractères
         while True:
             print(f"Recopiez exactement cette chaîne : '{chaine_a_recopier}'")
             saisie = input("> ")
